@@ -1,8 +1,8 @@
 import os
 import socket
 from flask import Flask, Request
-from .test import tests as testapp
-
+from market.views import tests as testapp
+from market.views import index as indexapp
 subdomains = {
     'DEVELOPMENT':{
         'www':'',
@@ -43,6 +43,7 @@ def create_app():
         # db.drop_all()
         db.create_all()
         app.register_blueprint(testapp)
+        app.register_blueprint(indexapp)
         #app.config['SERVER_NAME'] = 'dutbit.com'
         app.config['SECRET_KEY'] = 'Do not go gentle into that good night'
         return app
