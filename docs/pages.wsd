@@ -1,0 +1,75 @@
+@startuml pages 
+
+folder "\" {
+    [index\n登录页面] as index
+    folder "\manage"{
+        [管理页面] as admin
+        folder "\manage\supplyer"{
+            [供应商管理\n查询\n删除] as sup_man
+            folder "\manage\supplyer\add"{
+                [供应商添加] as sup_add
+            }
+            folder "\manage\supplyer\modify"{
+                [供应商修改] as sup_modify
+            }
+            sup_man --> sup_add
+            sup_man --> sup_modify
+        }
+        folder "\manage\staff"{
+            [员工管理\n查询\n删除] as staff_man
+            folder "\manage\staff\add"{
+                [员工添加] as staff_add
+            }
+            folder "\manage\staff\modify"{
+                [员工修改] as staff_modify
+            }
+            staff_man --> staff_add
+            staff_man --> staff_modify
+        }
+        folder "\manage\merchandise"{
+            [商品管理\n查询\n删除] as mer_man
+            folder "\manage\merchandise\add"{
+                [商品添加] as mer_add
+            }
+            folder "\manage\merchandise\modify"{
+                [商品修改] as mer_modify
+            }
+            mer_man --> mer_add
+            mer_man --> mer_modify
+        }
+        folder "\manage\order"{
+            [采购管理\n查询\n删除] as order_man
+            folder "\manage\order\add"{
+                [采购添加] as order_add
+            }
+            folder "\manage\order\modify"{
+                [采购修改] as order_modify
+            }
+            order_man --> order_add
+            order_man --> order_modify
+        }
+        admin --> sup_man
+        admin --> staff_man
+        admin --> mer_man
+        admin --> order_man
+    }
+    folder "\browse"{
+        [浏览页面] as user
+        folder "\browse\staff"{
+            [个人信息] as staff_bro
+        }
+        folder "\browse\merchandise"{
+            [商品管理\n查询] as mer_bro
+        }
+        folder "\browse\order"{
+            [采购管理\n查询] as order_bro
+        }
+        user --> staff_bro
+        user --> mer_bro
+        user --> order_bro
+    }
+    index --> admin
+    index --> user
+}
+
+@enduml
