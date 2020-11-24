@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, session, jsonify
-from market.models import db, MarketStaff
+from market.models import MarketOrderDetail, MarketOrderMain, db
 from market.utils import hash_password
 import json
 
@@ -17,15 +17,40 @@ def manage_order_add():
     if request.method == 'GET':
         return render_template('manage_order_add.html')
     elif request.method == 'POST':
-        jsoninput = json.load(request.get_data().decode())
-        print(jsoninput)
-        return '2333'
-        _u = MarketStaff(
-            staff_id=jsoninput['staff_id'],
-            gross_price=jsoninput['gross_price'],
-            gross_quantity=jsoninput['gross_quantity']
+        print(request.values)
+        _u = MarketOrderMain(
+            order_id=request.values.get("order_id"),
+            staff_id=request.values.get("staff_id"),
+            gross_quantity=request.values.get('gross_quantity'),
+            gross_price=request.values.get('gross_price'),
+            time=request.values.get('time'),
+            comment=request.values.get('comment')
         )
         db.session.add(_u)
+
+        order_id            = request.values.get("order_id")
+        order_detail_id     = request.values.getlist("order_detail_id[]")
+        merchandise_id      = request.values.getlist("merchandise_id[]")
+        merchandise_quantity= request.values.getlist("merchandise_quantity[]")
+        unit_price          = request.values.getlist("unit_price[]")
+        detail_gross_price  = request.values.getlist("detail_gross_price[]")
+        detail_comment      = request.values.getlist("detail_comment[]")
+        print(order_detail_id)
+        print(order_detail_id[0])
+        print(merchandise_quantity[0])
+        for i in range(len(order_detail_id)):
+            print(i)
+            _u = MarketOrderDetail(
+                order_detail_id=order_detail_id[i],
+                order_id=order_id,
+                merchandise_id=merchandise_id[i],
+                merchandise_quantity=merchandise_quantity[i],
+                unit_price=unit_price[i],
+                gross_price=detail_gross_price[i],
+                comment=detail_comment[i]
+            )
+            db.session.add(_u)
+
         try:
             db.session.commit()
             return jsonify({"success": True, "data": "success"})
@@ -33,7 +58,6 @@ def manage_order_add():
             print(e)
             db.session.rollback()
             return jsonify({"success": False, "details": "fail"})
-    return "mangae order add"
 
 
 @order.route("/manage/order/modify")

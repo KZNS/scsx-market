@@ -18,15 +18,43 @@
                 <th>备注</th>
             </tr>
             <tr>
-                <td><input type="text" name="id"></td>
+                <td><input type="text" name="order_id"></td>
                 <td><input type="text" name="staff_id"></td>
                 <td><input type="text" name="gross_quantity"></td>
                 <td><input type="text" name="gross_price"></td>
                 <td><input type="text" name="time"></td>
-                <td><input type="text" name="remark"></td>
+                <td><input type="text" name="comment"></td>
             </tr>
         </table>
         <p><input type="submit" value="提交" /> </p>
+        <table border="1">
+            <tr>
+                <th>序号</th>
+                <th>采购明细号</th>
+                <th>商品编号</th>
+                <th>采购数量</th>
+                <th>商品单价</th>
+                <th>商品总价</th>
+                <th>备注</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="text" name="order_detail_id[]"></td>
+                <td><input type="text" name="merchandise_id[]"></td>
+                <td><input type="number" name="merchandise_quantity[]"></td>
+                <td><input type="text" name="unit_price[]"></td>
+                <td><input type="text" name="detail_gross_price[]"></td>
+                <td><input type="text" name="detail_comment[]"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="text" name="order_detail_id[]"></td>
+                <td><input type="text" name="merchandise_id[]"></td>
+                <td><input type="number" name="merchandise_quantity[]"></td>
+                <td><input type="text" name="unit_price[]"></td>
+                <td><input type="text" name="detail_gross_price[]"></td>
+                <td><input type="text" name="detail_comment[]"></td>
+            </tr>
     </form>
 </body>
 

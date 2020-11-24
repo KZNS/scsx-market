@@ -60,7 +60,7 @@ class MarketStaff(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
 class MarketOrderMain(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
     __tablename__ = "market_order_main"
     id = db.Column(db.Integer, primary_key=True)
-    order_id = db.Column(db.String(255), nullable=False)
+    order_id = db.Column(db.String(255), nullable=False, unique=True)
     staff_id = db.Column(db.String(255), nullable=False)
     gross_quantity = db.Column(db.Integer, nullable=False)
     gross_price = db.Column(db.String(255), nullable=False)
@@ -76,7 +76,7 @@ class MarketOrderDetail(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
     __tablename__ = "market_order_detail"
     id = db.Column(db.Integer, primary_key=True)  # order_main.id foreign key
     # merchandise.id foreign key
-    order_detail_id = db.Column(db.String(255), nullable=False)
+    order_detail_id = db.Column(db.String(255), nullable=False, unique=True)
     order_id = db.Column(db.String(255), nullable=False)
     merchandise_id = db.Column(db.String(255), nullable=False)
     merchandise_quantity = db.Column(db.Integer, nullable=False)
