@@ -50,7 +50,7 @@ coverage.xml
 *.py,cover
 .hypothesis/
 .pytest_cache/
-
+flask_session/
 # Translations
 *.mo
 *.pot

@@ -46,9 +46,9 @@ class MarketStaff(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
-    level = db.Column(db.String(255), nullable=False)
-    telephone = db.Column(db.String(255), nullable=False)
-    salary = db.Column(db.String(255), nullable=False)
+    level = db.Column(db.String(255), nullable=False, default='default')
+    telephone = db.Column(db.String(255), nullable=False, unique=True)
+    salary = db.Column(db.String(255), nullable=True)
 
     def __str__(self):
         d = self.__dict__.copy()
