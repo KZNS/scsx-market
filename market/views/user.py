@@ -1,4 +1,4 @@
-from flask import Blueprint,render_template,request,session,jsonify
+from flask import Blueprint,render_template,request,session,jsonify,url_for
 from market.models import db,MarketStaff
 from market.utils import hash_password
 user = Blueprint("user",__name__,template_folder='templates',static_folder='static')
@@ -7,13 +7,16 @@ user = Blueprint("user",__name__,template_folder='templates',static_folder='stat
 def log():
     jsoninput = request.get_json()
     user = MarketStaff.query\
-            .filter(MarketStaff.name==jsoninput.get('name'))\
+            .filter(MarketStaff.telephone==jsoninput.get('telephone'))\
             .filter(MarketStaff.password_hash==hash_password(jsoninput.get('password')))\
             .filter(MarketStaff.delete==False).first()
     if user is not None:
         session['level'] = user.level
         session['id'] = user.id
-        return jsonify({"success":True,"data":"登录成功"})
+        if user.level != 'admin':
+            return jsonify({"success":True,"data":"登录成功","redirect":url_for('browse.browse_home')})
+        else:
+            return jsonify({"success":True,"data":"登录成功","redirect":url_for('manage.manage_home')})
     else:
         return jsonify({"success":False,"details":"用户名或密码错误"})
 
