@@ -17,8 +17,10 @@ def manage_order_add():
     if request.method == 'GET':
         return render_template('manage_order_add.html')
     elif request.method == 'POST':
-        jsoninput = json.load(request.get_data().decode())
+        jsoninput = request.form
         print(jsoninput)
+        for i in jsoninput:
+            print(i)
         return '2333'
         _u = MarketStaff(
             staff_id=jsoninput['staff_id'],
