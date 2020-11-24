@@ -6,16 +6,17 @@ staff = Blueprint("staff", __name__,
 
 @staff.route("/staff")
 def staff_query():
-    id = request.values.get('id')
+    staff_id = request.values.get('staff_id')
     name = request.values.get('name')
     level = request.values.get('level')
     telephone = request.values.get('telephone')
     salary = request.values.get('salary')
+    comment = request.values.get('comment')
 
     data = MarketStaff.query.filter(MarketStaff.delete == False)
 
-    if (id):
-        data = data.filter(MarketStaff.id.like('%%' + str(id) + '%%'))
+    if (staff_id):
+        data = data.filter(MarketStaff.staff_id.like('%%' + staff_id + '%%'))
     if (name):
         data = data.filter(MarketStaff.name.like('%%' + name + '%%'))
     if (level):
@@ -24,5 +25,7 @@ def staff_query():
         data = data.filter(MarketStaff.telephone.like('%%' + telephone + '%%'))
     if (salary):
         data = data.filter(MarketStaff.salary.like('%%' + salary + '%%'))
+    if (comment):
+        data = data.filter(MarketStaff.comment.like('%%' + comment + '%%'))
 
     return render_template('staff.html', data=data)

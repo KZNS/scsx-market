@@ -17,28 +17,31 @@
         .input{width:100px;overflow:hidden}
     </style>
     <form method="GET">
-        Id: <input type="number" name="id" class="input"/>
+        Staff ID: <input type="number" name="staff_id" class="input"/>
         Name: <input type="text" name="name" class="input"/>
         Level: <input type="text" name="level" class="input"/>
         Telephone: <input type="text" name="telephone" class="input"/>
         Salary: <input type="text" name="salary" class="input"/>
+        Comment: <input type="text" name="comment" class="input"/>
         <input type="submit" name="submit"/>
     </form>
     <table>
         <tr>
-            <th>id</th>
-            <th>name</th>
-            <th>level</th>
-            <th>telephone</th>
-            <th>salary</th>
+            <th>Staff ID</th>
+            <th>Name</th>
+            <th>Level</th>
+            <th>Telephone</th>
+            <th>Salary</th>
+            <th>Comment</th>
         </tr>
         {% for item in data %}
         <tr>
-            <td>{{item.id}}</td>
+            <td>{{item.staff_id}}</td>
             <td>{{item.name}}</td>
             <td>{{item.level}}</td>
             <td>{{item.telephone}}</td>
             <td>{{item.salary}}</td>
+            <td>{{item.comment if item.comment else ''}}</td>
         </tr>
         {% endfor %}
     </table>
