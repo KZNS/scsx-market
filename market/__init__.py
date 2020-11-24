@@ -25,8 +25,8 @@ def create_app():
         if ip == '172.31.240.127':  # is dutbit.com
             print('------ starting service in production ------')
             app.config['DEBUG'] = False
-            app.config['SERVER_NAME'] = 'dutbit.com'
-            app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['SQLALCHEMY_DATABASE_URI']
+            app.config['SERVER_NAME'] = 'www.dutbit.com'
+            app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///dev.db'
             app.config['SUBDOMAINS'] = subdomains['PRODUCTION']
             if 'mysql+pymysql' not in app.config['SQLALCHEMY_DATABASE_URI']:
                 raise EnvironmentError("No db connection uri provided")
