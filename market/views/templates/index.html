@@ -5,150 +5,9 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <script>
-        var passwordMinLength = 1
-        let handlePswMouseover = (a) => {
-            if (a === 1) {//mouse over,show password
-                $("#passwordInput").attr("type", "text");
-            } else {//
-                $("#passwordInput").attr("type", "password");
-            }
-        }
-        function ValidateEmail(email) {
-            let reg = /^\w+(?:\.\w+)*@\w+(?:\.\w+)+$/;
-            //if(reg.test(email)){return true}else{return false}
-            return reg.test(email)
-        }
-        let doAlert = (strongInfo, weakInfo, to = "") => {
-            let alertHtml = `<div class="alert alert-warning alert-dismissible fade show btn-block" role="alert"><span>${weakInfo}</span><strong>${strongInfo}</strong>` +
-                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                '<span aria-hidden="true">&times;</span></button></div>'
-            //console.log(strongInfo,weakInfo,to)
-            let targetId = "alertDiv"
-            if (to !== "") {
-                targetId = to
-            }
-            $(`#${targetId}`).html(alertHtml)
-            $('.alert').alert()
-        }
-        let clearInput = () => {
-            $("#emailInput").val('');
-            $("#usernameInput").val('');
-            $("#passwordInput").val('');
-        }
-        function getUrlParam(name) {
-            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
-            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
-            if (r != null) return unescape(r[2]); return null; //返回参数值
-        }
-        let md5enc = (str) => {
-            return hex_md5('dutbit' + hex_md5(str) + '稍有常识的人')
-        }
-        let handleRegSubmit = () => {
-            let email = $("#emailInput").val()
-            let password = $("#passwordInput").val()
-            let username = $("#usernameInput").val()
-            if (!username) {
-                doAlert("用户名不可为空", "错误：", to = "regModalAlert")
-                return;
-            }
-            if (!ValidateEmail(email)) {
-                doAlert("邮箱格式不正确", "错误：", to = "regModalAlert")
-                return;
-            }
-            if (password.length < passwordMinLength) {
-                doAlert("密码过短", "错误：", to = "regModalAlert")
-                return;
-            }
-            let result = {
-                "username": username,
-                "password": md5enc(password),
-                "email": email
-            }
-            fetch("https://www.dutbit.com/userservice/v2/register", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(result)
-            }).then(res => res.json()).then(jsonData => {
-                console.log(jsonData)
-                if (jsonData.success === true) {
-                    $('#registerModal').modal('hide')
-                    doAlert(`注册成功 ${email}`, '')
-                    $("#emailInputLogin").val(email)
-                    clearInput()
-                    console.log('reg success')
-                } else {
-                    doAlert(jsonData.details, '错误：', to = "regModalAlert")
-                }
-            }).catch(err => {
-                doAlert("网络错误" + err, '错误:', to = "regModalAlert")
-                console.log(err)
-            })
-        }
-        let handleLoginSubmit = () => {
-            let email = $("#emailInputLogin").val()
-            let password = $("#passwordInputLogin").val()
-
-            $("#loginText").addClass("sr-only")
-            $("#loginSpinner").addClass("spinner-grow spinner-grow-md")
-            if (!ValidateEmail(email)) {
-                doAlert("邮箱格式不正确", "错误：")
-                return;
-            }
-            let result = {
-                "email": email,
-                "password": md5enc(password)
-            }
-
-            fetch("https://www.dutbit.com/userservice/v2/login", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(result)
-            }).then(res => res.json()).then(jsonData => {
-                console.log(jsonData)
-                if (jsonData.success === true) {
-                    let target = getUrlParam('target')
-                    if (target) {
-                        setTimeout(() => {
-
-                            window.location.href = "https://www.dutbit.com" + target
-
-                            $("#loginText").removeClass("sr-only")
-                            $("#loginSpinner").removeClass("spinner-grow spinner-grow-md")
-                        }, 2000);
-                    } else {
-                        setTimeout(() => {
-
-                            window.location.href = "https://www.dutbit.com/userservice/home"
-
-                            $("#loginText").removeClass("sr-only")
-                            $("#loginSpinner").removeClass("spinner-grow spinner-grow-md")
-                        }, 2000);
-                    }
-                } else {
-                    doAlert(jsonData.details, '错误:')
-
-                    $("#loginText").removeClass("sr-only")
-                    $("#loginSpinner").removeClass("spinner-grow spinner-grow-md")
-                }
-            }).catch(err => {
-                doAlert("网络错误" + err, '错误:')
-
-                $("#loginText").removeClass("sr-only")
-                $("#loginSpinner").removeClass("spinner-grow spinner-grow-md")
-                console.log(err)
-            })
-
-        }
-    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+    
     <title>Hello, world!</title>
 </head>
 
@@ -167,11 +26,11 @@
                 <div class="modal-body">
                     <div id="regModalAlert"></div>
                     <div class="input-group flex-nowrap">
-                        <input type="text" id="emailInput" class="form-control" placeholder="邮件地址" aria-label="Username"
+                        <input type="text" id="emailInput" class="form-control" placeholder="电话号码" aria-label="Username"
                             aria-describedby="addon-wrapping" required>
                     </div>
                     <div class="input-group flex-nowrap">
-                        <input type="text" id="usernameInput" class="form-control" placeholder="用户名"
+                        <input type="text" id="usernameInput" class="form-control" placeholder="名字"
                             aria-label="Username" aria-describedby="addon-wrapping" required>
                     </div>
                     <div class="input-group flex-nowrap">
@@ -217,7 +76,7 @@
                     <div id="alertDiv">
                     </div>
                     <div class="input-group flex-nowrap" style="margin-top:10px">
-                        <input type="text" id="emailInputLogin" class="form-control" placeholder="邮件地址"
+                        <input type="text" id="emailInputLogin" class="form-control" placeholder="电话号码"
                             aria-label="Username" aria-describedby="addon-wrapping">
                     </div>
                     <div class="input-group flex-nowrap" style="margin-top:10px">
@@ -238,24 +97,142 @@
                     <!--
                     <button type="button" class="btn btn-outline-primary btn-lg btn-block" data-toggle="modal" data-target="#registerModal" style="font-size:17px;margin-top:10px">注册</button>
                 -->
-                    <div style="text-align:center;position:fixed;bottom:10px;">
-                        <p style="font-size:10px">
-                            <!--position:fixed;bottom:5%-->
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <em>&copy; 2020 <a
-                                    href="https://www.dutbit.com">比特网络</a></em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
-                                href="/issues.php">问题/建议反馈</a>
-                        </p>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://static.dutbit.com/md5.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+    <script>
+        let LOGIN_URL = "{{login_url}}"
+        let REGISTER_URL = "{{register_url}}"
+        var passwordMinLength = 1
+        let handlePswMouseover = (a) => {
+            if (a === 1) {//mouse over,show password
+                $("#passwordInput").attr("type", "text");
+            } else {//
+                $("#passwordInput").attr("type", "password");
+            }
+        }
+        function ValidateEmail(email) {
+            //let reg = /^1[3456789]d{9}$/;
+            let reg = /^\d+$/;
+            //if(reg.test(email)){return true}else{return false}
+            return reg.test(email)
+        }
+        let doAlert = (strongInfo, weakInfo, to = "") => {
+            let alertHtml = `<div class="alert alert-warning alert-dismissible fade show btn-block" role="alert"><span>${weakInfo}</span><strong>${strongInfo}</strong>` +
+                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                '<span aria-hidden="true">&times;</span></button></div>'
+            //console.log(strongInfo,weakInfo,to)
+            let targetId = "alertDiv"
+            if (to !== "") {
+                targetId = to
+            }
+            $(`#${targetId}`).html(alertHtml)
+            $('.alert').alert()
+        }
+        let clearInput = () => {
+            $("#emailInput").val('');
+            $("#usernameInput").val('');
+            $("#passwordInput").val('');
+        }
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return unescape(r[2]); return null; //返回参数值
+        }
+        let md5enc = (str) => {
+            return hex_md5('dutbit' + hex_md5(str) + '稍有常识的人')
+        }
+        let handleRegSubmit = () => {
+            let email = $("#emailInput").val()
+            let password = $("#passwordInput").val()
+            let username = $("#usernameInput").val()
+            if (!username) {
+                doAlert("用户名不可为空", "错误：", to = "regModalAlert")
+                return;
+            }
+            if (!ValidateEmail(email)) {
+                doAlert("邮箱格式不正确", "错误：", to = "regModalAlert")
+                return;
+            }
+            if (password.length < passwordMinLength) {
+                doAlert("密码过短", "错误：", to = "regModalAlert")
+                return;
+            }
+            let result = {
+                "name": username,
+                "password": md5enc(password),
+                "telephone": email
+            }
+            fetch(REGISTER_URL, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(result)
+            }).then(res => res.json()).then(jsonData => {
+                console.log(jsonData)
+                if (jsonData.success === true) {
+                    $('#registerModal').modal('hide')
+                    doAlert(`注册成功 ${email}`, '')
+                    $("#emailInputLogin").val(email)
+                    clearInput()
+                    console.log('reg success')
+                } else {
+                    doAlert(jsonData.details, '错误：', to = "regModalAlert")
+                }
+            }).catch(err => {
+                doAlert("网络错误" + err, '错误:', to = "regModalAlert")
+                console.log(err)
+            })
+        }
+        let handleLoginSubmit = () => {
+            let email = $("#emailInputLogin").val()
+            let password = $("#passwordInputLogin").val()
+
+            $("#loginText").addClass("sr-only")
+            $("#loginSpinner").addClass("spinner-grow spinner-grow-md")
+            if (!ValidateEmail(email)) {
+                doAlert("邮箱格式不正确", "错误：")
+                return;
+            }
+            let result = {
+                "email": email,
+                "password": md5enc(password)
+            }
+
+            fetch(LOGIN_URL, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(result)
+            }).then(res => res.json()).then(jsonData => {
+                console.log(jsonData)
+                if (jsonData.success === true) {
+                    
+                } else {
+                    doAlert(jsonData.details, '错误:')
+
+                    $("#loginText").removeClass("sr-only")
+                    $("#loginSpinner").removeClass("spinner-grow spinner-grow-md")
+                }
+            }).catch(err => {
+                doAlert("网络错误" + err, '错误:')
+
+                $("#loginText").removeClass("sr-only")
+                $("#loginSpinner").removeClass("spinner-grow spinner-grow-md")
+                console.log(err)
+            })
+
+        }
+    </script>
 </body>
 
 </html>
