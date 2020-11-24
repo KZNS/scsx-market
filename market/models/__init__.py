@@ -20,6 +20,11 @@ class MarketSupplyer(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
     contact = db.Column(db.String(255), nullable=False)
     contact_phone = db.Column(db.String(255), nullable=False)
 
+    def __str__(self):
+        d = self.__dict__.copy()
+        d.pop('_sa_instance_state')
+        return str(d)
+
 
 class MarketMerchandise(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
     __tablename__ = "market_merchandise"
@@ -29,6 +34,11 @@ class MarketMerchandise(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
     unit_price = db.Column(db.String(255), nullable=False)
     supplyer_id = db.Column(db.Integer, nullable=False)
     description = db.Column(db.Text, nullable=False)
+
+    def __str__(self):
+        d = self.__dict__.copy()
+        d.pop('_sa_instance_state')
+        return str(d)
 
 
 class MarketStaff(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
@@ -40,6 +50,12 @@ class MarketStaff(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
     telephone = db.Column(db.String(255), nullable=False)
     salary = db.Column(db.String(255), nullable=False)
 
+    def __str__(self):
+        d = self.__dict__.copy()
+        d.pop('_sa_instance_state')
+        d.pop('password_hash')
+        return str(d)
+
 
 class MarketOrderMain(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
     __tablename__ = "market_order_main"
@@ -47,6 +63,11 @@ class MarketOrderMain(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
     staff_id = db.Column(db.Integer, nullable=False)
     gross_price = db.Column(db.String(255), nullable=False)
     gross_quantity = db.Column(db.Integer, nullable=False)
+
+    def __str__(self):
+        d = self.__dict__.copy()
+        d.pop('_sa_instance_state')
+        return str(d)
 
 
 class MarketOrderDetail(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
@@ -56,3 +77,8 @@ class MarketOrderDetail(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
     order_id = db.Column(db.Integer, nullable=False)
     merchandise_id = db.Column(db.Integer, nullable=False)
     merchandise_quantity = db.Column(db.Integer, nullable=False)
+
+    def __str__(self):
+        d = self.__dict__.copy()
+        d.pop('_sa_instance_state')
+        return str(d)
