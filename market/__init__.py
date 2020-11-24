@@ -6,6 +6,7 @@ from redis import Redis
 from market.views import tests as testapp
 from market.views import index as indexapp
 from market.views import user as userapp
+from market.views import order as orderapp
 subdomains = {
     'DEVELOPMENT':{
         'www':'',
@@ -56,6 +57,7 @@ def create_app():
         app.register_blueprint(testapp)
         app.register_blueprint(indexapp)
         app.register_blueprint(userapp)
+        app.register_blueprint(orderapp)
         #app.config['SERVER_NAME'] = 'dutbit.com'
         app.config['SECRET_KEY'] = 'Do not go gentle into that good night'
         return app
