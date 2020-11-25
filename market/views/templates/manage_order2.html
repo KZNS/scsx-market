@@ -23,13 +23,13 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
                 </div>
-                <form action="{{url_for('manage.supplyer_home')}}" method="POST" name="newVoteForm">
+                <form action="{{url_for('manage.order_home')}}" method="POST" name="newVoteForm">
                     <div class="modal-body">
                         <div class="row">
                             <input type="text" value="" id="hiddenidinput" name="hiddenidinput" style="display:none">
                             <div class="col-sm">
                                 <span class="badge badge-secondary">订单编号</span>
-                                <input type="text" name="supplyer_id" required>
+                                <input type="text" name="order_id" required>
                             </div>
                             <div class="col-sm">
                                 <span class="badge badge-light">订单名称</span>
@@ -124,6 +124,16 @@
                                 style="margin-top:10px" data-toggle="modal" data-target="#myModal">
                                 <span style="font-size:17px">添加订单</span>
                             </button>
+
+
+
+
+
+
+
+
+
+
                             <br>
                             <hr class="my-4">
                             <div style="text-align:center;margin-top:20px">
@@ -135,50 +145,38 @@
                                 <div class="row">
                                     <div class="col-sm">
                                         <span class="badge badge-secondary">订单编号</span>
-                                        <input type="text" name="supplyerid">
+                                        <input type="text" name="order_id">
                                     </div>
                                     <div class="col-sm">
-                                        <span class="badge badge-light">订单名称</span>
-                                        <input type="text" name="supplyername">
+                                        <span class="badge badge-light">员工编号</span>
+                                        <input type="text" name="staff_id">
                                     </div>
                                     <div class="col-sm">
-                                        <span class="badge badge-info">订单简称</span>
-                                        <input type="text" name="supplyerabbr">
+                                        <span class="badge badge-info">采购时间</span>
+                                        <input type="text" name="time">
+                                    </div>
+                                    <div class="col-sm">
+                                        <span class="badge badge-info">备注</span>
+                                        <input type="text" name="comment">
                                     </div>
                                 </div>
                             </div>
                             <div style="margin-top:10px" class="container">
                                 <div class="row">
                                     <div class="col-sm">
-                                        <span class="badge badge-info">订单地址</span>
-                                        <input type="text" name="supplyeraddress">
+                                        <span class="badge badge-info">采购明细号</span>
+                                        <input type="text" name="order_detail_id">
                                     </div>
                                     <div class="col-sm">
-                                        <span class="badge badge-dark">订单电话</span>
-                                        <input type="text" name="supplyerphone">
+                                        <span class="badge badge-dark">商品编号</span>
+                                        <input type="text" name="merchandise_id">
                                     </div>
                                     <div class="col-sm">
-                                        <span class="badge badge-light">订单邮件</span>
-                                        <input type="text" name="supplyeremail">
+                                        <span class="badge badge-light">备注</span>
+                                        <input type="text" name="detail_comment">
                                     </div>
                                 </div>
                             </div>
-                            <div style="margin-top:10px" class="container">
-                                <div class="row">
-                                    <div class="col-sm">
-                                        <span class="badge badge-light">订单联系人</span>
-                                        <input type="text" name="supplyerperson">
-                                    </div>
-                                    <div class="col-sm">
-                                        <span class="badge badge-info">联系人电话</span>
-                                        <input type="text" name="supplyerperson-phone">
-                                    </div>
-                                    <div class="col-sm">
-                                        <span class="badge badge-secondary">备注</span>
-                                        <input type="text" name="supplyerremarks">
-                                    </div>
-                                </div>
-                            </div style="margin-top:10px" ; class="container">
                             <br>
 
                             <button type="button" class="btn btn-success btn-lg btn-block" style="margin-top:10px"
@@ -248,17 +246,15 @@
                     window.operateEvents = {    //999未处理，0不要，-1待定，1要
                         'click .RoleOfIn': function (e, value, row, index) {
                             console.log("修改");
-                            console.log(row.id, row.supplyer_id)
+                            console.log(row.id, row.order_id)
                             $("#hiddenidinput").prop('value', row.id)
+                            $("[name='order_id']").prop('value', row.order_id);
+                            $("[name='staff_id']").prop('value', row.staff_id);
+                            $("[name='gross_quntity']").prop('value', row.gross_quntity);
+                            $("[name='gross_price']").prop('value', row.gross_price);
+                            $("[name='time']").prop('value', row.time);
                             $("[name='comment']").prop('value', row.comment);
-                            $("[name='contact_phone']").prop('value', row.contact_phone);
-                            $("[name='contact']").prop('value', row.contact);
-                            $("[name='email']").prop('value', row.email);
-                            $("[name='telephone']").prop('value', row.telephone);
-                            $("[name='address']").prop('value', row.address);
-                            $("[name='name_short']").prop('value', row.name_short);
-                            $("[name='name']").prop('value', row.name);
-                            $("[name='supplyer_id']").prop('value', row.supplyer_id);
+
                             $("#myModalLabel").text('修改订单')
                             $("#myModal").modal('show')
                         },
@@ -267,7 +263,7 @@
                             $.ajax({
                                 type: "DELETE",
                                 //contentType: "application/json;charset=UTF-8",
-                                url: `{{url_for('manage.supplyer_home')}}?id=${row.id}`,
+                                url: `{{url_for('manage.order_home')}}?id=${row.id}`,
                                 success: function (result) {
                                     console.log('success:' + result);
                                     $("#table").bootstrapTable('refresh');
@@ -282,29 +278,20 @@
                         }
                     };
                     let table_column = [{
-                        field: 'supplyer_id',
-                        title: '订单编号'
+                        field: 'order_id',
+                        title: '采购清单号'
                     }, {
-                        field: 'name',
-                        title: '名称'
+                        field: 'staff_id',
+                        title: '员工编号'
                     }, {
-                        field: 'name_short',
-                        title: '简称'
+                        field: 'gross_quntity',
+                        title: '采购数量'
                     }, {
-                        field: 'address',
-                        title: '公司地址'
+                        field: 'gross_price',
+                        title: '采购总价'
                     }, {
-                        field: 'telephone',
-                        title: '公司电话'
-                    }, {
-                        field: 'email',
-                        title: '邮件'
-                    }, {
-                        field: 'contact',
-                        title: '联系人'
-                    }, {
-                        field: 'contact_phone',
-                        title: '联系人电话'
+                        field: 'time',
+                        title: '采购时间'
                     }, {
                         field: 'comment',
                         title: '备注'
@@ -323,7 +310,7 @@
                     $("#doSearch").click((e) => {
                         console.log(e)
                         $('#table').bootstrapTable({
-                            url: "{{url_for('manage.supplyer_home')}}",
+                            url: "{{url_for('manage.order_home')}}",
                             columns: table_column
                         })
                         $("#table").bootstrapTable('refresh');
@@ -332,7 +319,7 @@
                 });
                 $("#fillnew").click(function (e) {
                     e.preventDefault()
-
+                    ///////
                     $("[name='comment']").prop('value', randomString(32));
                     $("[name='contact_phone']").prop('value', randomString(10));
                     $("[name='contact']").prop('value', randomString(10));
@@ -340,8 +327,8 @@
                     $("[name='telephone']").prop('value', randomString(10));
                     $("[name='address']").prop('value', randomString(10));
                     $("[name='name_short']").prop('value', randomString(10));
-                    $("[name='name']").prop('value', randomString(10));
-                    $("[name='supplyer_id']").prop('value', randomString(20))
+                    $("[name='staff_id']").prop('value', randomString(10));
+                    $("[name='order_id']").prop('value', randomString(20));
                 })
                 $("#toggleModal").click(function (e) {
                     e.preventDefault()
