@@ -9,6 +9,7 @@ from market.views import user as userapp
 from market.views import staff as staffapp
 from market.views import browse as browseapp
 from market.views import manage as manageapp
+from market.views import order as orderapp
 subdomains = {
     'DEVELOPMENT':{
         'www':'',
@@ -62,6 +63,7 @@ def create_app():
         app.register_blueprint(staffapp)
         app.register_blueprint(manageapp)
         app.register_blueprint(browseapp)
+        app.register_blueprint(orderapp)
         #app.config['SERVER_NAME'] = 'dutbit.com'
         app.config['SECRET_KEY'] = 'Do not go gentle into that good night'
         return app
