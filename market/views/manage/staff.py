@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, url_for, flash, redirect
 from market.models import MarketStaff, db
 from market.views.manage import manage
+from market.utils import hash_password
 
 
 @manage.route("/staff", methods=['GET'])
@@ -38,7 +39,7 @@ def staff_add():
         item = MarketStaff(
             staff_id=request.form.get('staff_id'),
             name=request.form.get('name'),
-            password_hash=request.form.get('password'),
+            password_hash=hash_password(request.form.get('password')),
             level=request.form.get('level'),
             telephone=request.form.get('telephone'),
             salary=request.form.get('salary'),
