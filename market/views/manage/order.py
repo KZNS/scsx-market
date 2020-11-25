@@ -1,21 +1,120 @@
-from flask import Blueprint, render_template, request, session, jsonify
+from flask import Blueprint, render_template, request, session, jsonify, abort
 from market.models import MarketOrderDetail, MarketOrderMain, db
 from market.utils import hash_password
 from market.views.manage import manage
 
 
+@manage.route("/orderinfo", methods=['GET', 'POST', 'PUT', 'DELETE'])
+def order_home():
+    if request.method == 'GET':
+        suppliers = MarketOrderMain.query.filter(
+            MarketOrderMain.delete != True).all()
+        result = []
+        for s in suppliers:
+            result.append(s.todict())
+        return jsonify(result)
+    elif request.method == 'POST':
+        if request.form.get('hiddenidinput') != '':
+            print('-------')
+            print(request.form.get('hiddenidinput'))
+            id = int(request.form.get('hiddenidinput'))  # this is update
+            update_dict = dict(request.form)
+            update_dict.pop('hiddenidinput')
+            print(update_dict)
+            for k in update_dict:
+                update_dict[k] = update_dict[k][0]
+            print(update_dict)
+            MarketOrderMain.query.filter(
+                MarketOrderMain.id == id).update(update_dict)
+            try:
+                db.session.commit()
+                return jsonify({"success": True})
+            except Exception as e:
+                print(e)
+                db.session.rollback()
+                return jsonify({"success": False})
+        _m = MarketOrderMain(
+            order_id=request.form.get("order_id"),
+            staff_id=request.form.get("staff_id"),
+            gross_quantity=request.form.get('gross_quantity'),
+            gross_price=request.form.get('gross_price'),
+            time=request.form.get('time'),
+            comment=request.form.get('comment')
+        )
+        db.session.add(_m)
+        print('==========')
+        try:
+            db.session.commit()
+            return jsonify({"success": True})
+        except Exception as e:
+            print(e)
+            db.session.rollback()
+            return jsonify({"success": False})
+    elif request.method == 'DELETE':
+        if not str(request.values.get('id')).isdigit():
+            abort(400)
+        id = int(request.values.get('id'))
+        MarketOrderMain.query.filter(
+            MarketOrderMain.id == id).update({'delete': True})
+        try:
+            db.session.commit()
+            return jsonify({'success': True})
+        except Exception as e:
+            print(e)
+            db.session.rollback()
+            return jsonify({'success': False})
+    elif request.method == 'PUT':
+        pass
+    else:
+        abort(405)
+
+
+@manage.route('/order')
+def manage_order():
+    return render_template('manage_order2.html')
+
+
+'''
 @manage.route("/order", methods=['POST', 'GET'])
 def manage_order():
     if request.method == 'GET':
-        orders = MarketOrderMain.query.limit(10).all()
+        orders = MarketOrderMain.query.filter_by(delete=False).limit(10).all()
         for i, order in enumerate(orders):
-            details = MarketOrderDetail.query.filter_by(order_id=order.order_id)\
-                .order_by(MarketOrderDetail.order_detail_id.asc()).all()
+            details = MarketOrderDetail.query.filter_by(
+                order_id=order.order_id, delete=False
+            ).order_by(MarketOrderDetail.order_detail_id.asc()).all()
             orders[i].details = details
     else:
-        orders = 100
+        if (request.values.get('order_id')):
+            return "2333"
+        else:
+            return "wuwuwwu"
+        if request.values.get('delete'):
+            order_id = request.values.get('del_order_id')
+            order = MarketOrderMain.query.filter_by(order_id=order_id).first()
+            order.delete = True
+            try:
+                db.session.commit()
+            except Exception as e:
+                print(e)
+                db.session.rollback()
+                return jsonify({"success": False, "details": "fail"})
+
+            details = MarketOrderDetail.query.filter_by(
+                order_id=order_id, delete=False).all()
+            for i in range(len(details)):
+                details[i].delete = True
+            try:
+                db.session.commit()
+            except Exception as e:
+                print(e)
+                db.session.rollback()
+                return jsonify({"success": False, "details": "fail"})
+        return "delete worked"
 
     return render_template('manage_order.html', title="订单管理", orders=orders)
+
+'''
 
 
 @manage.route("/order/add", methods=['POST', 'GET'])
