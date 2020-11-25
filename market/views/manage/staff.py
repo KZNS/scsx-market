@@ -6,7 +6,7 @@ from sqlalchemy import and_
 
 
 @manage.route("/staff", methods=['GET'])
-def staff_query():
+def staff():
     staff_id = request.values.get('staff_id')
     name = request.values.get('name')
     level = request.values.get('level')
@@ -55,7 +55,7 @@ def staff_add():
             print(e)
             db.session.rollback()
             flash('增加失败')
-        return redirect(url_for('manage.staff_query', timeout=True))
+        return redirect(url_for('manage.staff', timeout=True))
 
 
 @manage.route("/staff/del/<int:id>", methods=['DELETE'])
@@ -98,4 +98,4 @@ def staff_modify(id):
             print(e)
             db.session.rollback()
             flash('修改失败')
-        return redirect(url_for('manage.staff_query', timeout=True))
+        return redirect(url_for('manage.staff', timeout=True))

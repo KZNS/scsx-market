@@ -56,11 +56,11 @@
                     console.log(result)
                     if (result === 'succeed')
                     {
-                        window.location.href = "{{url_for('manage.staff_query', result='删除成功')}}"
+                        window.location.href = "{{url_for('manage.staff', result='删除成功')}}"
                     }
                     else if (result === 'fail')
                     {
-                        window.location.href = "{{url_for('manage.staff_query', result='删除失败')}}"
+                        window.location.href = "{{url_for('manage.staff', result='删除失败')}}"
                     }
                 },
                 error: function(result) {
