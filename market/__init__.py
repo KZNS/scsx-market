@@ -6,7 +6,6 @@ from redis import Redis
 from market.views import tests as testapp
 from market.views import index as indexapp
 from market.views import user as userapp
-from market.views import staff as staffapp
 from market.views import browse as browseapp
 from market.views import manage as manageapp
 subdomains = {
@@ -59,7 +58,6 @@ def create_app():
         app.register_blueprint(testapp)
         app.register_blueprint(indexapp)
         app.register_blueprint(userapp)
-        app.register_blueprint(staffapp)
         app.register_blueprint(manageapp)
         app.register_blueprint(browseapp)
         #app.config['SERVER_NAME'] = 'dutbit.com'
