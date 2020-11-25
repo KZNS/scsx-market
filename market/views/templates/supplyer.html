@@ -10,313 +10,382 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-        <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.css">
     <title>manage-supplyer</title>
 </head>
 
 <body>
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document" >
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="myModalLabel">添加供应商</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    
+
                 </div>
                 <form action="{{url_for('manage.supplyer_home')}}" method="POST" name="newVoteForm">
                     <div class="modal-body">
                         <div class="row">
+                            <input type="text" value="" id="hiddenidinput" name="hiddenidinput" style="display:none">
                             <div class="col-sm">
                                 <span class="badge badge-secondary">供应商编号</span>
-                                <input type="text" align="right" name="supplyerid" required>
+                                <input type="text" name="supplyer_id" required>
                             </div>
                             <div class="col-sm">
                                 <span class="badge badge-light">供应商名称</span>
-                                <input type="text" align="right" name="supplyername">
+                                <input type="text" name="name">
                             </div>
                             <div class="col-sm">
                                 <span class="badge badge-info">供应商简称</span>
-                                <input type="text" align="right" name="supplyerabbr">
+                                <input type="text" name="name_short">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm">
                                 <span class="badge badge-info">供应商地址</span>
-                                <input type="text" align="right" name="supplyeraddress">
+                                <input type="text" name="address">
                             </div>
                             <div class="col-sm">
                                 <span class="badge badge-dark">供应商电话</span>
-                                <input type="text" align="right" name="supplyerphone">
+                                <input type="text" name="telephone">
                             </div>
                             <div class="col-sm">
                                 <span class="badge badge-light">供应商邮件</span>
-                                <input type="text" align="right" name="supplyeremail">
+                                <input type="text" name="email">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm">
                                 <span class="badge badge-light">供应商联系人</span>
-                                <input type="text" align="right" name="supplyerperson">
+                                <input type="text" name="contact">
                             </div>
                             <div class="col-sm">
                                 <span class="badge badge-info">联系人电话</span>
-                                <input type="text" align="right" name="supplyerperson-phone">
+                                <input type="text" name="contact_phone">
                             </div>
                             <div class="col-sm">
                                 <span class="badge badge-secondary">备注</span>
-                                <input type="text" style="align:right" name="supplyerremarks">
+                                <input type="text" name="comment">
                             </div>
                         </div>
                         <button id="fillnew">fillnew</button>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <input type="submit" value="Submit" class="btn btn-primary" id="addnew"/>
+                        <input type="submit" value="Submit" class="btn btn-primary" id="addnew" />
                     </div>
                 </form>
             </div>
         </div>
     </div>
-  </head>
-  <body>
-    <a name="1F"></href>
-    <nav class="navbar  navbar-expand-lg fixed-top navbar-light bg-light" style="height:100px;text-align:left">
+    </head>
 
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-            data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <strong>供销存管理系统</strong>
+    <body>
+        <a name="1F"></href>
+            <nav class="navbar  navbar-expand-lg fixed-top navbar-light bg-light" style="height:100px;text-align:left">
 
-        <nav class="nav nav-pills nav-fill">
-            <a class="nav-item nav-link" href="#1F">添加供应商</a>
-            <a class="nav-item nav-link" href="#2F">供应商查询</a>
-            <a class="nav-item nav-link" href="#2F">供应商修改</a>
-        </nav>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                    data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <strong>供销存管理系统</strong>
 
-        <ul class="navbar-nav  ml-auto" style="right:51%;">
-            <li class="nav-item">
-            <li class="nav-item">
-                <a class="nav-link" href="{{url_for('index.logout')}}">退出登录</a>
-            </li>
-            </li>
-        </ul>
-    </nav>
+                <nav class="nav nav-pills nav-fill">
+                    <a class="nav-item nav-link" href="#1F">添加供应商</a>
+                    <a class="nav-item nav-link" href="#2F">供应商查询</a>
+                    <a class="nav-item nav-link" href="#2F">供应商修改</a>
+                </nav>
 
+                <ul class="navbar-nav  ml-auto" style="right:51%;">
+                    <li class="nav-item">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('index.logout')}}">退出登录</a>
+                    </li>
+                    </li>
+                </ul>
+            </nav>
+            <div class="jumbotron" style=" position:relative; top:50px;">
+                <div class="container" ;position:fixed>
+                    <div class="row">
+                        <div class="col-lg-26 offset-lg-23 col-md-18 offset-md-12 col-sm-10 offset-sm-1">
 
-
-    <div class="jumbotron" style=" position:relative; top:50px;">
-        <div class="container" ;position:fixed>
-            <div class="row">
-                <div class="col-lg-26 offset-lg-23 col-md-18 offset-md-12 col-sm-10 offset-sm-1">
-                    
-                    <div style="text-align:center;margin-top:20px">
-                        <p style="margin-top:20px;font-size:20px">
-                            <strong>添加供应商</strong>
-                        <!-- <div style="text-align:right">
+                            <div style="text-align:center;margin-top:20px">
+                                <p style="margin-top:20px;font-size:20px">
+                                    <strong>添加供应商</strong>
+                                    <!-- <div style="text-align:right">
                             <footer class="blockquote-footer rigth " style="margin-right: 20px">
                                 可批量添加
                             </footer>
                         </div> -->
-                        </p>
+                                </p>
+                            </div>
+                            <button id="toggleModal" type="button" class="btn btn-success btn-lg btn-block"
+                                style="margin-top:10px" data-toggle="modal" data-target="#myModal">
+                                <span style="font-size:17px">添加供应商</span>
+                            </button>
+                            <br>
+                            <hr class="my-4">
+                            <div style="text-align:center;margin-top:20px">
+                                <p style="margin-top:20px;font-size:20px">
+                                    <strong>供应商查询</strong>
+                                </p>
+                            </div>
+                            <div style="margin-top:40px" class="container">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <span class="badge badge-secondary">供应商编号</span>
+                                        <input type="text" name="supplyerid">
+                                    </div>
+                                    <div class="col-sm">
+                                        <span class="badge badge-light">供应商名称</span>
+                                        <input type="text" name="supplyername">
+                                    </div>
+                                    <div class="col-sm">
+                                        <span class="badge badge-info">供应商简称</span>
+                                        <input type="text" name="supplyerabbr">
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:10px" class="container">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <span class="badge badge-info">供应商地址</span>
+                                        <input type="text" name="supplyeraddress">
+                                    </div>
+                                    <div class="col-sm">
+                                        <span class="badge badge-dark">供应商电话</span>
+                                        <input type="text" name="supplyerphone">
+                                    </div>
+                                    <div class="col-sm">
+                                        <span class="badge badge-light">供应商邮件</span>
+                                        <input type="text" name="supplyeremail">
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:10px" class="container">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <span class="badge badge-light">供应商联系人</span>
+                                        <input type="text" name="supplyerperson">
+                                    </div>
+                                    <div class="col-sm">
+                                        <span class="badge badge-info">联系人电话</span>
+                                        <input type="text" name="supplyerperson-phone">
+                                    </div>
+                                    <div class="col-sm">
+                                        <span class="badge badge-secondary">备注</span>
+                                        <input type="text" name="supplyerremarks">
+                                    </div>
+                                </div>
+                            </div style="margin-top:10px" ; class="container">
+                            <br>
+
+                            <button type="button" class="btn btn-success btn-lg btn-block" style="margin-top:10px"
+                                id="doSearch">
+                                <span style="font-size:17px">查询供应商</span>
+                            </button>
+                            <br>
+                            <hr class="my-4">
+                        </div>
                     </div>
-                    <button type="button" class="btn btn-success btn-lg btn-block"
-                        style="margin-top:10px" data-toggle="modal" data-target="#myModal">
-                        <span style="font-size:17px">添加供应商</span>
-                    </button>
-                    <br>
-                    <hr class="my-4">
-
-
-                    
+                </div>
+                <div id="disptable" style="display:none">
                     <div style="text-align:center;margin-top:20px">
                         <p style="margin-top:20px;font-size:20px">
-                            <strong>供应商查询</strong>
+                            <strong>查询信息显示</strong>
                         </p>
                     </div>
-                    
-                    <div style="margin-top:40px" class="container">
-                        <div class="row">
-                            <div class="col-sm">
-                                <span class="badge badge-secondary">供应商编号</span>
-                                <input type="text" align="right" name="supplyerid">
-                            </div>
-                            <div class="col-sm">
-                                <span class="badge badge-light">供应商名称</span>
-                                <input type="text" align="right" name="supplyername">
-                            </div>
-                            <div class="col-sm">
-                                <span class="badge badge-info">供应商简称</span>
-                                <input type="text" align="right" name="supplyerabbr">
-                            </div>
-                        </div>
-                    </div>
-                    <div style="margin-top:10px" class="container">
-                        <div class="row">
-                            <div class="col-sm">
-                                <span class="badge badge-info">供应商地址</span>
-                                <input type="text" align="right" name="supplyeraddress">
-                            </div>
-                            <div class="col-sm">
-                                <span class="badge badge-dark">供应商电话</span>
-                                <input type="text" align="right" name="supplyerphone">
-                            </div>
-                            <div class="col-sm">
-                                <span class="badge badge-light">供应商邮件</span>
-                                <input type="text" align="right" name="supplyeremail">
-                            </div>
-                        </div>
-                    </div>
-                    <div style="margin-top:10px" class="container">
-                        <div class="row">
-                            <div class="col-sm">
-                                <span class="badge badge-light">供应商联系人</span>
-                                <input type="text" align="right" name="supplyerperson">
-                            </div>
-                            <div class="col-sm">
-                                <span class="badge badge-info">联系人电话</span>
-                                <input type="text" align="right" name="supplyerperson-phone">
-                            </div>
-                            <div class="col-sm">
-                                <span class="badge badge-secondary">备注</span>
-                                <input type="text" style="align:right" name="supplyerremarks">
-                            </div>
-                        </div>
-                    </div style="margin-top:10px"; class="container">
-                    <br>
 
-                    <button type="button" class="btn btn-success btn-lg btn-block"
-                        onclick="handleSearch()" style="margin-top:10px">
-                        <span style="font-size:17px">查询供应商</span>
-                    </button>
-                    <br>
-                    <hr class="my-4">
+                    <div class="table-responsive; overflow-auto">
+                        <table id="table" data-locale="zh-CN">
+                        </table>
+                    </div>
+
                 </div>
-            </div>
-        </div>
-        <div id="disptable" style="display:none">
-            <div style="text-align:center;margin-top:20px">
-                <p style="margin-top:20px;font-size:20px">
-                    <strong>查询信息显示</strong>
-                </p>
-            </div>
 
-            <div class="table-responsive; overflow-auto">
-                <table id="table" data-locale="zh-CN">
-                </table>
+                <br>
+                <hr class="my-4">
+                <p style="font-size:10px"><em>&copy; 2020 普通上班组</em></p>
+
+            </div>
             </div>
 
-        </div>
 
-        <br>
-        <hr class="my-4">
-        <p style="font-size:10px"><em>&copy; 2020 普通上班组</em></p>
-
-    </div>
-    </div>
+            <div style="position:fixed; bottom: 50px; right: 0">
+                <a href="#" class="btn btn-outline-info stretched-link">返回顶部</a>
+            </div>
 
 
-    <div style="position:fixed; bottom: 50px; right: 0">
-        <a href="#" class="btn btn-outline-info stretched-link"  >返回顶部</a>
-    </div>
-    
-    
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-        crossorigin="anonymous"></script>
+            <!-- Optional JavaScript -->
+            <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+            <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+                integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+                crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"
+                integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+                crossorigin="anonymous"></script>
 
 
-    <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table-locale-all.min.js"></script>
-    <script
-        src="https://unpkg.com/bootstrap-table@1.18.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
-    <script>
-        let table_column = [{
-                    field: 'supplyer_id',
-                    title: '供应商编号'
-                }, {
-                    field: 'name',
-                    title: '名称'
-                }, {
-                    field: 'name_short',
-                    title: '简称'
-                }, {
-                    field: 'address',
-                    title: '公司地址'
-                }, {
-                    field: 'telephone',
-                    title: '公司电话'
-                }, {
-                    field: 'email',
-                    title: '邮件'
-                }, {
-                    field: 'contact',
-                    title: '联系人'
-                }, {
-                    field: 'contact_phone',
-                    title: '联系人电话'
-                }, {
-                    field: 'comment',
-                    title: '备注'
-                }]
-        $(document).ready(function () {
-            // $('#table').bootstrapTable({
-            //     url: "{{url_for('manage.supplyer_home')}}",
-
-            //     columns: table_column
-            // })
-            
-            //$("#disptable").show();//show
-        });
-        $("#fillnew").click(function(e){
-            e.preventDefault()
-            
-            $("[name='supplyerremarks']").attr('value','b');
-            $("[name='supplyerperson-phone']").attr('value','b');
-            $("[name='supplyerperson']").attr('value','b');
-            $("[name='supplyeremail']").attr('value','b');
-            $("[name='supplyerphone']").attr('value','b');
-            $("[name='supplyeraddress']").attr('value','b');
-            $("[name='supplyerabbr']").attr('value','b');
-            $("[name='supplyername']").attr('value','b');
-        })
-        let handleSearch = () =>{
-            $('#table').bootstrapTable({
-                url: "{{url_for('manage.supplyer_home')}}",
-
-                columns: table_column
-            })
-            $("#disptable").show();
-        }
-        $("#addnew").click(function(e){
-            e.preventDefault()
-            let form = $("[name='newVoteForm']")
-            let targetURL = form.attr("action")
-            let data = form.serialize()
-            $.ajax({
-                type:'POST',
-                url:targetURL,
-                cache:false,
-                data:data,
-                dataType:'json',
-                success:function(res){
-                    console.log(res)
-                },
-                error:function(err){
-                    console.log('error:',err)
+            <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+            <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.js"></script>
+            <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table-locale-all.min.js"></script>
+            <script
+                src="https://unpkg.com/bootstrap-table@1.18.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
+            <script>
+                function randomString(len) {
+                    len = len || 32;
+                    var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+                    var maxPos = $chars.length;
+                    var pwd = '';
+                    for (i = 0; i < len; i++) {
+                        pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+                    }
+                    return pwd;
                 }
-            })
-        })
-        
-    </script>
-</body>
+                $(document).ready(function () {
+                    window.operateEvents = {    //999未处理，0不要，-1待定，1要
+                        'click .RoleOfIn': function (e, value, row, index) {
+                            console.log("修改");
+                            console.log(row.id, row.supplyer_id)
+                            $("#hiddenidinput").prop('value', row.id)
+                            $("[name='comment']").prop('value', row.comment);
+                            $("[name='contact_phone']").prop('value', row.contact_phone);
+                            $("[name='contact']").prop('value', row.contact);
+                            $("[name='email']").prop('value', row.email);
+                            $("[name='telephone']").prop('value', row.telephone);
+                            $("[name='address']").prop('value', row.address);
+                            $("[name='name_short']").prop('value', row.name_short);
+                            $("[name='name']").prop('value', row.name);
+                            $("[name='supplyer_id']").prop('value', row.supplyer_id);
+                            $("#myModalLabel").text('修改供应商')
+                            $("#myModal").modal('show')
+                        },
+                        'click .RoleOfwait': function (e, value, row, index) {
+                            console.log("删除", row.id);
+                            $.ajax({
+                                type: "DELETE",
+                                //contentType: "application/json;charset=UTF-8",
+                                url: `{{url_for('manage.supplyer_home')}}?id=${row.id}`,
+                                success: function (result) {
+                                    console.log('success:' + result);
+                                    $("#table").bootstrapTable('refresh');
+                                    alert('success')
+                                },
+                                error: function (e) {
+                                    console.log('fail:' + e.status);
+                                    console.log(e.responseText);
+                                    alert('fail')
+                                }
+                            });
+                        }
+                    };
+                    let table_column = [{
+                        field: 'supplyer_id',
+                        title: '供应商编号'
+                    }, {
+                        field: 'name',
+                        title: '名称'
+                    }, {
+                        field: 'name_short',
+                        title: '简称'
+                    }, {
+                        field: 'address',
+                        title: '公司地址'
+                    }, {
+                        field: 'telephone',
+                        title: '公司电话'
+                    }, {
+                        field: 'email',
+                        title: '邮件'
+                    }, {
+                        field: 'contact',
+                        title: '联系人'
+                    }, {
+                        field: 'contact_phone',
+                        title: '联系人电话'
+                    }, {
+                        field: 'comment',
+                        title: '备注'
+                    }, {
+                        field: 'operation',
+                        title: '操作',
+                        events: operateEvents,
+                        formatter: operateFormatter
+                    }]
+                    function operateFormatter(value, row, index) {
+                        return [
+                            '<button type="button" class="RoleOfIn btn btn-primary  btn-sm" >修改</button>',
+                            '<button type="button" class="RoleOfwait btn btn-danger  btn-sm" >删除</button>'
+                        ].join('');
+                    }
+                    $("#doSearch").click((e) => {
+                        console.log(e)
+                        $('#table').bootstrapTable({
+                            url: "{{url_for('manage.supplyer_home')}}",
+                            columns: table_column
+                        })
+                        $("#table").bootstrapTable('refresh');
+                        $("#disptable").show();
+                    })
+                });
+                $("#fillnew").click(function (e) {
+                    e.preventDefault()
+
+                    $("[name='comment']").prop('value', randomString(32));
+                    $("[name='contact_phone']").prop('value', randomString(10));
+                    $("[name='contact']").prop('value', randomString(10));
+                    $("[name='email']").prop('value', randomString(10));
+                    $("[name='telephone']").prop('value', randomString(10));
+                    $("[name='address']").prop('value', randomString(10));
+                    $("[name='name_short']").prop('value', randomString(10));
+                    $("[name='name']").prop('value', randomString(10));
+                    $("[name='supplyer_id']").prop('value',randomString(20))
+                })
+                $("#toggleModal").click(function (e) {
+                    e.preventDefault()
+                    $("#myModalLabel").text('添加供应商');
+                    $("#hiddenidinput").prop('value', '');
+                    $("[name='comment']").prop('value', '');
+                    $("[name='contact_phone']").prop('value', '');
+                    $("[name='contact']").prop('value', '');
+                    $("[name='email']").prop('value', '');
+                    $("[name='telephone']").prop('value', '');
+                    $("[name='address']").prop('value', '');
+                    $("[name='name_short']").prop('value', '');
+                    $("[name='name']").prop('value', '');
+                    $("[name='supplyer_id']").prop('value', '');
+                })
+                $("#addnew").click(function (e) {
+                    e.preventDefault()
+                    let form = $("[name='newVoteForm']")
+                    let targetURL = form.attr("action")
+                    let data = form.serialize()
+                    $.ajax({
+                        type: 'POST',
+                        url: targetURL,
+                        cache: false,
+                        data: data,
+                        dataType: 'json',
+                        success: function (res) {
+                            console.log(res)
+                            $("#myModal").modal('hide')
+                            if (res.success === true) {
+                                //$(".toast").toast('show')
+                                alert('success')
+                                $("#table").bootstrapTable('refresh');
+                            } else {
+                                alert('fail')
+                            }
+                        },
+                        error: function (err) {
+                            console.log('error:', err)
+                        }
+                    })
+                })
+
+            </script>
+    </body>
 
 </html>
