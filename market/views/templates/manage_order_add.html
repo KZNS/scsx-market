@@ -8,7 +8,7 @@
 
 <body>
     <form method="POST">
-        <table border="1">
+        <table>
             <tr>
                 <th>采购清单号</th>
                 <th>员工编号</th>
@@ -24,11 +24,13 @@
                 <td><input type="text" name="gross_price"></td>
                 <td><input type="text" name="time"></td>
                 <td><input type="text" name="comment"></td>
+                <th><input type="submit" value="提交" /></th>
             </tr>
         </table>
-        <p><input type="submit" value="提交" /> </p>
-        <table border="1">
-            <tr>
+        <button type="button" onclick="addRow()">新增一行</button>
+        <button type="button" onclick="deleteRow()">删除一行</button>
+        <table>
+            <tr id="itemtr0">
                 <th>序号</th>
                 <th>采购明细号</th>
                 <th>商品编号</th>
@@ -37,26 +39,39 @@
                 <th>商品总价</th>
                 <th>备注</th>
             </tr>
-            <tr>
-                <td></td>
-                <td><input type="text" name="order_detail_id[]"></td>
-                <td><input type="text" name="merchandise_id[]"></td>
-                <td><input type="number" name="merchandise_quantity[]"></td>
-                <td><input type="text" name="unit_price[]"></td>
-                <td><input type="text" name="detail_gross_price[]"></td>
-                <td><input type="text" name="detail_comment[]"></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="text" name="order_detail_id[]"></td>
-                <td><input type="text" name="merchandise_id[]"></td>
-                <td><input type="number" name="merchandise_quantity[]"></td>
-                <td><input type="text" name="unit_price[]"></td>
-                <td><input type="text" name="detail_gross_price[]"></td>
-                <td><input type="text" name="detail_comment[]"></td>
-            </tr>
         </table>
     </form>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script>
+        var index = 0;//初始下标
+        var html = "<tr id='itemtr##'>\
+                <td>##</td>\
+                <td><input type='text' name='order_detail_id[]'></td>\
+                <td><input type='text' name='merchandise_id[]'></td>\
+                <td><input type='number' name='merchandise_quantity[]'></td>\
+                <td><input type='text' name='unit_price[]'></td>\
+                <td><input type='text' name='detail_gross_price[]'></td>\
+                <td><input type='text' name='detail_comment[]'></td>\
+                </tr>";
+        //添加第一行
+        index++;
+        var newhtml = html.replace(/##/g, index);//把##替换成数字
+        $("#itemtr" + (index - 1)).after($(newhtml));
+        //新增一行
+        function addRow() {
+            index++;
+            var newhtml = html.replace(/##/g, index);//把##替换成数字
+            $("#itemtr" + (index - 1)).after($(newhtml));
+        }
+
+        //删除一行
+        function deleteRow(inde) {
+            if (index > 1) {
+                $("#itemtr" + index).remove();
+                index--;
+            }
+        }
+    </script>
 </body>
 
 </html>
