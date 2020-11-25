@@ -58,7 +58,12 @@ class MarketStaff(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
         d.pop('_sa_instance_state')
         d.pop('password_hash')
         return str(d)
-
+    
+    def todict(self):
+        d = self.__dict__.copy()
+        d.pop('_sa_instance_state')
+        d.pop('password_hash')
+        return d
 
 class MarketOrderMain(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
     __tablename__ = "market_order_main"
