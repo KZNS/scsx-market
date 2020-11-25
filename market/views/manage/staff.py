@@ -28,13 +28,13 @@ def staff_query():
     if (comment):
         data = data.filter(MarketStaff.comment.like('%%' + comment + '%%'))
 
-    return render_template('staff.html', data=data)
+    return render_template('staff.html', data=data, title='Staff Management')
 
 
 @manage.route("/staff/add", methods=['GET', 'POST'])
 def staff_add():
     if request.method == 'GET':
-        return render_template('staff_add.html')
+        return render_template('staff_add.html', title='Add Staff')
     if request.method == 'POST':
         item = MarketStaff(
             staff_id=request.form.get('staff_id'),
