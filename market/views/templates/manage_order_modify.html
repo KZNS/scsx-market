@@ -11,12 +11,13 @@
             <th>备注</th>
         </tr>
         <tr>
-            <td><input type="text" name="order_id"></td>
-            <td><input type="text" name="staff_id"></td>
-            <td><input type="text" name="gross_quantity"></td>
-            <td><input type="text" name="gross_price"></td>
-            <td><input type="text" name="time"></td>
-            <td><input type="text" name="comment"></td>
+            <td><input type="text" value="{{order.order_id}}" name="order_id"></td>
+            <td><input type="text" value="{{order.staff_id}}" name="staff_id"></td>
+            <td><input type="text" value="{{order.gross_quantity}}" name="gross_quantity"></td>
+            <td><input type="text" value="{{order.gross_price}}" name="gross_price"></td>
+            <td><input type="text" value="{{order.time}}" name="time"></td>
+            <td><input type="text" value="{{order.comment}}" name="comment"></td>
+            <td><input type="hidden" value="true" name="modify"></td>
             <th><input type="submit" value="提交" /></th>
         </tr>
     </table>
@@ -32,10 +33,21 @@
             <th>商品总价</th>
             <th>备注</th>
         </tr>
+        {% for detail in order.details %}
+        <tr id='itemtr{{loop.index}}'>
+            <td>{{loop.index}}</td>
+            <td><input type='text' value="{{detail.order_detail_id}}" name='order_detail_id[]'></td>
+            <td><input type='text' value="{{detail.merchandise_id}}" name='merchandise_id[]'></td>
+            <td><input type='number' value="{{detail.merchandise_quantity}}" name='merchandise_quantity[]'></td>
+            <td><input type='text' value="{{detail.unit_price}}" name='unit_price[]'></td>
+            <td><input type='text' value="{{detail.gross_price}}" name='detail_gross_price[]'></td>
+            <td><input type='text' value="{{detail.comment}}" name='detail_comment[]'></td>
+        </tr>
+        {% endfor %}
     </table>
 </form>
 <script>
-    var index = 0;//初始下标
+    var index = {{ order.details| length }};//初始下标
     var html = "<tr id='itemtr##'>\
                 <td>##</td>\
                 <td><input type='text' name='order_detail_id[]'></td>\
@@ -45,10 +57,6 @@
                 <td><input type='text' name='detail_gross_price[]'></td>\
                 <td><input type='text' name='detail_comment[]'></td>\
                 </tr>";
-    //添加第一行
-    index++;
-    var newhtml = html.replace(/##/g, index);//把##替换成数字
-    $("#itemtr" + (index - 1)).after($(newhtml));
     //新增一行
     function addRow() {
         index++;
