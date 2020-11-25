@@ -3,7 +3,10 @@ from market.models import MarketOrderDetail, MarketOrderMain, db
 from market.utils import hash_password
 from market.views.manage import manage
 
-
+@manage.route('/order')
+def manage_order():
+    return render_template('manage_order2.html') 
+'''
 @manage.route("/order", methods=['POST', 'GET'])
 def manage_order():
     if request.method == 'GET':
@@ -14,8 +17,12 @@ def manage_order():
             ).order_by(MarketOrderDetail.order_detail_id.asc()).all()
             orders[i].details = details
     else:
+        if (request.values.get('order_id')):
+            return "2333"
+        else:
+            return "wuwuwwu"
         if request.values.get('delete'):
-            order_id = request.values.get('order_id')
+            order_id = request.values.get('del_order_id')
             order = MarketOrderMain.query.filter_by(order_id=order_id).first()
             order.delete = True
             try:
@@ -39,6 +46,7 @@ def manage_order():
 
     return render_template('manage_order.html', title="订单管理", orders=orders)
 
+'''
 
 @manage.route("/order/add", methods=['POST', 'GET'])
 def manage_order_add():
