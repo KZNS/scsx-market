@@ -34,6 +34,11 @@
             <td>{{item.salary}}</td>
             <td>{{item.comment if item.comment else ''}}</td>
             <td>
+                <a href="/manage/staff/modify/{{item.id}}">
+                    <button>修改</button>
+                </a>
+            </td>
+            <td>
                 <button onclick="ondelete({{item.id}})">删除</button>
             </td>
         </tr>
