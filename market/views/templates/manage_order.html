@@ -1,51 +1,51 @@
 {% extends 'base.html' %}
 {% block content %}
-    <table>
-        {% for i in result %}
-        <tr>
-            <th>序号</th>
-            <th>采购清单号</th>
-            <th>员工编号</th>
-            <th>采购数量</th>
-            <th>采购时间</th>
-            <th>备注</th>
-        </tr>
-        <tr>
-            <td>{{loop.index}}</td>
-            <td>{{i.order_id}}</td>
-            <td>{{i.staff_id}}</td>
-            <td>{{i.gross_quantity}}</td>
-            <td>{{i.gross_price}}</td>
-            <td>{{i.time}}</td>
-            <td>{{i.commit}}</td>
-            <form method="POST" action="./order/modify">
-                <td><input type="hidden" value="false" name="modify" /></td>
-                <td><input type="hidden" value="{{i.order_id}}" name="order_id" /></td>
-                <td><input type="submit" value="修改" /></td>
-            </form>
-        </tr>
-        <tr>
-            <th></th>
-            <th>序号</th>
-            <th>采购明细号</th>
-            <th>商品编号</th>
-            <th>采购数量</th>
-            <th>商品单价</th>
-            <th>商品总价</th>
-            <th>备注</th>
-        </tr>
-        {% for detail in i.detail %}
-        <tr>
-            <td></td>
-            <td>{{loop.index}}</td>
-            <td>{{detail.order_detail_id}}</td>
-            <td>{{detail.merchandise_id}}</td>
-            <td>{{detail.merchandise_quantity}}</td>
-            <td>{{detail.unit_price}}</td>
-            <td>{{detail.gross_price}}</td>
-            <td>{{detail.comment}}</td>
-        </tr>
-        {% endfor %}
-        {% endfor %}
-    </table>
+<table>
+    {% for i in result %}
+    <tr>
+        <th>序号</th>
+        <th>采购清单号</th>
+        <th>员工编号</th>
+        <th>采购数量</th>
+        <th>采购时间</th>
+        <th>备注</th>
+    </tr>
+    <tr>
+        <td>{{loop.index}}</td>
+        <td>{{i.order_id}}</td>
+        <td>{{i.staff_id}}</td>
+        <td>{{i.gross_quantity}}</td>
+        <td>{{i.gross_price}}</td>
+        <td>{{i.time}}</td>
+        <td>{{i.commit}}</td>
+        <form method="POST" action="./order/modify">
+            <td><input type="hidden" value="false" name="modify" /></td>
+            <td><input type="hidden" value="{{i.order_id}}" name="order_id" /></td>
+            <td><input type="submit" value="修改" /></td>
+        </form>
+    </tr>
+    <tr>
+        <th></th>
+        <th>序号</th>
+        <th>采购明细号</th>
+        <th>商品编号</th>
+        <th>采购数量</th>
+        <th>商品单价</th>
+        <th>商品总价</th>
+        <th>备注</th>
+    </tr>
+    {% for detail in i.detail %}
+    <tr>
+        <td></td>
+        <td>{{loop.index}}</td>
+        <td>{{detail.order_detail_id}}</td>
+        <td>{{detail.merchandise_id}}</td>
+        <td>{{detail.merchandise_quantity}}</td>
+        <td>{{detail.unit_price}}</td>
+        <td>{{detail.gross_price}}</td>
+        <td>{{detail.comment}}</td>
+    </tr>
+    {% endfor %}
+    {% endfor %}
+</table>
 {% endblock %}

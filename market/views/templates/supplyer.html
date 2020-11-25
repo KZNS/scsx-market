@@ -1,20 +1,25 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
     <title>manage-supplyer</title>
-  </head>
-  <body>
+</head>
+
+<body>
 
     <nav class="navbar  navbar-expand-lg fixed-top navbar-light bg-light" style="height:100px;text-align:left">
-        
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+            aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <strong>供销存管理系统</strong>
@@ -27,32 +32,31 @@
 
         <ul class="navbar-nav  ml-auto" style="right:51%;">
             <li class="nav-item">
-                <li class="nav-item" >
-                    <a class="nav-link" href="#">退出登录</a>
-                </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">退出登录</a>
+            </li>
             </li>
         </ul>
     </nav>
 
 
     <div class="jumbotron" style=" position:relative; top:50px;">
-        <div class="container";position:fixed>
+        <div class="container" ;position:fixed>
             <div class="row">
                 <div class="col-lg-26 offset-lg-23 col-md-18 offset-md-12 col-sm-10 offset-sm-1">
-                    
-                    
+
+
                     <div style="text-align:center;margin-top:20px">
                         <p style="margin-top:20px;font-size:20px">
                             <strong>添加供应商</strong>
-                            <div style="text-align:right">
-                                <footer class="blockquote-footer rigth " style="margin-right: 20px">
-                                    可批量添加
-                                </footer>
-                            </div>
+                        <div style="text-align:right">
+                            <footer class="blockquote-footer rigth " style="margin-right: 20px">
+                                可批量添加
+                            </footer>
+                        </div>
                         </p>
                     </div>
-                    <button type="button"  class="btn btn-success btn-lg btn-block"
-                        onclick="alert('跳转到add界面')"
+                    <button type="button" class="btn btn-success btn-lg btn-block" onclick="alert('跳转到add界面')"
                         style="margin-top:10px">
                         <span style="font-size:17px">添加供应商</span>
                     </button>
@@ -66,62 +70,61 @@
                             <strong>供应商查询</strong>
                         </p>
                     </div>
-                    
-                    <div style="margin-top:40px“ class="container">
+
+                    <div style="margin-top:40px" class=" container">
                         <div class="row">
                             <div class="col-sm">
-                            <span class="badge badge-secondary">供应商编号</span>
-                            <input type="text"  align="right" name="supplyerid">
+                                <span class="badge badge-secondary">供应商编号</span>
+                                <input type="text" align="right" name="supplyerid">
                             </div>
                             <div class="col-sm">
-                            <span class="badge badge-light">供应商名称</span>
-                            <input type="text"  align="right" name="supplyername">
+                                <span class="badge badge-light">供应商名称</span>
+                                <input type="text" align="right" name="supplyername">
                             </div>
                             <div class="col-sm">
-                            <span class="badge badge-info">供应商简称</span>
-                            <input type="text"  align="right" name="supplyerabbr">
+                                <span class="badge badge-info">供应商简称</span>
+                                <input type="text" align="right" name="supplyerabbr">
                             </div>
                         </div>
                     </div>
-                    <div style="margin-top:10px” class="container">
+                    <div style="margin-top:10px" class="container">
                         <div class="row">
                             <div class="col-sm">
-                            <span class="badge badge-info">供应商地址</span>
-                            <input type="text"  align="right" name="supplyeraddress">
+                                <span class="badge badge-info">供应商地址</span>
+                                <input type="text" align="right" name="supplyeraddress">
                             </div>
                             <div class="col-sm">
-                            <span class="badge badge-dark">供应商电话</span>
-                            <input type="text"  align="right" name="supplyerphone">
+                                <span class="badge badge-dark">供应商电话</span>
+                                <input type="text" align="right" name="supplyerphone">
                             </div>
                             <div class="col-sm">
-                            <span class="badge badge-light">供应商邮件</span>
-                            <input type="text"  align="right" name="supplyeremail">
+                                <span class="badge badge-light">供应商邮件</span>
+                                <input type="text" align="right" name="supplyeremail">
                             </div>
                         </div>
                     </div>
-                    <div style="margin-top:10px“ class="container">
+                    <div style="margin-top:10px" class="container">
                         <div class="row">
                             <div class="col-sm">
-                            <span class="badge badge-light">供应商联系人</span>
-                            <input type="text"  align="right" name="supplyerperson">
+                                <span class="badge badge-light">供应商联系人</span>
+                                <input type="text" align="right" name="supplyerperson">
                             </div>
                             <div class="col-sm">
-                            <span class="badge badge-info">联系人电话</span>
-                            <input type="text"  align="right" name="supplyerperson-phone">
+                                <span class="badge badge-info">联系人电话</span>
+                                <input type="text" align="right" name="supplyerperson-phone">
                             </div>
                             <div class="col-sm">
-                            <span class="badge badge-secondary">备注</span>
-                            <input type="text"  align="right" name="supplyerremarks">
+                                <span class="badge badge-secondary">备注</span>
+                                <input type="text" style="align:right" name="supplyerremarks">
                             </div>
                         </div>
-                    </div style="margin-top:10px“; class="container">
+                    </div style="margin-top:10px" ; class="container">
                     <br>
 
-                    <button type="button"  class="btn btn-success btn-lg btn-block"
-                        onclick="alert('查询供应商测试输出——下方应是查询信息表')"
-                        style="margin-top:10px">
+                    <button type="button" class="btn btn-success btn-lg btn-block"
+                        onclick="alert('查询供应商测试输出——下方应是查询信息表')" style="margin-top:10px">
                         <span style="font-size:17px">查询供应商</span>
-                    </button>                    
+                    </button>
                     <br>
                     <hr class="my-4">
 
@@ -134,39 +137,64 @@
                     </div>
 
                     <div class="table-responsive; overflow-auto">
-                        <table class="table">
+                        <!-- <table class="table">
                             <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                            </tr>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">First</th>
+                                    <th scope="col">Last</th>
+                                    <th scope="col">Handle</th>
+                                    <th scope="col">First</th>
+                                    <th scope="col">Last</th>
+                                    <th scope="col">Handle</th>
+                                    <th scope="col">First</th>
+                                    <th scope="col">Last</th>
+                                    <th scope="col">Handle</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                <th scope="row">1</th>
-                                <td> <button type="button" class="btn btn-danger">删除</button> </td>
-                                <td> <button type="button" class="btn btn-warning">修改</button> </td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td> <button type="button" class="btn btn-danger">删除</button> </td>
-                                <td> <button type="button" class="btn btn-warning">修改</button> </td>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
+                                    <th scope="row">1</th>
+                                    <td> <button type="button" class="btn btn-danger">删除</button> </td>
+                                    <td> <button type="button" class="btn btn-warning">修改</button> </td>
+                                    <td>Mark</td>
+                                    <td>Otto</td>
+
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td> <button type="button" class="btn btn-danger">删除</button> </td>
+                                    <td> <button type="button" class="btn btn-warning">修改</button> </td>
+                                    <td>Jacob</td>
+                                    <td>Thornton</td>
+                                    <td>@fat</td>
+                                </tr>
                             </tbody>
+                        </table> -->
+
+                        <table 
+                            id="table" 
+                            data-locale="zh-CN" 
+                            data-toolbar="#toolbar" 
+                            data-toggle="table"
+                            data-url="{{url_for('manage.supplyer_home')}}" 
+                            data-search="true"
+                            data-show-columns="true" 
+                            data-show-export="true" 
+                            data-show-pagination-switch="true"
+                            data-pagination="true" 
+                            data-show-pagination-switch="true"
+                            data-page-list="[15, 25, 50, 100, all]">
+                            <thead>
+                                <tr>
+                                    <th data-field="url">来源页面</th>
+                                    <th data-field="type">类型</th>
+                                    <th data-field="contact">联系方式</th>
+                                    <th data-field="created_at">提交时间</th>
+                                    <th data-field="content">内容</th>
+                                    <th data-field="ip">ip</th>
+                                </tr>
+                            </thead>
                         </table>
                     </div>
 
@@ -180,34 +208,34 @@
                 </div>
 
                 <div class="col-lg-40 offset-lg-23 col-md-30 offset-md-12 col-sm-15 offset-sm-1">
-                    
-                </div>
-
 
                 </div>
+
 
             </div>
 
-
-
-
         </div>
+
+
+
+
+    </div>
     </div>
 
 
-    
+
     <div class="card text-center">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" href="#">Active</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Active</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li>
             </ul>
         </div>
         <div class="card-body">
@@ -215,19 +243,19 @@
             <p class="card-text">普通上班组</p>
             <a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
-        </div>
-    
+    </div>
+
 
     <div style="text-align:center;position:fixed;bottom:10px;">
         <p style="font-size:10px">
-                
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <em>&copy; 2020 <a
-                        href="https://www.dutbit.com">比特网络</a></em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
-                    href="/issues.php">问题/建议反馈</a>
+
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <em>&copy; 2020 <a
+                    href="https://www.dutbit.com">比特网络</a></em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+                href="/issues.php">问题/建议反馈</a>
         </p>
     </div>
-        
+
     <!--
         <button type="button" onclick="alert('添加供应商测试输出')">
             添加供应商（支持批量添加）
@@ -257,16 +285,24 @@
         <button type="button" onclick="alert('修改供应商测试输出')">
             前方是查询信息——删除供应商
         </button>
-    -->   
+    -->
 
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
- </body>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+        
+
+    <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table-locale-all.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
+</body>
+
 </html>
-
-
-
