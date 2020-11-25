@@ -28,7 +28,10 @@ class MarketSupplyer(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
 
     def __repr__(self):
         return super().__str__()
-
+    def todict(self):
+        d = self.__dict__.copy()
+        d.pop('_sa_instance_state')
+        return d
 
 class MarketMerchandise(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
     __tablename__ = "market_merchandise"
