@@ -11,7 +11,7 @@
     <title>manage-supplyer</title>
   </head>
   <body>
-
+    <a name="1F"></href>
     <nav class="navbar  navbar-expand-lg fixed-top navbar-light bg-light" style="height:100px;text-align:left">
         
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,9 +20,9 @@
         <strong>供销存管理系统</strong>
 
         <nav class="nav nav-pills nav-fill">
-            <a class="nav-item nav-link" href="#">添加供应商</a>
-            <a class="nav-item nav-link" href="#">供应商查询</a>
-            <a class="nav-item nav-link" href="#">供应商修改</a>
+            <a class="nav-item nav-link" href="#1F">添加供应商</a>
+            <a class="nav-item nav-link" href="#2F">供应商查询</a>
+            <a class="nav-item nav-link" href="#2F">供应商修改</a>
         </nav>
 
         <ul class="navbar-nav  ml-auto" style="right:51%;">
@@ -35,11 +35,11 @@
     </nav>
 
 
+
     <div class="jumbotron" style=" position:relative; top:50px;">
         <div class="container";position:fixed>
             <div class="row">
                 <div class="col-lg-26 offset-lg-23 col-md-18 offset-md-12 col-sm-10 offset-sm-1">
-                    
                     
                     <div style="text-align:center;margin-top:20px">
                         <p style="margin-top:20px;font-size:20px">
@@ -51,6 +51,7 @@
                             </div>
                         </p>
                     </div>
+                    <a name="2F"></href>
                     <button type="button"  class="btn btn-success btn-lg btn-block"
                         onclick="alert('跳转到add界面')"
                         style="margin-top:10px">
@@ -60,14 +61,14 @@
                     <hr class="my-4">
 
 
-
+                    
                     <div style="text-align:center;margin-top:20px">
                         <p style="margin-top:20px;font-size:20px">
                             <strong>供应商查询</strong>
                         </p>
                     </div>
                     
-                    <div style="margin-top:40px“ class="container">
+                    <div style="margin-top:40px" class="container">
                         <div class="row">
                             <div class="col-sm">
                             <span class="badge badge-secondary">供应商编号</span>
@@ -83,7 +84,7 @@
                             </div>
                         </div>
                     </div>
-                    <div style="margin-top:10px” class="container">
+                    <div style="margin-top:10px" class="container">
                         <div class="row">
                             <div class="col-sm">
                             <span class="badge badge-info">供应商地址</span>
@@ -99,7 +100,7 @@
                             </div>
                         </div>
                     </div>
-                    <div style="margin-top:10px“ class="container">
+                    <div style="margin-top:10px" class="container">
                         <div class="row">
                             <div class="col-sm">
                             <span class="badge badge-light">供应商联系人</span>
@@ -114,7 +115,7 @@
                             <input type="text"  align="right" name="supplyerremarks">
                             </div>
                         </div>
-                    </div style="margin-top:10px“; class="container">
+                    </div style="margin-top:10px"; class="container">
                     <br>
 
                     <button type="button"  class="btn btn-success btn-lg btn-block"
@@ -175,91 +176,26 @@
                             滑动查看更多
                         </footer>
                     </div>
-
-
+                   
                 </div>
 
-                <div class="col-lg-40 offset-lg-23 col-md-30 offset-md-12 col-sm-15 offset-sm-1">
-                    
-                </div>
-
-
-                </div>
 
             </div>
 
 
-
-
         </div>
-    </div>
 
-
-    
-    <div class="card text-center">
-        <div class="card-header">
-            <ul class="nav nav-tabs card-header-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" href="#">Active</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
-            </ul>
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">供销存管理系统</h5>
-            <p class="card-text">普通上班组</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-        </div>
-    
-
-    <div style="text-align:center;position:fixed;bottom:10px;">
-        <p style="font-size:10px">
-                
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <em>&copy; 2020 <a
-                        href="https://www.dutbit.com">比特网络</a></em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
-                    href="/issues.php">问题/建议反馈</a>
-        </p>
-    </div>
-        
-    <!--
-        <button type="button" onclick="alert('添加供应商测试输出')">
-            添加供应商（支持批量添加）
-        </button>
-        <br><br>
-        <form>
-            <p>查询:</p>
-            供应商编号<input type="text" name="id"><br>
-            供应商名称<input type="text" name="name"><br>
-            供应商简称<input type="text" name="abbr"><br>
-            地址<input type="text" name="address"><br>
-            公司电话<input type="text" name="phone"><br>
-            邮件<input type="text" name="email"><br>
-            联系人<input type="text" name="person"><br>
-            联系人电话<input type="text" name="person-phone"><br>
-            备注<input type="text" name="remarks"><br>
-            <button type="button" onclick="alert('查询供应商测试输出——下方应是查询信息表')">
-                查询供应商
-            </button>
-        </form> 
-        
-        
         <br>
-        <button type="button" onclick="alert('修改供应商测试输出')">
-            前方是查询信息——修改供应商
-        </button>
-        <button type="button" onclick="alert('修改供应商测试输出')">
-            前方是查询信息——删除供应商
-        </button>
-    -->   
+        <hr class="my-4">
+        <p style="font-size:10px"><em>&copy; 2020 普通上班组</em></p>
 
+    </div>
 
+    <div style="position:fixed; bottom: 50px; right: 0">
+        <a href="#" class="btn btn-outline-info stretched-link"  >返回顶部</a>
+    </div>
+    
+    
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
