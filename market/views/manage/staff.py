@@ -1,10 +1,8 @@
 from flask import Blueprint, render_template, request, url_for, flash, redirect
 from market.models import MarketStaff, db
-staff = Blueprint("staff", __name__,
-                  template_folder='templates', static_folder='static')
+from market.views.manage import manage
 
-
-@staff.route("/staff")
+@manage.route("/staff")
 def staff_query():
     staff_id = request.values.get('staff_id')
     name = request.values.get('name')

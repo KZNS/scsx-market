@@ -2,17 +2,14 @@ from flask import Blueprint, render_template, request, session, jsonify
 from market.models import db, MarketStaff
 from market.utils import hash_password
 import json
+from market.views.manage import manage
 
-order = Blueprint("order", __name__,
-                  template_folder='templates', static_folder='static')
-
-
-@order.route("/manage/order", methods=['POST', 'GET'])
+@manage.route("/order", methods=['POST', 'GET'])
 def manage_order():
     return render_template('manage_order.html')
 
 
-@order.route("/manage/order/add", methods=['POST', 'GET'])
+@manage.route("/order/add", methods=['POST', 'GET'])
 def manage_order_add():
     if request.method == 'GET':
         return render_template('manage_order_add.html')
@@ -38,6 +35,6 @@ def manage_order_add():
     return "mangae order add"
 
 
-@order.route("/manage/order/modify")
+@manage.route("/order/modify")
 def manage_order_modify():
     return "mangae order modify"

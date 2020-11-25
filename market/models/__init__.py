@@ -46,7 +46,7 @@ class MarketMerchandise(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
 class MarketStaff(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
     __tablename__ = "market_staff"
     id = db.Column(db.Integer, primary_key=True)
-    staff_id = db.Column(db.String(255), nullable=False, unique=True)
+    staff_id = db.Column(db.String(255), nullable=True, unique=True)
     name = db.Column(db.String(255), nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
     level = db.Column(db.String(255), nullable=False, default='default')

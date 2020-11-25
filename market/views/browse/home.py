@@ -1,5 +1,4 @@
 from flask import Blueprint,render_template,url_for,session,redirect,g
-from market.interceptors import login_required
 from market.views.browse import browse
 
 
