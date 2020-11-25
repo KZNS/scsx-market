@@ -15,13 +15,13 @@ def manage_order():
     else:
         orders = 100
 
-    return render_template('manage_order.html', result=orders)
+    return render_template('manage_order.html', title = "订单管理", result=orders)
 
 
 @manage.route("/order/add", methods=['POST', 'GET'])
 def manage_order_add():
     if request.method == 'GET':
-        return render_template('manage_order_add.html')
+        return render_template('manage_order_add.html', title = "添加订单")
     elif request.method == 'POST':
         print(request.values)
         _u = MarketOrderMain(

@@ -1,12 +1,5 @@
-<!doctype html>
-<html>
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>添加订单</title>
-</head>
-
-<body>
+{% extends 'base.html' %}
+{% block content %}
     <form method="POST">
         <table>
             <tr>
@@ -72,6 +65,4 @@
             }
         }
     </script>
-</body>
-
-</html>
+{% endblock %}
