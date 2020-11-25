@@ -7,15 +7,15 @@
     <form method="post" onsubmit="return check()">
         <table>
             <tr>
-                <td>Staff ID: </td>
+                <td>Staff Id: </td>
                 <td>
-                    <input type="text" id="staff_id" name="staff_id" class="input"/>
+                    <input type="text" id="staff_id" name="staff_id" class="input" value="{{item.staff_id}}" disabled="true"/>
                 </td>
             </tr>
             <tr>
                 <td>Name: </td>
                 <td>
-                    <input type="text" id="name" name="name" class="input"/>
+                    <input type="text" id="name" name="name" class="input" value="{{item.name}}"/>
                 </td>
             </tr>
             <tr>
@@ -27,25 +27,25 @@
             <tr>
                 <td>Level: </td>
                 <td>
-                    <input type="text" id="level" name="level" class="input"/>
+                    <input type="text" id="level" name="level" class="input" value="{{item.level}}"/>
                 </td>
             </tr>
             <tr>
                 <td>Telephone: </td>
                 <td>
-                    <input type="text" id="telephone" name="telephone" class="input"/>
+                    <input type="text" id="telephone" name="telephone" class="input" value="{{item.telephone}}"/>
                 </td>
             </tr>
             <tr>
                 <td>Salary: </td>
                 <td>
-                    <input type="text" id="salary" name="salary" class="input"/>
+                    <input type="text" id="salary" name="salary" class="input" value="{{item.salary}}"/>
                 </td>
             </tr>
             <tr>
                 <td>Comment: </td>
                 <td>
-                    <input type="text" id="comment" name="comment" class="input"/>
+                    <input type="text" id="comment" name="comment" class="input" value="{{item.comment}}"/>
                 </td>
             </tr>
         </table>
@@ -60,7 +60,10 @@
             return hex_md5('dutbit' + hex_md5(str) + '稍有常识的人')
         }
         let check = () => {
-            $("#password").val(md5enc($("#password").val()));
+            if ($("#password").val() !== '')
+            {
+                $("#password").val(md5enc($("#password").val()));
+            }
             return true;
         }
     </script>
