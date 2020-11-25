@@ -6,7 +6,18 @@ f=Faker(locale='zh_CN')
 @manage.route("/supplyerinfo",methods=['GET','POST','PUT','DELETE'])
 def supplyer_home():
     if request.method=='GET':
-        suppliers = MarketSupplyer.query.filter(MarketSupplyer.delete!=True).all()
+        #### START FUZZY SEARCH ####
+        args_dict = dict(request.values)
+        query_dict = {}
+        for k in args_dict:
+            if args_dict[k]!='':
+                query_dict[k]=args_dict[k]
+
+        data = MarketSupplyer.query.filter(MarketSupplyer.delete!=True)
+        for k in query_dict:
+            data = data.filter(getattr(MarketSupplyer,k).like('%%'+query_dict[k]+'%%'))
+        suppliers = data.all()
+        #### END OF FUZZY SEARCH ####
         result = []
         for s in suppliers:
             result.append(s.todict())
