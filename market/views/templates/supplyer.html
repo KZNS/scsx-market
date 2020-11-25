@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.css">
     <title>manage-supplyer</title>
 </head>
@@ -229,7 +229,7 @@
                 integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
                 crossorigin="anonymous"></script>
 
-
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
             <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
             <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.js"></script>
             <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table-locale-all.min.js"></script>
@@ -245,6 +245,20 @@
                         pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
                     }
                     return pwd;
+                }
+                let msgOK = (s) => {
+                    Toastify({
+                        text: s,
+                        duration: 3000,
+                        backgroundColor: "linear-gradient(to right, #00b09b, #00b09b)",
+                    }).showToast();
+                }
+                let msgFail = (s) =>{
+                    Toastify({
+                        text: s,
+                        duration: 3000,
+                        backgroundColor: "linear-gradient(to right, #EF100F, #EF100F)",
+                    }).showToast();
                 }
                 $(document).ready(function () {
                     window.operateEvents = {    //999未处理，0不要，-1待定，1要
@@ -273,12 +287,12 @@
                                 success: function (result) {
                                     console.log('success:' + result);
                                     $("#table").bootstrapTable('refresh');
-                                    alert('success')
+                                    msgOK('删除成功')
                                 },
                                 error: function (e) {
                                     console.log('fail:' + e.status);
                                     console.log(e.responseText);
-                                    alert('fail')
+                                    msgFail('删除失败')
                                 }
                             });
                         }
@@ -332,7 +346,7 @@
                             url: `{{url_for('manage.supplyer_home')}}?${data}`,
                             columns: table_column
                         })
-                        $("#table").bootstrapTable('refresh',{url:`{{url_for('manage.supplyer_home')}}?${data}`});
+                        $("#table").bootstrapTable('refresh', { url: `{{url_for('manage.supplyer_home')}}?${data}` });
                         $("#disptable").show();
                     })
                 });
@@ -379,10 +393,10 @@
                             $("#myModal").modal('hide')
                             if (res.success === true) {
                                 //$(".toast").toast('show')
-                                alert('success')
+                                msgOK("操作成功")
                                 $("#table").bootstrapTable('refresh');
                             } else {
-                                alert('fail')
+                                msgFail("操作失败")
                             }
                         },
                         error: function (err) {
