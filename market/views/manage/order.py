@@ -9,13 +9,13 @@ def manage_order():
     if request.method == 'GET':
         orders = MarketOrderMain.query.limit(10).all()
         for i, order in enumerate(orders):
-            detail = MarketOrderDetail.query.filter_by(order_id=order.order_id)\
+            details = MarketOrderDetail.query.filter_by(order_id=order.order_id)\
                 .order_by(MarketOrderDetail.order_detail_id.asc()).all()
-            orders[i].detail = detail
+            orders[i].details = details
     else:
         orders = 100
 
-    return render_template('manage_order.html', title="订单管理", result=orders)
+    return render_template('manage_order.html', title="订单管理", orders=orders)
 
 
 @manage.route("/order/add", methods=['POST', 'GET'])
@@ -51,7 +51,8 @@ def manage_order_modify():
         )[0]
         details = MarketOrderDetail.query.filter_by(order_id=order.order_id)\
             .order_by(MarketOrderDetail.order_detail_id.asc()).all()
-        return render_template("manage_order_modify.html", title="修改订单", order=order, details = details)
+        order.details = details
+        return render_template("manage_order_modify.html", title="修改订单", order=order)
 
 
 def get_order(order_form):
