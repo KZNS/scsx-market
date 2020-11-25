@@ -3,7 +3,7 @@ from flask import render_template,g,jsonify,redirect,url_for
 from market.models import db,MarketSupplyer
 from faker import Faker
 f=Faker(locale='zh_CN')
-@manage.route("/supplyerinfo",methods=['GET','POST'])
+@manage.route("/supplyerinfo",methods=['GET','POST','PUT'])
 def supplyer_home():
     suppliers = MarketSupplyer.query.all()
     result = []
