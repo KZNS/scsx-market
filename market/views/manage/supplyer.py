@@ -10,3 +10,7 @@ def supplyer_home():
     for s in suppliers:
         result.append(s.todict())
     return jsonify(result)
+
+@manage.route('/test')
+def test():
+    return render_template('test.html',title='bruh')
