@@ -16,7 +16,7 @@
 
 <body>
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document" style="width:900px;">
+        <div class="modal-dialog" role="document" >
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="myModalLabel">添加供应商</h4>
@@ -28,7 +28,7 @@
                         <div class="row">
                             <div class="col-sm">
                                 <span class="badge badge-secondary">供应商编号</span>
-                                <input type="text" align="right" name="supplyerid">
+                                <input type="text" align="right" name="supplyerid" required>
                             </div>
                             <div class="col-sm">
                                 <span class="badge badge-light">供应商名称</span>
@@ -67,10 +67,11 @@
                                 <input type="text" style="align:right" name="supplyerremarks">
                             </div>
                         </div>
+                        <button id="fillnew">fillnew</button>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <input type="submit" value="Submit" class="btn btn-primary" />
+                        <input type="submit" value="Submit" class="btn btn-primary" id="addnew"/>
                     </div>
                 </form>
             </div>
@@ -97,7 +98,7 @@
         <ul class="navbar-nav  ml-auto" style="right:51%;">
             <li class="nav-item">
             <li class="nav-item">
-                <a class="nav-link" href="#">退出登录</a>
+                <a class="nav-link" href="{{url_for('index.logout')}}">退出登录</a>
             </li>
             </li>
         </ul>
@@ -203,18 +204,6 @@
 
             <div class="table-responsive; overflow-auto">
                 <table id="table" data-locale="zh-CN">
-                    <!-- <thead>
-                        <tr>
-                            <th data-field="supplyer_id">供应商编号</th>
-                            <th data-field="name">名称</th>
-                            <th data-field="name_short">简称</th>
-                            <th data-field="address">地址</th>
-                            <th data-field="telephone">公司电话</th>
-                            <th data-field="email">邮件</th>
-                            <th data-field="contact">联系人</th>
-                            <th data-field="contact_phone">联系人电话</th>
-                        </tr>
-                    </thead> -->
                 </table>
             </div>
 
@@ -287,6 +276,18 @@
             
             //$("#disptable").show();//show
         });
+        $("#fillnew").click(function(e){
+            e.preventDefault()
+            
+            $("[name='supplyerremarks']").attr('value','b');
+            $("[name='supplyerperson-phone']").attr('value','b');
+            $("[name='supplyerperson']").attr('value','b');
+            $("[name='supplyeremail']").attr('value','b');
+            $("[name='supplyerphone']").attr('value','b');
+            $("[name='supplyeraddress']").attr('value','b');
+            $("[name='supplyerabbr']").attr('value','b');
+            $("[name='supplyername']").attr('value','b');
+        })
         let handleSearch = () =>{
             $('#table').bootstrapTable({
                 url: "{{url_for('manage.supplyer_home')}}",
@@ -295,6 +296,26 @@
             })
             $("#disptable").show();
         }
+        $("#addnew").click(function(e){
+            e.preventDefault()
+            let form = $("[name='newVoteForm']")
+            let targetURL = form.attr("action")
+            let data = form.serialize()
+            $.ajax({
+                type:'POST',
+                url:targetURL,
+                cache:false,
+                data:data,
+                dataType:'json',
+                success:function(res){
+                    console.log(res)
+                },
+                error:function(err){
+                    console.log('error:',err)
+                }
+            })
+        })
+        
     </script>
 </body>
 
