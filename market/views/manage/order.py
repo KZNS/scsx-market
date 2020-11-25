@@ -7,13 +7,35 @@ from market.views.manage import manage
 @manage.route("/order", methods=['POST', 'GET'])
 def manage_order():
     if request.method == 'GET':
-        orders = MarketOrderMain.query.limit(10).all()
+        orders = MarketOrderMain.query.filter_by(delete=False).limit(10).all()
         for i, order in enumerate(orders):
-            details = MarketOrderDetail.query.filter_by(order_id=order.order_id)\
-                .order_by(MarketOrderDetail.order_detail_id.asc()).all()
+            details = MarketOrderDetail.query.filter_by(
+                order_id=order.order_id, delete=False
+            ).order_by(MarketOrderDetail.order_detail_id.asc()).all()
             orders[i].details = details
     else:
-        orders = 100
+        if request.values.get('delete'):
+            order_id = request.values.get('order_id')
+            order = MarketOrderMain.query.filter_by(order_id=order_id).first()
+            order.delete = True
+            try:
+                db.session.commit()
+            except Exception as e:
+                print(e)
+                db.session.rollback()
+                return jsonify({"success": False, "details": "fail"})
+
+            details = MarketOrderDetail.query.filter_by(
+                order_id=order_id, delete=False).all()
+            for i in range(len(details)):
+                details[i].delete = True
+            try:
+                db.session.commit()
+            except Exception as e:
+                print(e)
+                db.session.rollback()
+                return jsonify({"success": False, "details": "fail"})
+        return "delete worked"
 
     return render_template('manage_order.html', title="订单管理", orders=orders)
 

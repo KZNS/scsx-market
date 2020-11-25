@@ -18,11 +18,20 @@
         <td>{{order.gross_price}}</td>
         <td>{{order.time}}</td>
         <td>{{order.commit}}</td>
-        <form method="POST" action="./order/modify">
-            <td><input type="hidden" value="false" name="modify" /></td>
-            <td><input type="hidden" value="{{order.order_id}}" name="order_id" /></td>
-            <td><input type="submit" value="修改" /></td>
-        </form>
+        <td>
+            <form method="POST" action="./order/modify">
+                <input type="hidden" value="false" name="modify" />
+                <input type="hidden" value="{{order.order_id}}" name="order_id" />
+                <input type="submit" value="修改" />
+            </form>
+        </td>
+        <td>
+            <form method="POST">
+                <input type="hidden" value="true" name="delete" />
+                <input type="hidden" value="{{order.order_id}}" name="order_id" />
+                <input type="submit" value="删除" />
+            </form>
+        </td>
     </tr>
     <tr>
         <th></th>
