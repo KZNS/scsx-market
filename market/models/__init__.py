@@ -26,6 +26,12 @@ class MarketSupplyer(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
         d.pop('_sa_instance_state')
         return str(d)
 
+    def __repr__(self):
+        return super().__str__()
+    def todict(self):
+        d = self.__dict__.copy()
+        d.pop('_sa_instance_state')
+        return d
 
 class MarketMerchandise(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
     __tablename__ = "market_merchandise"
@@ -41,6 +47,9 @@ class MarketMerchandise(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
         d = self.__dict__.copy()
         d.pop('_sa_instance_state')
         return str(d)
+
+    def __repr__(self):
+        return super().__str__()
 
 
 class MarketStaff(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
@@ -59,6 +68,15 @@ class MarketStaff(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
         d.pop('password_hash')
         return str(d)
 
+    def __repr__(self):
+        return super().__str__()
+
+    def todict(self):
+        d = self.__dict__.copy()
+        d.pop('_sa_instance_state')
+        d.pop('password_hash')
+        return d
+
 
 class MarketOrderMain(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
     __tablename__ = "market_order_main"
@@ -73,6 +91,9 @@ class MarketOrderMain(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
         d = self.__dict__.copy()
         d.pop('_sa_instance_state')
         return str(d)
+
+    def __repr__(self):
+        return super().__str__()
 
 
 class MarketOrderDetail(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
@@ -90,3 +111,6 @@ class MarketOrderDetail(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
         d = self.__dict__.copy()
         d.pop('_sa_instance_state')
         return str(d)
+
+    def __repr__(self):
+        return super().__str__()
