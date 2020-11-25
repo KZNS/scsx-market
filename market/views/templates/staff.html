@@ -59,17 +59,17 @@
         function ondelete(id)
         {
             $.ajax({
-                url: '/staff/del/' + id,
+                url: '/manage/staff/del/' + id,
                 type: 'DELETE',
                 success: function(result) {
                     console.log(result)
                     if (result === 'succeed')
                     {
-                        window.location.href = "{{url_for('staff.staff_query', result='删除成功')}}"
+                        window.location.href = "{{url_for('manage.staff_query', result='删除成功')}}"
                     }
                     else if (result === 'fail')
                     {
-                        window.location.href = "{{url_for('staff.staff_query', result='删除失败')}}"
+                        window.location.href = "{{url_for('manage.staff_query', result='删除失败')}}"
                     }
                 },
                 error: function(result) {
