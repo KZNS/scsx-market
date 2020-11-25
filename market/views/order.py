@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, request, session, jsonify
 from market.models import MarketOrderDetail, MarketOrderMain, db
 from market.utils import hash_password
-import json
 
 order = Blueprint("order", __name__,
                   template_folder='templates', static_folder='static')
@@ -9,7 +8,12 @@ order = Blueprint("order", __name__,
 
 @order.route("/manage/order", methods=['POST', 'GET'])
 def manage_order():
-    return render_template('manage_order.html')
+    if request.method == 'GET':
+        orders = MarketOrderMain.query.limit(10).all()
+    else:
+        orders = 100
+
+    return render_template('manage_order.html', result = orders)
 
 
 @order.route("/manage/order/add", methods=['POST', 'GET'])

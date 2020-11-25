@@ -7,11 +7,24 @@
 
 <body>
 
-    <table border=1>
-        {% for key, value in result.items() %}
+    <table>
         <tr>
-            <th> {{ key }} </th>
-            <td> {{ value }} </td>
+            <th>序号</th>
+            <th>采购清单号</th>
+            <th>员工编号</th>
+            <th>采购数量</th>
+            <th>采购时间</th>
+            <th>备注</th>
+        </tr>
+        {% for i in result %}
+        <tr>
+            <td>{{loop.index}}</td>
+            <td>{{i.order_id}}</td>
+            <td>{{i.staff_id}}</td>
+            <td>{{i.gross_quantity}}</td>
+            <td>{{i.gross_price}}</td>
+            <td>{{i.time}}</td>
+            <td>{{i.commit}}</td>
         </tr>
         {% endfor %}
     </table>
