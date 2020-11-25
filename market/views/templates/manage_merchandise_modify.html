@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <style>
+        .input{width:200px;overflow:hidden}
+    </style>
+    <form method="post" onsubmit="return check()">
+        <table>
+            <tr>
+                <td>Merchandise Id: </td>
+                <td>
+                    <input type="text" id="merchandise_id" name="merchandise_id" class="input" value="{{item.merchandise_id}}" disabled="true" required/>
+                </td>
+            </tr>
+            <tr>
+                <td>Name: </td>
+                <td>
+                    <input type="text" id="name" name="name" class="input" value="{{item.name}}" required/>
+                </td>
+            </tr>
+            <tr>
+                <td>Unit Price: </td>
+                <td>
+                    <input type="text" id="unit_price" name="unit_price" class="input" value="{{item.unit_price}}" required/>
+                </td>
+            </tr>
+            <tr>
+                <td>Supplyer ID: </td>
+                <td>
+                    <input type="text" id="supplyer_id" name="supplyer_id" class="input" value="{{item.supplyer_id}}" required/>
+                </td>
+            </tr>
+            <tr>
+                <td>Description: </td>
+                <td>
+                    <input type="text" id="description" name="description" class="input" value="{{item.description}}" required/>
+                </td>
+            </tr>
+            <tr>
+                <td>Comment: </td>
+                <td>
+                    <input type="text" id="comment" name="comment" class="input" value="{{item.comment}}"/>
+                </td>
+            </tr>
+        </table>
+        <input type="submit" name="submit" value="提交"/>
+    </form>
+
+    <!-- Optional JavaScript -->
+    <script src="https://static.dutbit.com/md5.js"></script>
+
+{% endblock %}

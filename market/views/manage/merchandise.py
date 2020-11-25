@@ -68,3 +68,31 @@ def merchandise_delete(id):
         print(e)
         db.session.rollback()
         return 'fail'
+
+@manage.route("/merchandise/modify/<int:id>", methods=['GET', 'POST'])
+def merchandise_modify(id):
+    if request.method == 'GET':
+        item = MarketMerchandise.query.filter(and_(MarketMerchandise.id == id, MarketMerchandise.delete == False))[:]
+        print(item)
+        if not item:
+            abort(404)
+        return render_template('manage_merchandise_modify.html', item=item[0], title='Modify Merchandise')
+    elif request.method == 'POST':
+        d = {
+            'name' : request.form.get('name'),
+            'unit_price' : request.form.get('unit_price'),
+            'supplyer_id' : request.form.get('supplyer_id'),
+            'description' : request.form.get('description'),
+            'comment' : request.form.get('comment')
+        }
+        print(request.values.__dict__)
+        MarketMerchandise.query.filter(MarketMerchandise.id == id).update(d)
+        try:
+            db.session.commit()
+            flash('修改成功')
+        except Exception as e:
+            print(e)
+            db.session.rollback()
+            flash('修改失败')
+        return redirect(url_for('manage.merchandise', timeout=True))
+
