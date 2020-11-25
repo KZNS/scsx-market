@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, url_for, flash, redirect, abort
+from flask import Blueprint, render_template, request, url_for, flash, redirect, abort, g
 from market.models import MarketStaff, db
 from market.views.manage import manage
 from market.utils import hash_password
@@ -60,6 +60,8 @@ def staff_add():
 
 @manage.route("/staff/del/<int:id>", methods=['DELETE'])
 def staff_delete(id):
+    if id == g.id:
+        return 'self'
     MarketStaff.query.filter(MarketStaff.id == id).update({'delete': True})
     try:
         db.session.commit()
