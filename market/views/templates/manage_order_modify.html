@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="POST">
+    <table>
+        <tr>
+            <th>采购清单号</th>
+            <th>员工编号</th>
+            <th>采购数量</th>
+            <th>采购总价</th>
+            <th>采购时间</th>
+            <th>备注</th>
+        </tr>
+        <tr>
+            <td><input type="text" value="{{order.order_id}}" name="order_id"></td>
+            <td><input type="text" value="{{order.staff_id}}" name="staff_id"></td>
+            <td><input type="text" value="{{order.gross_quantity}}" name="gross_quantity"></td>
+            <td><input type="text" value="{{order.gross_price}}" name="gross_price"></td>
+            <td><input type="text" value="{{order.time}}" name="time"></td>
+            <td><input type="text" value="{{order.comment}}" name="comment"></td>
+            <td><input type="hidden" value="true" name="modify"></td>
+            <th><input type="submit" value="提交" /></th>
+        </tr>
+    </table>
+    <button type="button" onclick="addRow()">新增一行</button>
+    <button type="button" onclick="deleteRow()">删除一行</button>
+    <table>
+        <tr id="itemtr0">
+            <th>序号</th>
+            <th>采购明细号</th>
+            <th>商品编号</th>
+            <th>采购数量</th>
+            <th>商品单价</th>
+            <th>商品总价</th>
+            <th>备注</th>
+        </tr>
+        {% for detail in order.detail %}
+        <tr id='itemtr{{loop.index}}'>
+            <td>{{loop.index}}</td>
+            <td><input type='text' value="{{detail.order_detail_id}}" name='order_detail_id[]'></td>
+            <td><input type='text' value="{{detail.merchandise_id}}" name='merchandise_id[]'></td>
+            <td><input type='number' value="{{detail.merchandise_quantity}}" name='merchandise_quantity[]'></td>
+            <td><input type='text' value="{{detail.unit_price}}" name='unit_price[]'></td>
+            <td><input type='text' value="{{detail.gross_price}}" name='detail_gross_price[]'></td>
+            <td><input type='text' value="{{detail.comment}}" name='detail_comment[]'></td>
+        </tr>
+        {% endfor %}
+    </table>
+</form>
+<script>
+    var index = {{ order.detail| length }};//初始下标
+    var html = "<tr id='itemtr##'>\
+                <td>##</td>\
+                <td><input type='text' name='order_detail_id[]'></td>\
+                <td><input type='text' name='merchandise_id[]'></td>\
+                <td><input type='number' name='merchandise_quantity[]'></td>\
+                <td><input type='text' name='unit_price[]'></td>\
+                <td><input type='text' name='detail_gross_price[]'></td>\
+                <td><input type='text' name='detail_comment[]'></td>\
+                </tr>";
+    //新增一行
+    function addRow() {
+        index++;
+        var newhtml = html.replace(/##/g, index);//把##替换成数字
+        $("#itemtr" + (index - 1)).after($(newhtml));
+    }
+
+    //删除一行
+    function deleteRow(inde) {
+        if (index > 1) {
+            $("#itemtr" + index).remove();
+            index--;
+        }
+    }
+</script>
+{% endblock %}

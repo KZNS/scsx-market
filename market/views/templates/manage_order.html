@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <table>
+        {% for i in result %}
         <tr>
             <th>序号</th>
             <th>采购清单号</th>
@@ -9,7 +10,6 @@
             <th>采购时间</th>
             <th>备注</th>
         </tr>
-        {% for i in result %}
         <tr>
             <td>{{loop.index}}</td>
             <td>{{i.order_id}}</td>
@@ -18,6 +18,11 @@
             <td>{{i.gross_price}}</td>
             <td>{{i.time}}</td>
             <td>{{i.commit}}</td>
+            <form method="POST" action="./order/modify">
+                <td><input type="hidden" value="false" name="modify" /></td>
+                <td><input type="hidden" value="{{i.order_id}}" name="order_id" /></td>
+                <td><input type="submit" value="修改" /></td>
+            </form>
         </tr>
         <tr>
             <th></th>

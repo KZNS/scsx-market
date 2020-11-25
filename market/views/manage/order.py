@@ -15,13 +15,13 @@ def manage_order():
     else:
         orders = 100
 
-    return render_template('manage_order.html', title = "订单管理", result=orders)
+    return render_template('manage_order.html', title="订单管理", result=orders)
 
 
 @manage.route("/order/add", methods=['POST', 'GET'])
 def manage_order_add():
     if request.method == 'GET':
-        return render_template('manage_order_add.html', title = "添加订单")
+        return render_template('manage_order_add.html', title="添加订单")
     elif request.method == 'POST':
         print(request.values)
         _u = MarketOrderMain(
@@ -66,6 +66,16 @@ def manage_order_add():
             return jsonify({"success": False, "details": "fail"})
 
 
-@manage.route("/order/modify")
+@manage.route("/order/modify", methods=['POST'])
 def manage_order_modify():
-    return "mangae order modify"
+    if request.values.get('modify') == "true":
+        return "mangae order modify"
+    else:
+        print(request.values.get('order_id'))
+        order = MarketOrderMain.query.filter_by(
+            order_id=request.values.get('order_id')
+        )[0]
+        detail = MarketOrderDetail.query.filter_by(order_id=order.order_id)\
+            .order_by(MarketOrderDetail.order_detail_id.asc()).all()
+        order.detail = detail
+        return render_template("manage_order_modify.html", title="修改订单", order=order)
