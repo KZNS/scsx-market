@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, url_for, flash, redirect, abort
+from flask import Blueprint, render_template, request, url_for, flash, redirect, abort, g
 from market.models import MarketMerchandise, db
 from market.views.manage import manage
 from market.utils import hash_password
@@ -54,3 +54,17 @@ def merchandise_add():
             db.session.rollback()
             flash('增加失败')
         return redirect(url_for('manage.merchandise', timeout=True))
+
+
+@manage.route("/merchandise/del/<int:id>", methods=['DELETE'])
+def merchandise_delete(id):
+    if id == g.id:
+        return 'self'
+    MarketMerchandise.query.filter(MarketMerchandise.id == id).update({'delete': True})
+    try:
+        db.session.commit()
+        return 'succeed'
+    except Exception as e:
+        print(e)
+        db.session.rollback()
+        return 'fail'
