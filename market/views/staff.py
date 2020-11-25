@@ -4,7 +4,7 @@ staff = Blueprint("staff", __name__,
                   template_folder='templates', static_folder='static')
 
 
-@staff.route("/staff")
+@staff.route("/staff", methods=['GET'])
 def staff_query():
     staff_id = request.values.get('staff_id')
     name = request.values.get('name')
@@ -29,3 +29,15 @@ def staff_query():
         data = data.filter(MarketStaff.comment.like('%%' + comment + '%%'))
 
     return render_template('staff.html', data=data)
+
+
+@staff.route("/staff/del/<int:id>", methods=['DELETE'])
+def delete(id):
+    MarketStaff.query.filter(MarketStaff.id == id).update({'delete': True})
+    try:
+        db.session.commit()
+        return 'succeed'
+    except Exception as e:
+        print(e)
+        db.session.rollback()
+        return 'fail'
