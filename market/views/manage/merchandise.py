@@ -30,3 +30,27 @@ def merchandise():
         data = data.filter(MarketMerchandise.comment.like('%%' + comment + '%%'))
 
     return render_template('manage_merchandise.html', data=data, title='Merchandise Management')
+
+@manage.route("/merchandise/add", methods=['GET', 'POST'])
+def merchandise_add():
+    if request.method == 'GET':
+        return render_template('manage_merchandise_add.html', title='Add Merchandise')
+    elif request.method == 'POST':
+        item = MarketMerchandise(
+            merchandise_id=request.form.get('merchandise_id'),
+            name=request.form.get('name'),
+            unit_price=request.form.get('unit_price'),
+            supplyer_id=request.form.get('supplyer_id'),
+            description=request.form.get('description'),
+            comment=request.form.get('comment')
+        )
+        print(item)
+        db.session.add(item)
+        try:
+            db.session.commit()
+            flash('增加成功')
+        except Exception as e:
+            print(e)
+            db.session.rollback()
+            flash('增加失败')
+        return redirect(url_for('manage.merchandise', timeout=True))
