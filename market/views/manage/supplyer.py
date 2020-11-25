@@ -10,7 +10,7 @@ def supplyer_home():
         args_dict = dict(request.values)
         query_dict = {}
         for k in args_dict:
-            if args_dict[k]!='':
+            if args_dict[k]!='' and hasattr(MarketSupplyer,k):
                 query_dict[k]=args_dict[k]
 
         data = MarketSupplyer.query.filter(MarketSupplyer.delete!=True)
