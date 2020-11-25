@@ -1,29 +1,48 @@
 from market.views.manage import manage
-from flask import render_template,g,jsonify,redirect,url_for,request
+from flask import render_template,g,jsonify,redirect,url_for,request,abort
 from market.models import db,MarketSupplyer
 from faker import Faker
 f=Faker(locale='zh_CN')
-@manage.route("/supplyerinfo",methods=['GET','POST','PUT'])
+@manage.route("/supplyerinfo",methods=['GET','POST','PUT','DELETE'])
 def supplyer_home():
     if request.method=='GET':
-        suppliers = MarketSupplyer.query.all()
+        suppliers = MarketSupplyer.query.filter(MarketSupplyer.delete!=True).all()
         result = []
         for s in suppliers:
             result.append(s.todict())
         return jsonify(result)
     elif request.method=='POST':
+        if request.form.get('hiddenidinput')!='':
+            print('-------')
+            print(request.form.get('hiddenidinput'))
+            id = int(request.form.get('hiddenidinput'))#this is update
+            update_dict= dict(request.form)
+            update_dict.pop('hiddenidinput')
+            print(update_dict)
+            for k in update_dict:
+                update_dict[k] = update_dict[k][0]
+            print(update_dict)
+            MarketSupplyer.query.filter(MarketSupplyer.id==id).update(update_dict)
+            try:
+                db.session.commit()
+                return jsonify({"success":True})
+            except Exception as e:
+                print(e)
+                db.session.rollback()
+                return jsonify({"success":False})
         _m = MarketSupplyer(
-            supplyer_id=request.form.get('supplyerid'),
-            name=request.form.get('supplyername'),
-            name_short=request.form.get('supplyerabbr'),
-            address=request.form.get('supplyeraddress'),
-            telephone=request.form.get('supplyerphone'),
-            email=request.form.get('supplyeremail'),
-            contact=request.form.get('supplyerperson'),
-            contact_phone=request.form.get('supplyerperson-phone'),
-            comment=request.form.get('supplyerremarks'),
+            supplyer_id=request.form.get('supplyer_id'),
+            name=request.form.get('name'),
+            name_short=request.form.get('name_short'),
+            address=request.form.get('address'),
+            telephone=request.form.get('telephone'),
+            email=request.form.get('email'),
+            contact=request.form.get('contact'),
+            contact_phone=request.form.get('contact_phone'),
+            comment=request.form.get('comment'),
         )
         db.session.add(_m)
+        print('==========')
         try:
             db.session.commit()
             return jsonify({"success":True})
@@ -31,6 +50,23 @@ def supplyer_home():
             print(e)
             db.session.rollback()
             return jsonify({"success":False})
+    elif request.method=='DELETE':
+        if not str(request.values.get('id')).isdigit():
+            abort(400)
+        id = int(request.values.get('id'))
+        MarketSupplyer.query.filter(MarketSupplyer.id==id).update({'delete':True})
+        try:
+            db.session.commit()
+            return jsonify({'success':True})
+        except Exception as e:
+            print(e)
+            db.session.rollback()
+            return jsonify({'success':False})
+    elif request.method=='PUT':
+        pass
+    else:
+        abort(405)
+
 @manage.route('/test')
 def test():
     return render_template('test.html',title='bruh')
