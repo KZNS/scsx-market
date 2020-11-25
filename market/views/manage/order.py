@@ -3,14 +3,19 @@ from market.models import MarketOrderDetail, MarketOrderMain, db
 from market.utils import hash_password
 from market.views.manage import manage
 
+
 @manage.route("/order", methods=['POST', 'GET'])
 def manage_order():
     if request.method == 'GET':
         orders = MarketOrderMain.query.limit(10).all()
+        for i, order in enumerate(orders):
+            detail = MarketOrderDetail.query.filter_by(order_id=order.order_id)\
+                .order_by(MarketOrderDetail.order_detail_id.asc()).all()
+            orders[i].detail = detail
     else:
         orders = 100
 
-    return render_template('manage_order.html', result = orders)
+    return render_template('manage_order.html', result=orders)
 
 
 @manage.route("/order/add", methods=['POST', 'GET'])
@@ -29,13 +34,13 @@ def manage_order_add():
         )
         db.session.add(_u)
 
-        order_id            = request.values.get("order_id")
-        order_detail_id     = request.values.getlist("order_detail_id[]")
-        merchandise_id      = request.values.getlist("merchandise_id[]")
-        merchandise_quantity= request.values.getlist("merchandise_quantity[]")
-        unit_price          = request.values.getlist("unit_price[]")
-        detail_gross_price  = request.values.getlist("detail_gross_price[]")
-        detail_comment      = request.values.getlist("detail_comment[]")
+        order_id = request.values.get("order_id")
+        order_detail_id = request.values.getlist("order_detail_id[]")
+        merchandise_id = request.values.getlist("merchandise_id[]")
+        merchandise_quantity = request.values.getlist("merchandise_quantity[]")
+        unit_price = request.values.getlist("unit_price[]")
+        detail_gross_price = request.values.getlist("detail_gross_price[]")
+        detail_comment = request.values.getlist("detail_comment[]")
         print(order_detail_id)
         print(order_detail_id[0])
         print(merchandise_quantity[0])
