@@ -3,3 +3,4 @@ from .index import index
 from .user import user
 from .browse import browse
 from .manage import manage
+from .supplyer import supplyer
