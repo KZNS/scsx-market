@@ -113,6 +113,21 @@ def manage_order_add():
     if request.method == 'GET':
         return render_template('manage_order_add.html', title="添加订单")
     elif request.method == 'POST':
+        if request.values.get('isupdate')=='123':
+            print('is update')
+            this_order = request.values.get('updateorderid')
+            MarketOrderMain.query\
+                .filter(MarketOrderMain.order_id==this_order)\
+                    .delete()
+            MarketOrderDetail.query\
+                .filter(MarketOrderDetail.order_id==this_order)\
+                    .delete()
+            try:
+                db.session.commit()
+            except Exception as e:
+                print(e)
+                db.session.rollback()
+                abort(500)
         order, details = get_order(request.values)
         db.session.add(order)
         for detail in details:
@@ -134,7 +149,7 @@ def manage_order_modify():
 
         return "mangae order modify"
     else:
-        print(request.values.get('order_id'))
+        print(request.values.get('updateid'))
         order = MarketOrderMain.query.filter_by(
             order_id=request.values.get('order_id')
         )[0]

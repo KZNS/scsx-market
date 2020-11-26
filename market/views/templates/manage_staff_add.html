@@ -1,57 +1,112 @@
-{% extends 'base.html' %}
-{% block content %}
+<!doctype html>
+<html lang="en">
 
-    <style>
-        .input{width:200px;overflow:hidden}
-    </style>
-    <form method="post" onsubmit="return check()">
-        <table>
-            <tr>
-                <td>Staff ID: </td>
-                <td>
-                    <input type="text" id="staff_id" name="staff_id" class="input"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Name: </td>
-                <td>
-                    <input type="text" id="name" name="name" class="input" required/>
-                </td>
-            </tr>
-            <tr>
-                <td>Password: </td>
-                <td>
-                    <input type="password" id="password" name="password" class="input" required/>
-                </td>
-            </tr>
-            <tr>
-                <td>Level: </td>
-                <td>
-                    <input type="text" id="level" name="level" class="input" value="default" required/>
-                </td>
-            </tr>
-            <tr>
-                <td>Telephone: </td>
-                <td>
-                    <input type="text" id="telephone" name="telephone" class="input" required/>
-                </td>
-            </tr>
-            <tr>
-                <td>Salary: </td>
-                <td>
-                    <input type="text" id="salary" name="salary" class="input"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Comment: </td>
-                <td>
-                    <input type="text" id="comment" name="comment" class="input"/>
-                </td>
-            </tr>
-        </table>
-        <input type="submit" name="submit" value="提交" onsubmit="return check()"/>
-    </form>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+        <link rel="stylesheet" href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:500,700&amp;display=swap">
+        <link rel="stylesheet" href="./style.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.css">
+    <title>manage-supplyer</title>
+</head>
+
+<body>
+    <a name="1F"></href>
+    <nav class="navbar  navbar-expand-lg fixed-top navbar-light bg-light" style="height:100px;text-align:left">
+        <img src="https://static.dutbit.com/img/dutbit-png.png" width="36px" height="36px" />
+        <strong>供销存管理系统</strong>
+
+        <nav class="nav nav-pills nav-fill">
+            <a class="nav-item nav-link" href="#1F">主页</a>
+            <a class="nav-item nav-link" href="#2F">/员工</a>
+            <a class="nav-item nav-link disabled" href="#3F">/添加员工信息</a>
+        </nav>
+
+        <ul class="navbar-nav  ml-auto" style="right:51%;">
+            <li class="nav-item">
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('index.logout')}}">退出登录</a>
+            </li>
+            </li>
+        </ul>
+    </nav>
+
+
+
+    <div class="jumbotron" style=" position:relative; top:50px;">
+        <div class="container" ;position:fixed>
+            <div class="row">
+                <div class="col-lg-26 offset-lg-23 col-md-18 offset-md-12 col-sm-10 offset-sm-1">  
+                    <br><br>
+
+                    <form method="post" onsubmit="return check()">
+                        <div class="form-group">
+                          <span class="badge badge-secondary">员工编号</span>
+                          <input type="text" id="staff_id" name="staff_id"  class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <span class="badge badge-light">员工姓名</span>
+                            <input type="text" id="name" name="name" class="form-control" required/>
+                        </div>
+                        <div class="form-group">
+                            <span class="badge badge-secondary">密码</span>
+                            <input type="password" id="password" name="password" class="form-control" required/>
+                        </div>
+                        <div class="form-group">
+                            <span class="badge badge-light">级别</span>
+                          <select class="form-control" id="level" name="level" required>
+                            <option>default</option>
+                            <option>admit</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                            <span class="badge badge-secondary">电话</span>
+                             <input type="text" id="telephone" name="telephone" class="form-control" required/>
+                        </div>
+                        <div class="form-group">
+                            <span class="badge badge-light">工资</span>
+                            <input type="text" id="salary" name="salary" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <span class="badge badge-secondary">备注</span>
+                            <input type="text" id="comment" name="comment" class="form-control"/>
+                        </div>
+                     </form>
+                     <br>
+
+
+                    <button type="submit" name="submit" class="btn btn-primary btn-lg btn-block"
+                        onclick="handleSearch()" style="margin-top:10px">
+                        <span style="font-size:17px">提交新员工信息</span>
+                    </button>
+
+
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <hr class="my-4">
+        <p style="font-size:10px"><em>&copy; 2020 普通上班组</em></p>
+
+    </div>
+    </div>
+
+
+    <div style="position:fixed; bottom: 50px; right: 0">
+        <a href="#" class="btn btn-outline-info stretched-link"  >返回顶部</a>
+    </div>
+
+
+    
     <!-- Optional JavaScript -->
     <script src="https://static.dutbit.com/md5.js"></script>
 
@@ -65,4 +120,6 @@
         }
     </script>
 
-{% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+@startuml webpages 
+
+folder "\" {
+    [index\n登录页面\n用户权限判断] as index
+    folder "\manage"{
+        [管理页面\n个人信息] as admin
+        folder "\manage\supplyer"{
+            [供应商管理\n添加\n查询\n删除\n修改] as sup_man
+        }
+        folder "\manage\staff"{
+            [员工管理\n添加\n查询\n删除\n修改] as staff_man
+        }
+        folder "\manage\merchandise"{
+            [商品管理\n添加\n查询\n删除\n修改] as mer_man
+        }
+        folder "\manage\order"{
+            [采购管理\n添加\n查询\n删除\n修改] as order_man
+        }
+        admin --> sup_man
+        admin --> staff_man
+        admin --> mer_man
+        admin --> order_man
+    }
+    folder "\browse"{
+        [浏览页面\n个人信息] as user
+        folder "\browse\merchandise"{
+            [商品管理\n查询] as mer_bro
+        }
+        folder "\browse\order"{
+            [采购管理\n查询] as order_bro
+        }
+        user --> mer_bro
+        user --> order_bro
+    }
+    index --> admin
+    index --> user
+}
+
+@enduml
