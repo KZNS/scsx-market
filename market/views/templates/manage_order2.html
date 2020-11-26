@@ -77,7 +77,7 @@
             }
 
             //删除一行
-            function deleteRow(inde) {
+            function deleteRow() {
                 if (index > 1) {
                     $("#itemtr" + index).remove();
                     index--;
@@ -136,46 +136,46 @@
                             </p>
                         </div>
                         <form action="{{url_for('manage.manage_order')}}" method="GET">
-                        <div style="margin-top:40px" class="container">
-                            <div class="row">
-                                <div class="col-sm">
-                                    <span class="badge badge-secondary">订单编号</span>
-                                    <input type="text" name="order_id">
-                                </div>
-                                <div class="col-sm">
-                                    <span class="badge badge-light">员工编号</span>
-                                    <input type="text" name="staff_id">
-                                </div>
-                                <div class="col-sm">
-                                    <span class="badge badge-info">采购时间</span>
-                                    <input type="text" name="time">
-                                </div>
-                            </div>
-                        </div>
-                        <div style="margin-top:10px" class="container">
-                            <div class="row">
-                                <div class="col-sm">
-                                    <span class="badge badge-info">采购明细号</span>
-                                    <input type="text" name="order_detail_id">
-                                </div>
-                                <div class="col-sm">
-                                    <span class="badge badge-dark">商品编号</span>
-                                    <input type="text" name="merchandise_id">
-                                </div>
-                                <div class="col-sm">
-                                    <span class="badge badge-info">备注</span>
-                                    <input type="text" name="comment">
+                            <div style="margin-top:40px" class="container">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <span class="badge badge-secondary">订单编号</span>
+                                        <input type="text" name="order_id">
+                                    </div>
+                                    <div class="col-sm">
+                                        <span class="badge badge-light">员工编号</span>
+                                        <input type="text" name="staff_id">
+                                    </div>
+                                    <div class="col-sm">
+                                        <span class="badge badge-info">采购时间</span>
+                                        <input type="text" name="time">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <br>
+                            <div style="margin-top:10px" class="container">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <span class="badge badge-info">采购明细号</span>
+                                        <input type="text" name="order_detail_id">
+                                    </div>
+                                    <div class="col-sm">
+                                        <span class="badge badge-dark">商品编号</span>
+                                        <input type="text" name="merchandise_id">
+                                    </div>
+                                    <div class="col-sm">
+                                        <span class="badge badge-info">备注</span>
+                                        <input type="text" name="comment">
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
 
-                        <button type="submit" class="btn btn-success btn-lg btn-block" style="margin-top:10px"
-                            id="doSearch">
-                            <span style="font-size:17px">查询订单</span>
-                        </button>
-                        <br>
-                        <hr class="my-4">
+                            <button type="submit" class="btn btn-success btn-lg btn-block" style="margin-top:10px"
+                                id="doSearch">
+                                <span style="font-size:17px">查询订单</span>
+                            </button>
+                            <br>
+                            <hr class="my-4">
                         </form>
                     </div>
                 </div>
@@ -225,11 +225,12 @@
                                         <form method="POST" action="./order/modify">
                                             <input type="hidden" value="false" name="modify" />
                                             <input type="hidden" value="{{res.main.order_id}}" name="order_id" />
-                                            <button type="submit" class="btn btn-primary  btn-sm">修改</button>
+                                            <button type="button" class="btn btn-primary  btn-sm"
+                                                onclick="start_update('{{res.main.order_id}}')">修改</button>
                                         </form>
                                     </td>
                                     <td>
-                                        <form method="POST", id="del">
+                                        <form method="POST" , id="del">
                                             <input type="hidden" value="true" name="delete" />
                                             <input type="hidden" value="{{res.main.order_id}}" name="del_order_id" />
                                             <button type="submit" class="btn btn-danger  btn-sm">删除</button>
@@ -278,13 +279,9 @@
 
         </div>
         </div>
-
-
         <div style="position:fixed; bottom: 50px; right: 0">
             <a href="#" class="btn btn-outline-info stretched-link">返回顶部</a>
         </div>
-
-
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
@@ -294,8 +291,42 @@
         <script
             src="https://unpkg.com/bootstrap-table@1.18.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
         <script>
-            function start_update(s){
-                
+            function start_update(s) {
+                $("#myModalLabel").text('修改订单');
+                let targetURL = "/manage/orderinfo"
+                fetch(`${targetURL}/${s}`).then(res => res.json()).then((jsondata) => {
+                    while (index > 1) {
+                        deleteRow()
+                    }
+                    
+                    $("#itemtr" + index).remove();
+                    index--;
+                    Object.keys(jsondata.order).map(key => {
+                        //console.log(key)
+                        $(`[name='${key}']`).prop('value', jsondata.order[key])
+                    })
+                    Object.keys(jsondata.details).map(key => {
+                        console.log(key)
+                        let d = jsondata.details
+                        var html = `<tr id='itemtr##'>\
+                        <td>##</td>\
+                        <td><input type='text' name='order_detail_id[]' value='${d[key]["order_detail_id"]}'></td>\
+                        <td><input type='text' name='merchandise_id[]' value='${d[key]["merchandise_id"]}'></td>\
+                        <td><input type='text' name='merchandise_quantity[]' value='${d[key]["merchandise_quantity"]}'></td>\
+                        <td><input type='text' name='unit_price[]' value='${d[key]["unit_price"]}'></td>\
+                        <td><input type='text' name='detail_gross_price[]' value='${d[key]["gross_price"]}'></td>\
+                        <td><input type='text' name='detail_comment[]' value='${d[key]["comment"]}'></td>\
+                        </tr>`;
+                        index++;
+                        var newhtml = html.replace(/##/g, index);
+                        $("#itemtr" + (index - 1)).after($(newhtml))
+                    })
+
+                }).catch(err => {
+                    msgFail("查询失败")
+                    console.log(err)
+                })
+                $("#myModal").modal('show')
             }
             $(document).ready(function () {
             });
