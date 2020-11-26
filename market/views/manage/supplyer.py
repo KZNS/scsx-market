@@ -84,7 +84,7 @@ def test():
 
 @manage.route('/supplyer')
 def manage_supplyer():
-    return render_template('supplyer.html') 
+    return render_template('manage_supplyer.html') 
 
 @manage.route('/supplyerpopulate')
 def populate_sup():
