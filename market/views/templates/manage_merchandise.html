@@ -1,74 +1,330 @@
-{% extends 'base.html' %}
+<!doctype html>
+<html lang="en">
+
+{% extends 'base_head.html' %}
 {% block content %}
 
-    <style>
-        .input{width:100px;overflow:hidden}
-    </style>
-    <form method="GET">
-        Merchandise ID: <input type="text" name="merchandise_id" class="input"/>
-        Name: <input type="text" name="name" class="input"/>
-        Unit Price: <input type="text" name="unit_price" class="input"/>
-        Supplyer ID: <input type="text" name="supplyer_id" class="input"/>
-        Description: <input type="text" name="description" class="input"/>
-        Comment: <input type="text" name="comment" class="input"/>
-        <input type="submit" name="submit"/>
-    </form>
-    <a href="{{url_for('manage.merchandise_add')}}">
-        <button>增加商品</button>
-    </a>
-    <table>
-        <tr>
-            <th>Merchandise ID</th>
-            <th>Name</th>
-            <th>Unit Price</th>
-            <th>Supplyer ID</th>
-            <th>Description</th>
-            <th>Comment</th>
-        </tr>
-        {% for item in data %}
-        <tr>
-            <td>{{item.merchandise_id}}</td>
-            <td>{{item.name}}</td>
-            <td>{{item.unit_price}}</td>
-            <td>{{item.supplyer_id}}</td>
-            <td>{{item.description}}</td>
-            <td>{{item.comment if item.comment else ''}}</td>
-            <td>
-                <a href="/manage/merchandise/modify/{{item.id}}">
-                    <button>修改</button>
-                </a>
-            </td>
-            <td>
-                <button onclick="ondelete({{item.id}})">删除</button>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
+<body>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document"style="max-width: 700px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">添加商品</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
-    <!-- Optional JavaScript -->
-    <script>
-        function ondelete(id)
-        {
-            $.ajax({
-                url: '/manage/merchandise/del/' + id,
-                type: 'DELETE',
-                success: function(result) {
-                    console.log(result)
-                    if (result === 'succeed')
-                    {
-                        window.location.href = "{{url_for('manage.merchandise', result='删除成功')}}"
+                </div>
+                <form action="{{url_for('manage.merchandise_home')}}" method="POST" name="newVoteForm">
+                    <div class="modal-body">
+                        <div class="row">
+                            <input type="text" value="" id="hiddenidinput" name="hiddenidinput" style="display:none">
+                            <div class="col-sm">
+                                <span class="badge badge-secondary">商品编号</span>
+                                <input type="text" name="merchandise_id" required>
+                            </div>
+                            <div class="col-sm">
+                                <span class="badge badge-light">商品名称</span>
+                                <input type="text" name="name">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm">
+                                <span class="badge badge-info">单价</span>
+                                <input type="text" name="unit_price">
+                            </div>
+                            <div class="col-sm">
+                                <span class="badge badge-dark">供应商编码</span>
+                                <input type="text" name="supplyer_id">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm">
+                                <span class="badge badge-light">商品描述</span>
+                                <input type="text" name="description">
+                            </div>
+                            <div class="col-sm">
+                                <span class="badge badge-secondary"> 备注 </span>
+                                <input type="text" name="comment">
+                            </div>
+                        </div>
+                        <button id="fillnew">fillnew</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <input type="submit" value="Submit" class="btn btn-primary" id="addnew" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </head>
+
+    <body>
+        <a name="1F"></href>
+            <nav class="navbar  navbar-expand-lg fixed-top navbar-light bg-light" style="height:100px;text-align:left">
+
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                    data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <strong>供销存管理系统</strong>
+
+                <nav class="nav nav-pills nav-fill">
+                    <a class="nav-item nav-link" href="#1F">添加商品</a>
+                    <a class="nav-item nav-link" href="#2F">商品查询</a>
+                    <a class="nav-item nav-link" href="#2F">商品修改</a>
+                </nav>
+
+                <ul class="navbar-nav  ml-auto" style="right:51%;">
+                    <li class="nav-item">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('index.logout')}}">退出登录</a>
+                    </li>
+                    </li>
+                </ul>
+            </nav>
+            <div class="jumbotron" style=" position:relative; top:50px;">
+                <div class="container" ;position:fixed>
+                    <div class="row">
+                        <div class="col-lg-26 offset-lg-23 col-md-18 offset-md-12 col-sm-10 offset-sm-1">
+
+                            <div style="text-align:center;margin-top:20px">
+                                <p style="margin-top:20px;font-size:20px">
+                                    <strong>添加商品</strong>
+                                    <!-- <div style="text-align:right">
+                            <footer class="blockquote-footer rigth " style="margin-right: 20px">
+                                可批量添加
+                            </footer>
+                        </div> -->
+                                </p>
+                            </div>
+                            <button id="toggleModal" type="button" class="btn btn-success btn-lg btn-block"
+                                style="margin-top:10px" data-toggle="modal" data-target="#myModal">
+                                <span style="font-size:17px">添加商品</span>
+                            </button>
+                            <br>
+                            <hr class="my-4">
+                            <div style="text-align:center;margin-top:20px">
+                                <p style="margin-top:20px;font-size:20px">
+                                    <strong>商品查询</strong>
+                                </p>
+                            </div>
+                            <form action="{{url_for('manage.merchandise_home')}}" name="searchForm" method="GET">
+                                <div style="margin-top:40px" class="container">
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <span class="badge badge-secondary">商品编号</span>
+                                            <input type="text" name="merchandise_id">
+                                        </div>
+                                        <div class="col-sm">
+                                            <span class="badge badge-light">商品名称</span>
+                                            <input type="text" name="name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="margin-top:10px" class="container">
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <span class="badge badge-info">单价</span>
+                                            <input type="text" name="unit_price">
+                                        </div>
+                                        <div class="col-sm">
+                                            <span class="badge badge-dark">供应商编码</span>
+                                            <input type="text" name="supplyer_id">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="margin-top:10px" class="container">
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <span class="badge badge-light">商品描述</span>
+                                            <input type="text" name="description">
+                                        </div>
+                                        <div class="col-sm">
+                                            <span class="badge badge-secondary">备注</span>
+                                            <input type="text" name="comment">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <br>
+
+                            <button type="button" class="btn btn-success btn-lg btn-block" style="margin-top:10px"
+                                id="doSearch">
+                                <span style="font-size:17px">查询商品</span>
+                            </button>
+                            <br>
+                            <hr class="my-4">
+                        </div>
+                    </div>
+                </div>
+                <div id="disptable" style="display:none">
+                    <div style="text-align:center;margin-top:20px">
+                        <p style="margin-top:20px;font-size:20px">
+                            <strong>查询信息显示</strong>
+                        </p>
+                    </div>
+
+                    <div class="table-responsive; overflow-auto">
+                        <table id="table" data-locale="zh-CN">
+                        </table>
+                    </div>
+
+                </div>
+
+                <br>
+                <hr class="my-4">
+                <p style="font-size:10px"><em>&copy; 2020 普通上班组</em></p>
+
+            </div>
+            </div>
+
+
+            <div style="position:fixed; bottom: 50px; right: 0">
+                <a href="#" class="btn btn-outline-info stretched-link">返回顶部</a>
+            </div>
+
+
+            <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+            <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.js"></script>
+            <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table-locale-all.min.js"></script>
+            <script
+                src="https://unpkg.com/bootstrap-table@1.18.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
+            <script>
+                $(document).ready(function () {
+                    window.operateEvents = {    //999未处理，0不要，-1待定，1要
+                        'click .RoleOfIn': function (e, value, row, index) {
+                            console.log("修改");
+                            console.log(row.id, row.merchandise_id)
+                            $("#hiddenidinput").prop('value', row.id)
+                            $("[name='comment']").prop('value', row.comment);
+                            $("[name='description']").prop('value', row.description);
+                            $("[name='supplyer_id']").prop('value', row.supplyer_id);
+                            $("[name='unit_price']").prop('value', row.unit_price);
+                            $("[name='name']").prop('value', row.name);
+                            $("[name='merchandise_id']").prop('value', row.merchandise_id);
+                            $("#myModalLabel").text('修改供应商')
+                            $("#myModal").modal('show')
+                        },
+                        'click .RoleOfwait': function (e, value, row, index) {
+                            console.log("删除", row.id);
+                            $.ajax({
+                                type: "DELETE",
+                                //contentType: "application/json;charset=UTF-8",
+                                url: `{{url_for('manage.merchandise_home')}}?id=${row.id}`,
+                                success: function (result) {
+                                    if (result.success) {
+                                        console.log('success:' + result);
+                                        $("#table").bootstrapTable('refresh');
+                                        msgOK('删除成功')
+                                    } else {
+                                        console.log('error:' + result);
+                                        //$("#table").bootstrapTable('refresh');
+                                        msgOK('删除失败')
+                                    }
+                                },
+                                error: function (e) {
+                                    console.log('fail:' + e.status);
+                                    console.log(e.responseText);
+                                    msgFail('遇到错误')
+                                }
+                            });
+                        }
+                    };
+                    let table_column = [{
+                        field: 'merchandise_id',
+                        title: '商品编号'
+                    }, {
+                        field: 'name',
+                        title: '名称'
+                    }, {
+                        field: 'unit_price',
+                        title: '公司地址'
+                    }, {
+                        field: 'supplyer_id',
+                        title: '公司电话'
+                    }, {
+                        field: 'description',
+                        title: '联系人'
+                    }, {
+                        field: 'comment',
+                        title: '备注'
+                    }, {
+                        field: 'operation',
+                        title: '操作',
+                        events: operateEvents,
+                        formatter: operateFormatter
+                    }]
+                    function operateFormatter(value, row, index) {
+                        return [
+                            '<button type="button" class="RoleOfIn btn btn-primary  btn-sm" >修改</button>',
+                            '<button type="button" class="RoleOfwait btn btn-danger  btn-sm" >删除</button>'
+                        ].join('');
                     }
-                    else if (result === 'fail')
-                    {
-                        window.location.href = "{{url_for('manage.merchandise', result='删除失败')}}"
-                    }
-                },
-                error: function(result) {
-                    console.log(result)
-                }
-            });
-        }
+                    $("#doSearch").click((e) => {
+                        console.log(e)
+                        e.preventDefault()
+                        let form = $("[name='searchForm']")
+                        let data = form.serialize()
+                        console.log(data)
+                        $('#table').bootstrapTable({
+                            url: `{{url_for('manage.merchandise_home')}}?${data}`,
+                            columns: table_column
+                        })
+                        $("#table").bootstrapTable('refresh', { url: `{{url_for('manage.merchandise_home')}}?${data}` });
+                        $("#disptable").show();
+                    })
+                });
+                $("#fillnew").click(function (e) {
+                    e.preventDefault()
 
-    </script>
+                    $(".modal [name='comment']").prop('value', randomString(32));
+                    $(".modal [name='description']").prop('value', randomString(10));
+                    $(".modal [name='supplyer_id']").prop('value', randomString(10));
+                    $(".modal [name='unit_price']").prop('value', randomString(10));
+                    $(".modal [name='name']").prop('value', randomString(10));
+                    $(".modal [name='merchandise_id']").prop('value', randomString(20))
+                })
+                $("#toggleModal").click(function (e) {
+                    e.preventDefault()
+                    $("#myModalLabel").text('添加商品');
+                    $("#hiddenidinput").prop('value', '');
+                    $(".modal [name='comment']").prop('value', '');
+                    $(".modal [name='description']").prop('value', '');
+                    $(".modal [name='supplyer_id']").prop('value', '');
+                    $(".modal [name='unit_price']").prop('value', '');
+                    $(".modal [name='name']").prop('value', '');
+                    $(".modal [name='merchandise_id']").prop('value', '');
+                })
+                $("#addnew").click(function (e) {
+                    e.preventDefault()
+                    let form = $("[name='newVoteForm']")
+                    let targetURL = form.attr("action")
+                    let data = form.serialize()
+                    $.ajax({
+                        type: 'POST',
+                        url: targetURL,
+                        cache: false,
+                        data: data,
+                        dataType: 'json',
+                        success: function (res) {
+                            console.log(res)
+                            $("#myModal").modal('hide')
+                            if (res.success === true) {
+                                //$(".toast").toast('show')
+                                msgOK("操作成功")
+                                $("#table").bootstrapTable('refresh');
+                            } else {
+                                msgFail("操作失败")
+                            }
+                        },
+                        error: function (err) {
+                            console.log('error:', err)
+                        }
+                    })
+                })
 
-{% endblock %}
+            </script>
+    </body>
+    {% endblock %}
+</html>
