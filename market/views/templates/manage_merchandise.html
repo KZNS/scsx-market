@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <style>
+        .input{width:100px;overflow:hidden}
+    </style>
+    <form method="GET">
+        Merchandise ID: <input type="text" name="merchandise_id" class="input"/>
+        Name: <input type="text" name="name" class="input"/>
+        Unit Price: <input type="text" name="unit_price" class="input"/>
+        Supplyer ID: <input type="text" name="supplyer_id" class="input"/>
+        Description: <input type="text" name="description" class="input"/>
+        Comment: <input type="text" name="comment" class="input"/>
+        <input type="submit" name="submit"/>
+    </form>
+    <a href="{{url_for('manage.merchandise_add')}}">
+        <button>增加商品</button>
+    </a>
+    <table>
+        <tr>
+            <th>Merchandise ID</th>
+            <th>Name</th>
+            <th>Unit Price</th>
+            <th>Supplyer ID</th>
+            <th>Description</th>
+            <th>Comment</th>
+        </tr>
+        {% for item in data %}
+        <tr>
+            <td>{{item.merchandise_id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.unit_price}}</td>
+            <td>{{item.supplyer_id}}</td>
+            <td>{{item.description}}</td>
+            <td>{{item.comment if item.comment else ''}}</td>
+            <td>
+                <a href="/manage/merchandise/modify/{{item.id}}">
+                    <button>修改</button>
+                </a>
+            </td>
+            <td>
+                <button onclick="ondelete({{item.id}})">删除</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Optional JavaScript -->
+    <script>
+        function ondelete(id)
+        {
+            $.ajax({
+                url: '/manage/merchandise/del/' + id,
+                type: 'DELETE',
+                success: function(result) {
+                    console.log(result)
+                    if (result === 'succeed')
+                    {
+                        window.location.href = "{{url_for('manage.merchandise', result='删除成功')}}"
+                    }
+                    else if (result === 'fail')
+                    {
+                        window.location.href = "{{url_for('manage.merchandise', result='删除失败')}}"
+                    }
+                },
+                error: function(result) {
+                    console.log(result)
+                }
+            });
+        }
+
+    </script>
+
+{% endblock %}

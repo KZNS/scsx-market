@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <style>
+        .input{width:200px;overflow:hidden}
+    </style>
+    <form method="post" onsubmit="return check()">
+        <table>
+            <tr>
+                <td>Staff Id: </td>
+                <td>
+                    <input type="text" id="staff_id" name="staff_id" class="input" value="{{item.staff_id}}" disabled="true"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Name: </td>
+                <td>
+                    <input type="text" id="name" name="name" class="input" value="{{item.name}}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Password: </td>
+                <td>
+                    <input type="password" id="password" name="password" class="input"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Level: </td>
+                <td>
+                    <input type="text" id="level" name="level" class="input" value="{{item.level}}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Telephone: </td>
+                <td>
+                    <input type="text" id="telephone" name="telephone" class="input" value="{{item.telephone}}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Salary: </td>
+                <td>
+                    <input type="text" id="salary" name="salary" class="input" value="{{item.salary}}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Comment: </td>
+                <td>
+                    <input type="text" id="comment" name="comment" class="input" value="{{item.comment}}"/>
+                </td>
+            </tr>
+        </table>
+        <input type="submit" name="submit" value="提交" onsubmit="return check()"/>
+    </form>
+
+    <!-- Optional JavaScript -->
+    <script src="https://static.dutbit.com/md5.js"></script>
+
+    <script>
+        let md5enc = (str) => {
+            return hex_md5('dutbit' + hex_md5(str) + '稍有常识的人')
+        }
+        let check = () => {
+            if ($("#password").val() !== '')
+            {
+                $("#password").val(md5enc($("#password").val()));
+            }
+            return true;
+        }
+    </script>
+
+{% endblock %}
