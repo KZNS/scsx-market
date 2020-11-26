@@ -1,18 +1,8 @@
 <!doctype html>
 <html lang="en">
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.css">
-    <title>manage-supplyer</title>
-</head>
+{% extends 'base_head.html' %}
+{% block content %}
 
 <body>
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -23,52 +13,39 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
                 </div>
-                <form action="{{url_for('manage.order_home')}}" method="POST" name="newVoteForm">
+                <form action="{{url_for('manage.manage_order_add')}}" method="POST" name="newOrderForm">
                     <div class="modal-body">
-                        <div class="row">
-                            <input type="text" value="" id="hiddenidinput" name="hiddenidinput" style="display:none">
-                            <div class="col-sm">
-                                <span class="badge badge-secondary">订单编号</span>
-                                <input type="text" name="order_id" required>
-                            </div>
-                            <div class="col-sm">
-                                <span class="badge badge-light">订单名称</span>
-                                <input type="text" name="name">
-                            </div>
-                            <div class="col-sm">
-                                <span class="badge badge-info">订单简称</span>
-                                <input type="text" name="name_short">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm">
-                                <span class="badge badge-info">订单地址</span>
-                                <input type="text" name="address">
-                            </div>
-                            <div class="col-sm">
-                                <span class="badge badge-dark">订单电话</span>
-                                <input type="text" name="telephone">
-                            </div>
-                            <div class="col-sm">
-                                <span class="badge badge-light">订单邮件</span>
-                                <input type="text" name="email">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm">
-                                <span class="badge badge-light">订单联系人</span>
-                                <input type="text" name="contact">
-                            </div>
-                            <div class="col-sm">
-                                <span class="badge badge-info">联系人电话</span>
-                                <input type="text" name="contact_phone">
-                            </div>
-                            <div class="col-sm">
-                                <span class="badge badge-secondary">备注</span>
-                                <input type="text" name="comment">
-                            </div>
-                        </div>
-                        <button id="fillnew">fillnew</button>
+                        <table>
+                            <tr>
+                                <th>采购清单号</th>
+                                <th>员工编号</th>
+                                <th>采购数量</th>
+                                <th>采购总价</th>
+                                <th>采购时间</th>
+                                <th>备注</th>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="order_id"></td>
+                                <td><input type="text" name="staff_id"></td>
+                                <td><input type="text" name="gross_quantity"></td>
+                                <td><input type="text" name="gross_price"></td>
+                                <td><input type="text" name="time"></td>
+                                <td><input type="text" name="comment"></td>
+                            </tr>
+                        </table>
+                        <button type="button" onclick="addRow()">新增一行</button>
+                        <button type="button" onclick="deleteRow()">删除一行</button>
+                        <table>
+                            <tr id="itemtr0">
+                                <th>序号</th>
+                                <th>采购明细号</th>
+                                <th>商品编号</th>
+                                <th>采购数量</th>
+                                <th>商品单价</th>
+                                <th>商品总价</th>
+                                <th>备注</th>
+                            </tr>
+                        </table>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -77,70 +54,88 @@
                 </form>
             </div>
         </div>
+        <script>
+            var index = 0;//初始下标
+            var html = "<tr id='itemtr##'>\
+                        <td>##</td>\
+                        <td><input type='text' name='order_detail_id[]'></td>\
+                        <td><input type='text' name='merchandise_id[]'></td>\
+                        <td><input type='number' name='merchandise_quantity[]'></td>\
+                        <td><input type='text' name='unit_price[]'></td>\
+                        <td><input type='text' name='detail_gross_price[]'></td>\
+                        <td><input type='text' name='detail_comment[]'></td>\
+                        </tr>";
+            //添加第一行
+            index++;
+            var newhtml = html.replace(/##/g, index);//把##替换成数字
+            $("#itemtr" + (index - 1)).after($(newhtml));
+            //新增一行
+            function addRow() {
+                index++;
+                var newhtml = html.replace(/##/g, index);//把##替换成数字
+                $("#itemtr" + (index - 1)).after($(newhtml));
+            }
+
+            //删除一行
+            function deleteRow() {
+                if (index > 1) {
+                    $("#itemtr" + index).remove();
+                    index--;
+                }
+            }
+        </script>
     </div>
-    </head>
+    <a name="1F"></href>
+        <nav class="navbar  navbar-expand-lg fixed-top navbar-light bg-light" style="height:100px;text-align:left">
 
-    <body>
-        <a name="1F"></href>
-            <nav class="navbar  navbar-expand-lg fixed-top navbar-light bg-light" style="height:100px;text-align:left">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <strong>供销存管理系统</strong>
 
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                    data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <strong>供销存管理系统</strong>
-
-                <nav class="nav nav-pills nav-fill">
-                    <a class="nav-item nav-link" href="#1F">添加订单</a>
-                    <a class="nav-item nav-link" href="#2F">订单查询</a>
-                    <a class="nav-item nav-link" href="#2F">订单修改</a>
-                </nav>
-
-                <ul class="navbar-nav  ml-auto" style="right:51%;">
-                    <li class="nav-item">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('index.logout')}}">退出登录</a>
-                    </li>
-                    </li>
-                </ul>
+            <nav class="nav nav-pills nav-fill">
+                <a class="nav-item nav-link" href="#1F">添加订单</a>
+                <a class="nav-item nav-link" href="#2F">订单查询</a>
+                <a class="nav-item nav-link" href="#2F">订单修改</a>
             </nav>
-            <div class="jumbotron" style=" position:relative; top:50px;">
-                <div class="container" ;position:fixed>
-                    <div class="row">
-                        <div class="col-lg-26 offset-lg-23 col-md-18 offset-md-12 col-sm-10 offset-sm-1">
 
-                            <div style="text-align:center;margin-top:20px">
-                                <p style="margin-top:20px;font-size:20px">
-                                    <strong>添加订单</strong>
-                                    <!-- <div style="text-align:right">
+            <ul class="navbar-nav  ml-auto" style="right:51%;">
+                <li class="nav-item">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('index.logout')}}">退出登录</a>
+                </li>
+                </li>
+            </ul>
+        </nav>
+        <div class="jumbotron" style=" position:relative; top:50px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-26 offset-lg-23 col-md-18 offset-md-12 col-sm-10 offset-sm-1">
+
+                        <div style="text-align:center;margin-top:20px">
+                            <p style="margin-top:20px;font-size:20px">
+                                <strong>添加订单</strong>
+                                <!-- <div style="text-align:right">
                             <footer class="blockquote-footer rigth " style="margin-right: 20px">
                                 可批量添加
                             </footer>
                         </div> -->
-                                </p>
-                            </div>
-                            <button id="toggleModal" type="button" class="btn btn-success btn-lg btn-block"
-                                style="margin-top:10px" data-toggle="modal" data-target="#myModal">
-                                <span style="font-size:17px">添加订单</span>
-                            </button>
-
-
-
-
-
-
-
-
-
-
-                            <br>
-                            <hr class="my-4">
-                            <div style="text-align:center;margin-top:20px">
-                                <p style="margin-top:20px;font-size:20px">
-                                    <strong>订单查询</strong>
-                                </p>
-                            </div>
+                            </p>
+                        </div>
+                        <button id="toggleModal" type="button" class="btn btn-success btn-lg btn-block"
+                            style="margin-top:10px" data-toggle="modal" data-target="#myModal">
+                            <span style="font-size:17px">添加订单</span>
+                        </button>
+                        <br>
+                        <hr class="my-4">
+                        <div style="text-align:center;margin-top:20px">
+                            <p style="margin-top:20px;font-size:20px">
+                                <strong>订单查询</strong>
+                            </p>
+                        </div>
+                        <form action="{{url_for('manage.manage_order')}}" method="GET">
                             <div style="margin-top:40px" class="container">
                                 <div class="row">
                                     <div class="col-sm">
@@ -155,10 +150,6 @@
                                         <span class="badge badge-info">采购时间</span>
                                         <input type="text" name="time">
                                     </div>
-                                    <div class="col-sm">
-                                        <span class="badge badge-info">备注</span>
-                                        <input type="text" name="comment">
-                                    </div>
                                 </div>
                             </div>
                             <div style="margin-top:10px" class="container">
@@ -172,207 +163,217 @@
                                         <input type="text" name="merchandise_id">
                                     </div>
                                     <div class="col-sm">
-                                        <span class="badge badge-light">备注</span>
-                                        <input type="text" name="detail_comment">
+                                        <span class="badge badge-info">备注</span>
+                                        <input type="text" name="comment">
                                     </div>
                                 </div>
                             </div>
                             <br>
 
-                            <button type="button" class="btn btn-success btn-lg btn-block" style="margin-top:10px"
+                            <button type="submit" class="btn btn-success btn-lg btn-block" style="margin-top:10px"
                                 id="doSearch">
                                 <span style="font-size:17px">查询订单</span>
                             </button>
                             <br>
                             <hr class="my-4">
-                        </div>
+                        </form>
                     </div>
                 </div>
-                <div id="disptable" style="display:none">
-                    <div style="text-align:center;margin-top:20px">
-                        <p style="margin-top:20px;font-size:20px">
-                            <strong>查询信息显示</strong>
-                        </p>
-                    </div>
-
-                    <div class="table-responsive; overflow-auto">
-                        <table id="table" data-locale="zh-CN">
+            </div>
+            <div id="disptable" style="display:block">
+                <div style="text-align:center;margin-top:20px">
+                    <p style="margin-top:20px;font-size:20px">
+                        <strong>查询信息显示</strong>
+                    </p>
+                </div>
+                {% for res in result %}
+                <div class="row">
+                    <div class="col-md-4 col-xs-12 col-sm-12" style="padding:0">
+                        总订单信息
+                        <table class="table table-dark" style="margin:0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">采购清单号</th>
+                                    <td>员工编号</td>
+                                    <td>采购数量</td>
+                                    <td>采购总价</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{res.main.order_id}}</td>
+                                    <td>{{res.main.staff_id}}</td>
+                                    <td>{{res.main.gross_quantity}}</td>
+                                    <td>{{res.main.gross_price}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-dark" style="margin:0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">采购时间</th>
+                                    <th scope="col">备注</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{res.main.time}}</td>
+                                    <td>{{res.main.comment}}</td>
+                                    <td>
+                                        <form method="POST" action="./order/modify">
+                                            <input type="hidden" value="false" name="modify" />
+                                            <input type="hidden" value="{{res.main.order_id}}" name="order_id" />
+                                            <button type="button" class="btn btn-primary  btn-sm"
+                                                onclick="start_update('{{res.main.order_id}}')">修改</button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form method="POST" , id="del">
+                                            <input type="hidden" value="true" name="delete" />
+                                            <input type="hidden" value="{{res.main.order_id}}" name="del_order_id" />
+                                            <button type="submit" class="btn btn-danger  btn-sm">删除</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
+                    <div class="col-md-8 col-xs-12 col-sm-12">
+                        分订单信息
+                        <table class="table table-dark" style="margin-bottom: 0;margin-top:0">
+                            <thead>
+                                <tr>
+                                    <th>编号</th>
+                                    <th>采购明细号</th>
+                                    <th>商品编号</th>
+                                    <th>采购数量</th>
+                                    <th>商品单价</th>
+                                    <th>商品总价</th>
+                                    <th>备注</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for detail in res.details%}
+                                <tr>
+                                    <th>{{detail.id}}</th>
+                                    <td>{{detail.order_detail_id}}</td>
+                                    <td>{{detail.merchandise_id}}</td>
+                                    <td>{{detail.merchandise_quantity}}</td>
+                                    <td>{{detail.unit_price}}</td>
+                                    <td>{{detail.gross_price}}</td>
+                                    <td>{{detail.gross_price}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
 
                 </div>
+                <hr>
+                {% endfor %}
+            </div><br>
+            <p style="font-size:10px"><em>&copy; 2020 普通上班组</em></p>
 
-                <br>
-                <hr class="my-4">
-                <p style="font-size:10px"><em>&copy; 2020 普通上班组</em></p>
+        </div>
+        </div>
+        <div style="position:fixed; bottom: 50px; right: 0">
+            <a href="#" class="btn btn-outline-info stretched-link">返回顶部</a>
+        </div>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
-            </div>
-            </div>
-
-
-            <div style="position:fixed; bottom: 50px; right: 0">
-                <a href="#" class="btn btn-outline-info stretched-link">返回顶部</a>
-            </div>
-
-
-            <!-- Optional JavaScript -->
-            <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-            <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-                integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-                crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"
-                integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-                crossorigin="anonymous"></script>
-
-
-            <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
-            <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.js"></script>
-            <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table-locale-all.min.js"></script>
-            <script
-                src="https://unpkg.com/bootstrap-table@1.18.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
-            <script>
-                function randomString(len) {
-                    len = len || 32;
-                    var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
-                    var maxPos = $chars.length;
-                    var pwd = '';
-                    for (i = 0; i < len; i++) {
-                        pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+        <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+        <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.js"></script>
+        <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table-locale-all.min.js"></script>
+        <script
+            src="https://unpkg.com/bootstrap-table@1.18.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
+        <script>
+            function start_update(s) {
+                $("#myModalLabel").text('修改订单');
+                let targetURL = "/manage/orderinfo"
+                fetch(`${targetURL}/${s}`).then(res => res.json()).then((jsondata) => {
+                    while (index > 1) {
+                        deleteRow()
                     }
-                    return pwd;
-                }
-                $(document).ready(function () {
-                    window.operateEvents = {    //999未处理，0不要，-1待定，1要
-                        'click .RoleOfIn': function (e, value, row, index) {
-                            console.log("修改");
-                            console.log(row.id, row.order_id)
-                            $("#hiddenidinput").prop('value', row.id)
-                            $("[name='order_id']").prop('value', row.order_id);
-                            $("[name='staff_id']").prop('value', row.staff_id);
-                            $("[name='gross_quntity']").prop('value', row.gross_quntity);
-                            $("[name='gross_price']").prop('value', row.gross_price);
-                            $("[name='time']").prop('value', row.time);
-                            $("[name='comment']").prop('value', row.comment);
+                    
+                    $("#itemtr" + index).remove();
+                    index--;
+                    Object.keys(jsondata.order).map(key => {
+                        //console.log(key)
+                        $(`[name='${key}']`).prop('value', jsondata.order[key])
+                    })
+                    Object.keys(jsondata.details).map(key => {
+                        console.log(key)
+                        let d = jsondata.details
+                        var html = `<tr id='itemtr##'>\
+                        <td>##</td>\
+                        <td><input type='text' name='order_detail_id[]' value='${d[key]["order_detail_id"]}'></td>\
+                        <td><input type='text' name='merchandise_id[]' value='${d[key]["merchandise_id"]}'></td>\
+                        <td><input type='text' name='merchandise_quantity[]' value='${d[key]["merchandise_quantity"]}'></td>\
+                        <td><input type='text' name='unit_price[]' value='${d[key]["unit_price"]}'></td>\
+                        <td><input type='text' name='detail_gross_price[]' value='${d[key]["gross_price"]}'></td>\
+                        <td><input type='text' name='detail_comment[]' value='${d[key]["comment"]}'></td>\
+                        </tr>`;
+                        index++;
+                        var newhtml = html.replace(/##/g, index);
+                        $("#itemtr" + (index - 1)).after($(newhtml))
+                    })
 
-                            $("#myModalLabel").text('修改订单')
-                            $("#myModal").modal('show')
-                        },
-                        'click .RoleOfwait': function (e, value, row, index) {
-                            console.log("删除", row.id);
-                            $.ajax({
-                                type: "DELETE",
-                                //contentType: "application/json;charset=UTF-8",
-                                url: `{{url_for('manage.order_home')}}?id=${row.id}`,
-                                success: function (result) {
-                                    console.log('success:' + result);
-                                    $("#table").bootstrapTable('refresh');
-                                    alert('success')
-                                },
-                                error: function (e) {
-                                    console.log('fail:' + e.status);
-                                    console.log(e.responseText);
-                                    alert('fail')
-                                }
-                            });
+                }).catch(err => {
+                    msgFail("查询失败")
+                    console.log(err)
+                })
+                $("#myModal").modal('show')
+            }
+            $(document).ready(function () {
+            });
+            $("#toggleModal").click(function (e) {
+                e.preventDefault()
+                $("#myModalLabel").text('添加订单');
+                $("#hiddenidinput").prop('value', '');
+                $(".modal [name='comment']").prop('value', '');
+                $(".modal [name='contact_phone']").prop('value', '');
+                $(".modal [name='contact']").prop('value', '');
+                $(".modal [name='email']").prop('value', '');
+                $(".modal [name='telephone']").prop('value', '');
+                $(".modal [name='address']").prop('value', '');
+                $(".modal [name='name_short']").prop('value', '');
+                $(".modal [name='name']").prop('value', '');
+                $(".modal [name='supplyer_id']").prop('value', '');
+            })
+            $("#addnew").click(function (e) {
+                e.preventDefault()
+                let form = $("[name='newOrderForm']")
+                let targetURL = form.attr("action")
+                let data = form.serialize()
+                $.ajax({
+                    type: 'POST',
+                    url: targetURL,
+                    cache: false,
+                    data: data,
+                    dataType: 'json',
+                    success: function (res) {
+                        console.log(res)
+                        $("#myModal").modal('hide')
+                        if (res.success === true) {
+                            //$(".toast").toast('show')
+                            msgOK("添加成功")
+                            $("#table").bootstrapTable('refresh');
+                        } else {
+                            msgFail("添加失败")
                         }
-                    };
-                    let table_column = [{
-                        field: 'order_id',
-                        title: '采购清单号'
-                    }, {
-                        field: 'staff_id',
-                        title: '员工编号'
-                    }, {
-                        field: 'gross_quntity',
-                        title: '采购数量'
-                    }, {
-                        field: 'gross_price',
-                        title: '采购总价'
-                    }, {
-                        field: 'time',
-                        title: '采购时间'
-                    }, {
-                        field: 'comment',
-                        title: '备注'
-                    }, {
-                        field: 'operation',
-                        title: '操作',
-                        events: operateEvents,
-                        formatter: operateFormatter
-                    }]
-                    function operateFormatter(value, row, index) {
-                        return [
-                            '<button type="button" class="RoleOfIn btn btn-primary  btn-sm" >修改</button>',
-                            '<button type="button" class="RoleOfwait btn btn-danger  btn-sm" >删除</button>'
-                        ].join('');
+                    },
+                    error: function (err) {
+                        console.log('error:', err)
                     }
-                    $("#doSearch").click((e) => {
-                        console.log(e)
-                        $('#table').bootstrapTable({
-                            url: "{{url_for('manage.order_home')}}",
-                            columns: table_column
-                        })
-                        $("#table").bootstrapTable('refresh');
-                        $("#disptable").show();
-                    })
-                });
-                $("#fillnew").click(function (e) {
-                    e.preventDefault()
-                    ///////
-                    $("[name='comment']").prop('value', randomString(32));
-                    $("[name='contact_phone']").prop('value', randomString(10));
-                    $("[name='contact']").prop('value', randomString(10));
-                    $("[name='email']").prop('value', randomString(10));
-                    $("[name='telephone']").prop('value', randomString(10));
-                    $("[name='address']").prop('value', randomString(10));
-                    $("[name='name_short']").prop('value', randomString(10));
-                    $("[name='staff_id']").prop('value', randomString(10));
-                    $("[name='order_id']").prop('value', randomString(20));
                 })
-                $("#toggleModal").click(function (e) {
-                    e.preventDefault()
-                    $("#myModalLabel").text('添加订单');
-                    $("#hiddenidinput").prop('value', '');
-                    $("[name='comment']").prop('value', '');
-                    $("[name='contact_phone']").prop('value', '');
-                    $("[name='contact']").prop('value', '');
-                    $("[name='email']").prop('value', '');
-                    $("[name='telephone']").prop('value', '');
-                    $("[name='address']").prop('value', '');
-                    $("[name='name_short']").prop('value', '');
-                    $("[name='name']").prop('value', '');
-                    $("[name='supplyer_id']").prop('value', '');
-                })
-                $("#addnew").click(function (e) {
-                    e.preventDefault()
-                    let form = $("[name='newVoteForm']")
-                    let targetURL = form.attr("action")
-                    let data = form.serialize()
-                    $.ajax({
-                        type: 'POST',
-                        url: targetURL,
-                        cache: false,
-                        data: data,
-                        dataType: 'json',
-                        success: function (res) {
-                            console.log(res)
-                            $("#myModal").modal('hide')
-                            if (res.success === true) {
-                                //$(".toast").toast('show')
-                                alert('success')
-                                $("#table").bootstrapTable('refresh');
-                            } else {
-                                alert('fail')
-                            }
-                        },
-                        error: function (err) {
-                            console.log('error:', err)
-                        }
-                    })
-                })
+            })
 
-            </script>
-    </body>
+        </script>
+</body>
+{% endblock %}
 
 </html>

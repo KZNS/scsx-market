@@ -1,18 +1,8 @@
 <!doctype html>
 <html lang="en">
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.css">
-    <title>manage-supplyer</title>
-</head>
+{% extends 'base_head.html' %}
+{% block content %}
 
 <body>
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -83,12 +73,6 @@
     <body>
         <a name="1F"></href>
             <nav class="navbar  navbar-expand-lg fixed-top navbar-light bg-light" style="height:100px;text-align:left">
-  </head>
-  <body>
-    <a name="1F"></href>
-    <nav class="navbar  navbar-expand-lg fixed-top navbar-light bg-light" style="height:100px;text-align:left">
-        <img src="https://static.dutbit.com/img/dutbit-png.png" width="36px" height="36px" />
-        <strong>供销存管理系统</strong>
 
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
                     data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
@@ -120,16 +104,6 @@
                                 <p style="margin-top:20px;font-size:20px">
                                     <strong>添加供应商</strong>
                                     <!-- <div style="text-align:right">
-    <a name="1F"></href>
-    <div class="jumbotron" style=" position:relative; top:50px;">
-        <div class="container" ;position:fixed>
-            <div class="row">
-                <div class="col-lg-26 offset-lg-23 col-md-18 offset-md-12 col-sm-10 offset-sm-1">
-                    
-                    <div style="text-align:center;margin-top:20px">
-                        <p style="margin-top:20px;font-size:20px">
-                            <strong>添加供应商</strong>
-                        <!-- <div style="text-align:right">
                             <footer class="blockquote-footer rigth " style="margin-right: 20px">
                                 可批量添加
                             </footer>
@@ -198,18 +172,6 @@
                                 </div>
                             </form>
                             <br>
-                        </p>
-                    </div>
-
-                    <a name="2F"></href>
-
-                    <button type="button" class="btn btn-success btn-lg btn-block"
-                        style="margin-top:10px" data-toggle="modal" data-target="#myModal">
-                        <span style="font-size:17px">添加供应商</span>
-                    </button>
-                    <br>
-                    <hr class="my-4">
-
 
                             <button type="button" class="btn btn-success btn-lg btn-block" style="margin-top:10px"
                                 id="doSearch">
@@ -247,47 +209,12 @@
             </div>
 
 
-            <!-- Optional JavaScript -->
-            <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-            <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-                integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-                crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"
-                integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-                crossorigin="anonymous"></script>
-
-            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
             <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
             <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.js"></script>
             <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table-locale-all.min.js"></script>
             <script
                 src="https://unpkg.com/bootstrap-table@1.18.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
             <script>
-                function randomString(len) {
-                    len = len || 32;
-                    var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
-                    var maxPos = $chars.length;
-                    var pwd = '';
-                    for (i = 0; i < len; i++) {
-                        pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
-                    }
-                    return pwd;
-                }
-                let msgOK = (s) => {
-                    Toastify({
-                        text: s,
-                        duration: 3000,
-                        backgroundColor: "linear-gradient(to right, #00b09b, #00b09b)",
-                    }).showToast();
-                }
-                let msgFail = (s) =>{
-                    Toastify({
-                        text: s,
-                        duration: 3000,
-                        backgroundColor: "linear-gradient(to right, #EF100F, #EF100F)",
-                    }).showToast();
-                }
                 $(document).ready(function () {
                     window.operateEvents = {    //999未处理，0不要，-1待定，1要
                         'click .RoleOfIn': function (e, value, row, index) {
@@ -313,14 +240,20 @@
                                 //contentType: "application/json;charset=UTF-8",
                                 url: `{{url_for('manage.supplyer_home')}}?id=${row.id}`,
                                 success: function (result) {
-                                    console.log('success:' + result);
-                                    $("#table").bootstrapTable('refresh');
-                                    msgOK('删除成功')
+                                    if (result.success) {
+                                        console.log('success:' + result);
+                                        $("#table").bootstrapTable('refresh');
+                                        msgOK('删除成功')
+                                    } else {
+                                        console.log('error:' + result);
+                                        //$("#table").bootstrapTable('refresh');
+                                        msgOK('删除失败')
+                                    }
                                 },
                                 error: function (e) {
                                     console.log('fail:' + e.status);
                                     console.log(e.responseText);
-                                    msgFail('删除失败')
+                                    msgFail('遇到错误')
                                 }
                             });
                         }
@@ -381,29 +314,29 @@
                 $("#fillnew").click(function (e) {
                     e.preventDefault()
 
-                    $("[name='comment']").prop('value', randomString(32));
-                    $("[name='contact_phone']").prop('value', randomString(10));
-                    $("[name='contact']").prop('value', randomString(10));
-                    $("[name='email']").prop('value', randomString(10));
-                    $("[name='telephone']").prop('value', randomString(10));
-                    $("[name='address']").prop('value', randomString(10));
-                    $("[name='name_short']").prop('value', randomString(10));
-                    $("[name='name']").prop('value', randomString(10));
-                    $("[name='supplyer_id']").prop('value', randomString(20))
+                    $(".modal [name='comment']").prop('value', randomString(32));
+                    $(".modal [name='contact_phone']").prop('value', randomString(10));
+                    $(".modal [name='contact']").prop('value', randomString(10));
+                    $(".modal [name='email']").prop('value', randomString(10));
+                    $(".modal [name='telephone']").prop('value', randomString(10));
+                    $(".modal [name='address']").prop('value', randomString(10));
+                    $(".modal [name='name_short']").prop('value', randomString(10));
+                    $(".modal [name='name']").prop('value', randomString(10));
+                    $(".modal [name='supplyer_id']").prop('value', randomString(20))
                 })
                 $("#toggleModal").click(function (e) {
                     e.preventDefault()
                     $("#myModalLabel").text('添加供应商');
                     $("#hiddenidinput").prop('value', '');
-                    $("[name='comment']").prop('value', '');
-                    $("[name='contact_phone']").prop('value', '');
-                    $("[name='contact']").prop('value', '');
-                    $("[name='email']").prop('value', '');
-                    $("[name='telephone']").prop('value', '');
-                    $("[name='address']").prop('value', '');
-                    $("[name='name_short']").prop('value', '');
-                    $("[name='name']").prop('value', '');
-                    $("[name='supplyer_id']").prop('value', '');
+                    $(".modal [name='comment']").prop('value', '');
+                    $(".modal [name='contact_phone']").prop('value', '');
+                    $(".modal [name='contact']").prop('value', '');
+                    $(".modal [name='email']").prop('value', '');
+                    $(".modal [name='telephone']").prop('value', '');
+                    $(".modal [name='address']").prop('value', '');
+                    $(".modal [name='name_short']").prop('value', '');
+                    $(".modal [name='name']").prop('value', '');
+                    $(".modal [name='supplyer_id']").prop('value', '');
                 })
                 $("#addnew").click(function (e) {
                     e.preventDefault()
@@ -435,5 +368,5 @@
 
             </script>
     </body>
-
+    {% endblock %}
 </html>
