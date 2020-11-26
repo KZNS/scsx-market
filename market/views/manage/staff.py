@@ -88,16 +88,19 @@ def staff_modify(id):
             'salary' : request.form.get('salary'),
             'comment' : request.form.get('comment')
         }
-        password = request.form.get('password')
-        if password and password != '':
-            d['password_hash'] = hash_password(password)
-        print(request.values.__dict__)
-        MarketStaff.query.filter(MarketStaff.id == id).update(d)
-        try:
-            db.session.commit()
-            flash('修改成功')
-        except Exception as e:
-            print(e)
-            db.session.rollback()
-            flash('修改失败')
+        if id == g.id and d['level'] != 'admin':
+            flash('不允许给自己降级')
+        else: 
+            password = request.form.get('password')
+            if password and password != '':
+                d['password_hash'] = hash_password(password)
+            print(request.values.__dict__)
+            MarketStaff.query.filter(MarketStaff.id == id).update(d)
+            try:
+                db.session.commit()
+                flash('修改成功')
+            except Exception as e:
+                print(e)
+                db.session.rollback()
+                flash('修改失败')
         return redirect(url_for('manage.staff', timeout=True))
