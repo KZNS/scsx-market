@@ -1,54 +1,358 @@
-{% extends 'base.html' %}
-{% block content %}
+<!doctype html>
+<html lang="en">
 
-    <style>
-        .input{width:100px;overflow:hidden}
-    </style>
-    <form method="GET">
-        Staff ID: <input type="text" name="staff_id" class="input"/>
-        Name: <input type="text" name="name" class="input"/>
-        Level: <input type="text" name="level" class="input"/>
-        Telephone: <input type="text" name="telephone" class="input"/>
-        Salary: <input type="text" name="salary" class="input"/>
-        Comment: <input type="text" name="comment" class="input"/>
-        <input type="submit" name="submit"/>
-    </form>
-    <a href="{{url_for('manage.staff_add')}}">
-        <button>增加员工</button>
-    </a>
-    <table>
-        <tr>
-            <th>Staff ID</th>
-            <th>Name</th>
-            <th>Level</th>
-            <th>Telephone</th>
-            <th>Salary</th>
-            <th>Comment</th>
-        </tr>
-        {% for item in data %}
-        <tr>
-            <td>{{item.staff_id}}</td>
-            <td>{{item.name}}</td>
-            <td>{{item.level}}</td>
-            <td>{{item.telephone}}</td>
-            <td>{{item.salary}}</td>
-            <td>{{item.comment if item.comment else ''}}</td>
-            <td>
-                <a href="/manage/staff/modify/{{item.id}}">
-                    <button>修改</button>
-                </a>
-            </td>
-            <td>
-                <button onclick="ondelete({{item.id}})">删除</button>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.css">
+    <title>manage-supplyer</title>
+</head>
+<!--
+<body>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">添加供应商</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    
+                </div>
+                <form action="{{url_for('manage.supplyer_home')}}" method="POST" name="newVoteForm">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm">
+                                <span class="badge badge-secondary">供应商编号</span>
+                                <input type="text" align="right" name="supplyerid" required>
+                            </div>
+                            <div class="col-sm">
+                                <span class="badge badge-light">供应商名称</span>
+                                <input type="text" align="right" name="supplyername">
+                            </div>
+                            <div class="col-sm">
+                                <span class="badge badge-info">供应商简称</span>
+                                <input type="text" align="right" name="supplyerabbr">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm">
+                                <span class="badge badge-info">供应商地址</span>
+                                <input type="text" align="right" name="supplyeraddress">
+                            </div>
+                            <div class="col-sm">
+                                <span class="badge badge-dark">供应商电话</span>
+                                <input type="text" align="right" name="supplyerphone">
+                            </div>
+                            <div class="col-sm">
+                                <span class="badge badge-light">供应商邮件</span>
+                                <input type="text" align="right" name="supplyeremail">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm">
+                                <span class="badge badge-light">供应商联系人</span>
+                                <input type="text" align="right" name="supplyerperson">
+                            </div>
+                            <div class="col-sm">
+                                <span class="badge badge-info">联系人电话</span>
+                                <input type="text" align="right" name="supplyerperson-phone">
+                            </div>
+                            <div class="col-sm">
+                                <span class="badge badge-secondary">备注</span>
+                                <input type="text" style="align:right" name="supplyerremarks">
+                            </div>
+                        </div>
+                        <button id="fillnew">fillnew</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <input type="submit" value="Submit" class="btn btn-primary" id="addnew"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  </head>
+  -->
+  <body>
+    <a name="1F"></href>
+    <nav class="navbar  navbar-expand-lg fixed-top navbar-light bg-light" style="height:100px;text-align:left">
+        <img src="https://static.dutbit.com/img/dutbit-png.png" width="36px" height="36px" />
+        <strong>供销存管理系统</strong>
+
+        <nav class="nav nav-pills nav-fill">
+            <a class="nav-item nav-link" href="#1F">添加员工</a>
+            <a class="nav-item nav-link" href="#2F">查询员工</a>
+            <a class="nav-item nav-link" href="#3F">修改员工</a>
+        </nav>
+
+        <ul class="navbar-nav  ml-auto" style="right:51%;">
+            <li class="nav-item">
+            <li class="nav-item">
+                <a class="nav-link" href="{{url_for('index.logout')}}">退出登录</a>
+            </li>
+            </li>
+        </ul>
+    </nav>
+
+
+
+    <div class="jumbotron" style=" position:relative; top:50px;">
+        <div class="container" ;position:fixed>
+            <div class="row">
+                <div class="col-lg-26 offset-lg-23 col-md-18 offset-md-12 col-sm-10 offset-sm-1">
+                    
+                    <div style="text-align:center;margin-top:20px">
+                        <p style="margin-top:20px;font-size:20px">
+                            <strong>添加员工</strong>
+                        <!-- <div style="text-align:right">
+                            <footer class="blockquote-footer rigth " style="margin-right: 20px">
+                                可批量添加
+                            </footer>
+                        </div> -->
+                        </p>
+                    </div>
+
+                    <a name="2F"></href>
+
+                    <a href="{{url_for('manage.staff_add')}}">
+                        <button type="button" class="btn btn-success btn-lg btn-block"
+                            style="margin-top:10px" data-toggle="modal" data-target="#myModal">
+                            <span style="font-size:17px">添加员工</span>
+                        </button>
+                    </a>
+                    
+                    <br>
+                    <hr class="my-4">
+
+
+                    
+                    <div style="text-align:center;margin-top:20px">
+                        <p style="margin-top:20px;font-size:20px">
+                            <strong>查询员工</strong>
+                        </p>
+                    </div>
+
+
+                    <form method="GET">
+                        <div style="margin-top:40px" class="container">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <span class="badge badge-secondary">员工编号</span>
+                                    <input type="text" name="staff_id" class="input"/>
+                                </div>
+                                <div class="col-sm">
+                                    <span class="badge badge-light">员工姓名</span>
+                                    <input type="text" name="name" class="input"/>
+                                </div>
+                                <div class="col-sm">
+                                    <span class="badge badge-info">员工级别</span>
+                                    <input type="text" name="level" class="input"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top:10px" class="container">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <span class="badge badge-info">员工电话</span>
+                                    <input type="text" name="telephone" class="input"/>
+                                </div>
+                                <div class="col-sm">
+                                    <span class="badge badge-dark">员工工资</span>
+                                    <input type="text" name="salary" class="input"/>
+                                </div>
+                                <div class="col-sm">
+                                    <span class="badge badge-light">备注</span>
+                                    <input type="text" name="comment" class="input"/> 
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+
+                         <a name="3F"></href>
+
+                        <button type="submit" name="submit" class="btn btn-success btn-lg btn-block"
+                            onclick="handleSearch()" style="margin-top:10px">
+                            <span style="font-size:17px">查询员工</span>
+                        </button>
+                    </form>
+    
+
+                    <br><br>
+                    <hr class="my-4">
+
+                </div>
+            </div>
+        </div>
+
+
+        <!--
+        <div id="disptable" style="display:none">
+            <div style="text-align:center;margin-top:20px">
+                <p style="margin-top:20px;font-size:20px">
+                    <strong>查询信息显示</strong>
+                </p>
+            </div>
+
+            <div class="table-responsive; overflow-auto">
+                <table id="table" data-locale="zh-CN">
+                </table>
+            </div>
+
+        </div>
+        -->
+
+        <div style="text-align:center;margin-top:20px">
+            <p style="margin-top:20px;font-size:20px">
+                <strong>员工查询信息显示</strong>
+            </p>
+        </div>
+
+        <div class="table-responsive; overflow-auto">
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">编号</th>
+                    <th scope="col">姓名</th>
+                    <th scope="col">级别</th>
+                    <th scope="col">电话</th>
+                    <th scope="col">薪水</th>
+                    <th scope="col">备注</th>
+                    <th scope="col">修改</th>
+                    <th scope="col">删除</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                    {% for item in data %}
+                    <tr>
+                        <th scope="row">{{item.staff_id}}</th>
+                        <td>{{item.name}}</td>
+                        <td>{{item.level}}</td>
+                        <td>{{item.telephone}}</td>
+                        <td>{{item.salary}}</td>
+                        <td>{{item.comment if item.comment else ''}}</td>         
+                        <td>
+                            <a href="/manage/staff/modify/{{item.id}}">
+                                <button type="button" class="btn btn-warning">修改</button>
+                            </a>
+                        </td>
+                        <td>
+                            <button onclick="ondelete({{item.id}})" type="button" class="btn btn-danger">删除</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+
+        <div style="text-align:right">
+            <footer class="blockquote-footer rigth " style="right: auto;">
+                滑动查看更多
+            </footer>
+        </div>
+
+
+        <br>
+        <hr class="my-4">
+        <p style="font-size:10px"><em>&copy; 2020 普通上班组</em></p>
+
+    </div>
+    </div>
+
+
+    <div style="position:fixed; bottom: 50px; right: 0">
+        <a href="#" class="btn btn-outline-info stretched-link"  >返回顶部</a>
+    </div>
+
+
 
     <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+
+    <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table-locale-all.min.js"></script>
+    <script
+        src="https://unpkg.com/bootstrap-table@1.18.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
     <script>
-        function ondelete(id)
-        {
+        let table_column = [{
+                    field: 'supplyer_id',
+                    title: '供应商编号'
+                }, {
+                    field: 'name',
+                    title: '名称'
+                }, {
+                    field: 'name_short',
+                    title: '简称'
+                }, {
+                    field: 'address',
+                    title: '公司地址'
+                }, {
+                    field: 'telephone',
+                    title: '公司电话'
+                }, {
+                    field: 'email',
+                    title: '邮件'
+                }, {
+                    field: 'contact',
+                    title: '联系人'
+                }, {
+                    field: 'contact_phone',
+                    title: '联系人电话'
+                }, {
+                    field: 'comment',
+                    title: '备注'
+                }]
+        $(document).ready(function () {
+            // $('#table').bootstrapTable({
+            //     url: "{{url_for('manage.supplyer_home')}}",
+
+            //     columns: table_column
+            // })
+            
+            //$("#disptable").show();//show
+        });
+        $("#fillnew").click(function(e){
+            e.preventDefault()
+            
+            $("[name='supplyerremarks']").attr('value','b');
+            $("[name='supplyerperson-phone']").attr('value','b');
+            $("[name='supplyerperson']").attr('value','b');
+            $("[name='supplyeremail']").attr('value','b');
+            $("[name='supplyerphone']").attr('value','b');
+            $("[name='supplyeraddress']").attr('value','b');
+            $("[name='supplyerabbr']").attr('value','b');
+            $("[name='supplyername']").attr('value','b');
+        })
+        let handleSearch = () =>{
+            $('#table').bootstrapTable({
+                url: "{{url_for('manage.supplyer_home')}}",
+
+                columns: table_column
+            })
+            $("#disptable").show();
+        }
+        $("#addnew").click(function(e){
+            e.preventDefault()
+            let form = $("[name='newVoteForm']")
+            let targetURL = form.attr("action")
+            let data = form.serialize()
             $.ajax({
                 url: '/manage/staff/del/' + id,
                 type: 'DELETE',
@@ -66,13 +370,22 @@
                     {
                         window.location.href = "{{url_for('manage.staff', result='不允许删除自己')}}"
                     }
+                type:'POST',
+                url:targetURL,
+                cache:false,
+                data:data,
+                dataType:'json',
+                success:function(res){
+                    console.log(res)
                 },
-                error: function(result) {
-                    console.log(result)
+                error:function(err){
+                    console.log('error:',err)
                 }
-            });
-        }
-
+            })
+        })
+        
     </script>
+    -->
+</body>
 
-{% endblock %}
+</html>
