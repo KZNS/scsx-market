@@ -134,7 +134,7 @@ def manage_order_modify():
 
         return "mangae order modify"
     else:
-        print(request.values.get('order_id'))
+        print(request.values.get('updateid'))
         order = MarketOrderMain.query.filter_by(
             order_id=request.values.get('order_id')
         )[0]

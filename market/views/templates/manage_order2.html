@@ -25,6 +25,7 @@
                                 <th>备注</th>
                             </tr>
                             <tr>
+                                <input type="hidden" name="isupdate" value="" id="updateflag">
                                 <td><input type="text" name="order_id"></td>
                                 <td><input type="text" name="staff_id"></td>
                                 <td><input type="text" name="gross_quantity"></td>
@@ -301,6 +302,7 @@
                     
                     $("#itemtr" + index).remove();
                     index--;
+                    $("#updateflag").prop('value','123')
                     Object.keys(jsondata.order).map(key => {
                         //console.log(key)
                         $(`[name='${key}']`).prop('value', jsondata.order[key])
@@ -331,6 +333,8 @@
             $(document).ready(function () {
             });
             $("#toggleModal").click(function (e) {
+                
+                $("#updateflag").prop('value','')
                 e.preventDefault()
                 $("#myModalLabel").text('添加订单');
                 $("#hiddenidinput").prop('value', '');

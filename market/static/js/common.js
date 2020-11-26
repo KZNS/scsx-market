@@ -8,6 +8,10 @@ function randomString(len) {
     }
     return pwd;
 }
+function getRandomText(){ 
+    eval( "var word=" +  '"\\u' + (Math.round(Math.random() * 20901) + 19968).toString(16)+'"')//生成随机汉字
+    return word;
+  }
 let msgOK = (s) => {
     Toastify({
         text: s,

@@ -14,3 +14,4 @@ class TestThis(unittest.TestCase):
     def test_test(self):
         res = self.app.get('/hello',follow_redirects=True)
         self.assertEqual(res.status_code,200)
+        res = self.app.post('/hello')
