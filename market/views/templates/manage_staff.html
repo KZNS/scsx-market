@@ -339,25 +339,25 @@
                 $("#fillnew").click(function (e) {
                     e.preventDefault()
 
-                    $("[name='comment']").prop('value', randomString(32));
-                    $("[name='salary']").prop('value', randomString(10));
-                    $("[name='telephone']").prop('value', randomString(10));
-                    $("[name='level']").prop('value', randomString(10));
-                    $("[name='password']").prop('value', randomString(10));
-                    $("[name='name']").prop('value', randomString(10));
-                    $("[name='staff_id']").prop('value', randomString(20))
+                    $(".modal [name='comment']").prop('value', randomString(32));
+                    $(".modal [name='salary']").prop('value', randomString(10));
+                    $(".modal [name='telephone']").prop('value', randomString(10));
+                    $(".modal [name='level']").prop('value', randomString(10));
+                    $(".modal [name='password']").prop('value', randomString(10));
+                    $(".modal [name='name']").prop('value', randomString(10));
+                    $(".modal [name='staff_id']").prop('value', randomString(20))
                 })
                 $("#toggleModal").click(function (e) {
                     e.preventDefault()
                     $("#myModalLabel").text('添加员工');
                     $("#hiddenidinput").prop('value', '');
-                    $("[name='comment']").prop('value', '');
-                    $("[name='salary']").prop('value', '');
-                    $("[name='telephone']").prop('value', '');
-                    $("[name='level']").prop('value', '');
-                    $("[name='password']").prop('value', '');
-                    $("[name='name']").prop('value', '');
-                    $("[name='staff_id']").prop('value', '');
+                    $(".modal [name='comment']").prop('value', '');
+                    $(".modal [name='salary']").prop('value', '');
+                    $(".modal [name='telephone']").prop('value', '');
+                    $(".modal [name='level']").prop('value', '');
+                    $(".modal [name='password']").prop('value', '');
+                    $(".modal [name='name']").prop('value', '');
+                    $(".modal [name='staff_id']").prop('value', '');
                 })
                 $("#addnew").click(function (e) {
                     e.preventDefault()
