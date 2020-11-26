@@ -6,7 +6,7 @@
 
 <body>
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog" role="document"style="max-width: 1200px">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="myModalLabel">添加订单</h4>
@@ -26,6 +26,7 @@
                             </tr>
                             <tr>
                                 <input type="hidden" name="isupdate" value="" id="updateflag">
+                                <input type="hidden" name="updateorderid" value="" id="updateorderid">
                                 <td><input type="text" name="order_id"></td>
                                 <td><input type="text" name="staff_id"></td>
                                 <td><input type="text" name="gross_quantity"></td>
@@ -34,8 +35,8 @@
                                 <td><input type="text" name="comment"></td>
                             </tr>
                         </table>
-                        <button type="button" onclick="addRow()">新增一行</button>
-                        <button type="button" onclick="deleteRow()">删除一行</button>
+                        <button type="button" onclick="addRow()" class="btn btn-primary">新增一行</button>
+                        <button type="button" onclick="deleteRow()" class="btn btn-danger">删除一行</button>
                         <table>
                             <tr id="itemtr0">
                                 <th>序号</th>
@@ -49,8 +50,8 @@
                         </table>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <input type="submit" value="Submit" class="btn btn-primary" id="addnew" />
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                        <button type="submit" value="Submit" class="btn btn-primary" id="addnew">提交</button>
                     </div>
                 </form>
             </div>
@@ -258,7 +259,7 @@
                             <tbody>
                                 {% for detail in res.details%}
                                 <tr>
-                                    <th>{{detail.id}}</th>
+                                    <th>{{loop.index}}</th>
                                     <td>{{detail.order_detail_id}}</td>
                                     <td>{{detail.merchandise_id}}</td>
                                     <td>{{detail.merchandise_quantity}}</td>
@@ -299,10 +300,11 @@
                     while (index > 1) {
                         deleteRow()
                     }
-                    
+
                     $("#itemtr" + index).remove();
                     index--;
-                    $("#updateflag").prop('value','123')
+                    $("#updateflag").prop('value', '123')
+                    $("#updateorderid").prop('value', s)
                     Object.keys(jsondata.order).map(key => {
                         //console.log(key)
                         $(`[name='${key}']`).prop('value', jsondata.order[key])
@@ -333,11 +335,17 @@
             $(document).ready(function () {
             });
             $("#toggleModal").click(function (e) {
-                
-                $("#updateflag").prop('value','')
+
+                while (index > 1) {
+                    deleteRow()
+                }
+
+                $("#updateflag").prop('value', '')
+                $("#updateorderid").prop('value', '')
                 e.preventDefault()
                 $("#myModalLabel").text('添加订单');
                 $("#hiddenidinput").prop('value', '');
+                $(":input").prop('value','')
                 $(".modal [name='comment']").prop('value', '');
                 $(".modal [name='contact_phone']").prop('value', '');
                 $(".modal [name='contact']").prop('value', '');
@@ -350,6 +358,7 @@
             })
             $("#addnew").click(function (e) {
                 e.preventDefault()
+
                 let form = $("[name='newOrderForm']")
                 let targetURL = form.attr("action")
                 let data = form.serialize()
