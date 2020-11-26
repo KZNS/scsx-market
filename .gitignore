@@ -128,3 +128,7 @@ dmypy.json
 .idea*
 .idea/$CACHE_FILE$
 .idea/encodings.xml
+
+# backup files
+*.html~
+*.py~

@@ -1,78 +1,404 @@
-{% extends 'base.html' %}
-{% block content %}
+<!doctype html>
+<html lang="en">
 
-    <style>
-        .input{width:100px;overflow:hidden}
-    </style>
-    <form method="GET">
-        Staff ID: <input type="text" name="staff_id" class="input"/>
-        Name: <input type="text" name="name" class="input"/>
-        Level: <input type="text" name="level" class="input"/>
-        Telephone: <input type="text" name="telephone" class="input"/>
-        Salary: <input type="text" name="salary" class="input"/>
-        Comment: <input type="text" name="comment" class="input"/>
-        <input type="submit" name="submit"/>
-    </form>
-    <a href="{{url_for('manage.staff_add')}}">
-        <button>增加员工</button>
-    </a>
-    <table>
-        <tr>
-            <th>Staff ID</th>
-            <th>Name</th>
-            <th>Level</th>
-            <th>Telephone</th>
-            <th>Salary</th>
-            <th>Comment</th>
-        </tr>
-        {% for item in data %}
-        <tr>
-            <td>{{item.staff_id}}</td>
-            <td>{{item.name}}</td>
-            <td>{{item.level}}</td>
-            <td>{{item.telephone}}</td>
-            <td>{{item.salary}}</td>
-            <td>{{item.comment if item.comment else ''}}</td>
-            <td>
-                <a href="/manage/staff/modify/{{item.id}}">
-                    <button>修改</button>
-                </a>
-            </td>
-            <td>
-                <button onclick="ondelete({{item.id}})">删除</button>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Optional JavaScript -->
-    <script>
-        function ondelete(id)
-        {
-            $.ajax({
-                url: '/manage/staff/del/' + id,
-                type: 'DELETE',
-                success: function(result) {
-                    console.log(result)
-                    if (result === 'succeed')
-                    {
-                        window.location.href = "{{url_for('manage.staff', result='删除成功')}}"
-                    }
-                    else if (result === 'fail')
-                    {
-                        window.location.href = "{{url_for('manage.staff', result='删除失败')}}"
-                    }
-                    else if (result === 'self')
-                    {
-                        window.location.href = "{{url_for('manage.staff', result='不允许删除自己')}}"
-                    }
-                },
-                error: function(result) {
-                    console.log(result)
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.css">
+    <title>manage-staff</title>
+</head>
+
+<body>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">添加员工</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                </div>
+                <form action="{{url_for('manage.staff_home')}}" method="POST" name="newVoteForm">
+                    <div class="modal-body">
+                        <div class="row">
+                            <input type="text" value="" id="hiddenidinput" name="hiddenidinput" style="display:none">
+                            <div class="col-sm">
+                                <span class="badge badge-secondary">员工号</span>
+                                <input type="text" name="staff_id" required>
+                            </div>
+                            <div class="col-sm">
+                                <span class="badge badge-light">姓名</span>
+                                <input type="text" name="name" required>
+                            </div>
+                            <div class="col-sm">
+                                <span class="badge badge-info">密码</span>
+                                <input type="password" name="password">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm">
+                                <span class="badge badge-info">等级</span>
+                                <input type="text" name="level" required>
+                            </div>
+                            <div class="col-sm">
+                                <span class="badge badge-dark">电话</span>
+                                <input type="text" name="telephone" required>
+                            </div>
+                            <div class="col-sm">
+                                <span class="badge badge-light">工资</span>
+                                <input type="text" name="salary">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm">
+                                <span class="badge badge-secondary">备注</span>
+                                <input type="text" name="comment">
+                            </div>
+                        </div>
+                        <button id="fillnew">fillnew</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <input type="submit" value="Submit" class="btn btn-primary" id="addnew" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </head>
+
+    <body>
+        <a name="1F"></href>
+            <nav class="navbar  navbar-expand-lg fixed-top navbar-light bg-light" style="height:100px;text-align:left">
+
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                    data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <strong>供销存管理系统</strong>
+
+                <nav class="nav nav-pills nav-fill">
+                    <a class="nav-item nav-link" href="#1F">添加员工</a>
+                    <a class="nav-item nav-link" href="#2F">查询员工</a>
+                    <a class="nav-item nav-link" href="#2F">修改员工信息</a>
+                </nav>
+
+                <ul class="navbar-nav  ml-auto" style="right:51%;">
+                    <li class="nav-item">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('index.logout')}}">退出登录</a>
+                    </li>
+                    </li>
+                </ul>
+            </nav>
+            <div class="jumbotron" style=" position:relative; top:50px;">
+                <div class="container" ;position:fixed>
+                    <div class="row">
+                        <div class="col-lg-26 offset-lg-23 col-md-18 offset-md-12 col-sm-10 offset-sm-1">
+
+                            <div style="text-align:center;margin-top:20px">
+                                <p style="margin-top:20px;font-size:20px">
+                                    <strong>添加员工</strong>
+                                    <!-- <div style="text-align:right">
+                            <footer class="blockquote-footer rigth " style="margin-right: 20px">
+                                可批量添加
+                            </footer>
+                        </div> -->
+                                </p>
+                            </div>
+                            <button id="toggleModal" type="button" class="btn btn-success btn-lg btn-block"
+                                style="margin-top:10px" data-toggle="modal" data-target="#myModal">
+                                <span style="font-size:17px">添加员工</span>
+                            </button>
+                            <br>
+                            <hr class="my-4">
+                            <div style="text-align:center;margin-top:20px">
+                                <p style="margin-top:20px;font-size:20px">
+                                    <strong>查询员工</strong>
+                                </p>
+                            </div>
+                            <form action="{{url_for('manage.staff_home')}}" name="searchForm" method="GET">
+                                <div style="margin-top:40px" class="container">
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <span class="badge badge-secondary">员工号</span>
+                                            <input type="text" name="staff_id">
+                                        </div>
+                                        <div class="col-sm">
+                                            <span class="badge badge-light">姓名</span>
+                                            <input type="text" name="name">
+                                        </div>
+                                        <div class="col-sm">
+                                            <span class="badge badge-info">等级</span>
+                                            <input type="text" name="level">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="margin-top:10px" class="container">
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <span class="badge badge-dark">电话</span>
+                                            <input type="text" name="telephone">
+                                        </div>
+                                        <div class="col-sm">
+                                            <span class="badge badge-light">工资</span>
+                                            <input type="text" name="salary">
+                                        </div>
+                                        <div class="col-sm">
+                                            <span class="badge badge-secondary">备注</span>
+                                            <input type="text" name="comment">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <br>
+
+                            <button type="button" class="btn btn-success btn-lg btn-block" style="margin-top:10px"
+                                id="doSearch">
+                                <span style="font-size:17px">查询员工信息</span>
+                            </button>
+                            <br>
+                            <hr class="my-4">
+                        </div>
+                    </div>
+                </div>
+                <div id="disptable" style="display:none">
+                    <div style="text-align:center;margin-top:20px">
+                        <p style="margin-top:20px;font-size:20px">
+                            <strong>查询信息显示</strong>
+                        </p>
+                    </div>
+
+                    <div class="table-responsive; overflow-auto">
+                        <table id="table" data-locale="zh-CN">
+                        </table>
+                    </div>
+
+                </div>
+
+                <br>
+                <hr class="my-4">
+                <p style="font-size:10px"><em>&copy; 2020 普通上班组</em></p>
+
+            </div>
+            </div>
+
+
+            <div style="position:fixed; bottom: 50px; right: 0">
+                <a href="#" class="btn btn-outline-info stretched-link">返回顶部</a>
+            </div>
+
+
+            <!-- Optional JavaScript -->
+            <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+            <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+                integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+                crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"
+                integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+                crossorigin="anonymous"></script>
+
+            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+            <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+            <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.js"></script>
+            <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table-locale-all.min.js"></script>
+            <script
+                src="https://unpkg.com/bootstrap-table@1.18.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
+
+            <script src="https://static.dutbit.com/md5.js"></script>
+
+            <script>
+                let md5enc = (str) => {
+                    return hex_md5('dutbit' + hex_md5(str) + '稍有常识的人')
                 }
-            });
-        }
+                function randomString(len) {
+                    len = len || 32;
+                    var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+                    var maxPos = $chars.length;
+                    var pwd = '';
+                    for (i = 0; i < len; i++) {
+                        pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+                    }
+                    return pwd;
+                }
+                let msgOK = (s) => {
+                    Toastify({
+                        text: s,
+                        duration: 3000,
+                        backgroundColor: "linear-gradient(to right, #00b09b, #00b09b)",
+                    }).showToast();
+                }
+                let msgFail = (s) =>{
+                    Toastify({
+                        text: s,
+                        duration: 3000,
+                        backgroundColor: "linear-gradient(to right, #EF100F, #EF100F)",
+                    }).showToast();
+                }
+                $(document).ready(function () {
+                    window.operateEvents = {    //999未处理，0不要，-1待定，1要
+                        'click .RoleOfIn': function (e, value, row, index) {
+                            console.log("修改");
+                            console.log(row.id, row.staff_id)
+                            $("#hiddenidinput").prop('value', row.id)
+                            $("[name='comment']").prop('value', row.comment);
+                            $("[name='salary']").prop('value', row.salary);
+                            $("[name='telephone']").prop('value', row.telephone);
+                            $("[name='level']").prop('value', row.level);
+                            $("[name='name']").prop('value', row.name);
+                            $("[name='staff_id']").prop('value', row.staff_id);
+                            $("#myModalLabel").text('修改员工')
+                            $("#myModal").modal('show')
+                        },
+                        'click .RoleOfwait': function (e, value, row, index) {
+                            console.log("删除", row.id);
+                            $.ajax({
+                                type: "DELETE",
+                                //contentType: "application/json;charset=UTF-8",
+                                url: `{{url_for('manage.staff_home')}}?id=${row.id}`,
+                                success: function (result) {
+                                    if (result.success === true)
+                                    {
+                                        console.log('success:' + result);
+                                        $("#table").bootstrapTable('refresh');
+                                        msgOK('删除成功')
+                                    }
+                                    else
+                                    {
+                                        console.log('fail:' + result);
+                                        if (result.self == true)
+                                        {
+                                            msgFail('删除失败：不能删除自己');
+                                        }
+                                        else
+                                        {
+                                            msgFail('删除失败');
+                                        }
+                                    }
+                                },
+                                error: function (e) {
+                                    console.log('fail:' + e.status);
+                                    console.log(e.responseText);
+                                    msgFail('删除失败')
+                                }
+                            });
+                        }
+                    };
+                    let table_column = [{
+                        field: 'staff_id',
+                        title: '员工号'
+                    }, {
+                        field: 'name',
+                        title: '姓名'
+                    }, {
+                        field: 'level',
+                        title: '等级'
+                    }, {
+                        field: 'telephone',
+                        title: '电话'
+                    }, {
+                        field: 'salary',
+                        title: '工资'
+                    }, {
+                        field: 'comment',
+                        title: '备注'
+                    }, {
+                        field: 'operation',
+                        title: '操作',
+                        events: operateEvents,
+                        formatter: operateFormatter
+                    }]
+                    function operateFormatter(value, row, index) {
+                        return [
+                            '<button type="button" class="RoleOfIn btn btn-primary  btn-sm" >修改</button>',
+                            '<button type="button" class="RoleOfwait btn btn-danger  btn-sm" >删除</button>'
+                        ].join('');
+                    }
+                    $("#doSearch").click((e) => {
+                        console.log(e)
+                        e.preventDefault()
+                        let form = $("[name='searchForm']")
+                        let data = form.serialize()
+                        console.log(data)
+                        $('#table').bootstrapTable({
+                            url: `{{url_for('manage.staff_home')}}?${data}`,
+                            columns: table_column
+                        })
+                        $("#table").bootstrapTable('refresh', { url: `{{url_for('manage.staff_home')}}?${data}` });
+                        $("#disptable").show();
+                    })
+                });
+                $("#fillnew").click(function (e) {
+                    e.preventDefault()
 
-    </script>
+                    $("[name='comment']").prop('value', randomString(32));
+                    $("[name='salary']").prop('value', randomString(10));
+                    $("[name='telephone']").prop('value', randomString(10));
+                    $("[name='level']").prop('value', randomString(10));
+                    $("[name='password']").prop('value', randomString(10));
+                    $("[name='name']").prop('value', randomString(10));
+                    $("[name='staff_id']").prop('value', randomString(20))
+                })
+                $("#toggleModal").click(function (e) {
+                    e.preventDefault()
+                    $("#myModalLabel").text('添加员工');
+                    $("#hiddenidinput").prop('value', '');
+                    $("[name='comment']").prop('value', '');
+                    $("[name='salary']").prop('value', '');
+                    $("[name='telephone']").prop('value', '');
+                    $("[name='level']").prop('value', '');
+                    $("[name='password'']").prop('value', '');
+                    $("[name='name']").prop('value', '');
+                    $("[name='staff_id']").prop('value', '');
+                })
+                $("#addnew").click(function (e) {
+                    e.preventDefault()
+                    if ($("[name='password']").val() === '') {
+                        if ($("#hiddenidinput").val() === '') {
+                            msgFail('请输入密码');
+                            return;
+                        }
+                    } else {
+                        $("[name='password']").val(md5enc($("[name='password']").val()));
+                    }
+                    let form = $("[name='newVoteForm']")
+                    let targetURL = form.attr("action")
+                    let data = form.serialize()
+                    $.ajax({
+                        type: 'POST',
+                        url: targetURL,
+                        cache: false,
+                        data: data,
+                        dataType: 'json',
+                        success: function (res) {
+                            console.log(res)
+                            $("#myModal").modal('hide')
+                            if (res.success === true) {
+                                //$(".toast").toast('show')
+                                msgOK("操作成功")
+                                $("#table").bootstrapTable('refresh');
+                            } else {
+                                if (res.self === true) {
+                                    msgFail('操作失败：不得给自己降级');
+                                } else {
+                                    msgFail("操作失败")
+                                }
+                            }
+                        },
+                        error: function (err) {
+                            console.log('error:', err)
+                        }
+                    })
+                })
 
-{% endblock %}
+            </script>
+    </body>
+
+</html>
