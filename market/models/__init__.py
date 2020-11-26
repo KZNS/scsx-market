@@ -51,10 +51,10 @@ class MarketMerchandise(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
 
     def __repr__(self):
         return self.__str__()
+
     def todict(self):
         d = self.__dict__.copy()
         d.pop('_sa_instance_state')
-        d.pop('password_hash')
         return d
 
 class MarketStaff(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
@@ -99,6 +99,7 @@ class MarketOrderMain(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
 
     def __repr__(self):
         return self.__str__()
+
     def todict(self):
         d = self.__dict__.copy()
         d.pop('_sa_instance_state')
@@ -123,6 +124,7 @@ class MarketOrderDetail(TimestampMixin, CommentMixin, DeleteMixin, db.Model):
 
     def __repr__(self):
         return self.__str__()
+
     def todict(self):
         d = self.__dict__.copy()
         d.pop('_sa_instance_state')
