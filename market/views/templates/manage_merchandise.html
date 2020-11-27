@@ -9,7 +9,7 @@
         <div class="modal-dialog" role="document" style="max-width: 1200px">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="_myModalLabel">批量添加供应商</h4>
+                    <h4 class="modal-title" id="_myModalLabel">批量添加商品</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
                 </div>
@@ -24,9 +24,13 @@
                             let info = $("#batchinput").val()
                             console.log(info)
                             fetch("/manage/merchandise/batchadd",{
-                                data:{
+                                method:"POST",
+                                headers:{
+                                    'Content-Type': 'application/json'
+                                },
+                                body:JSON.stringify({
                                     "info":info
-                                }
+                                })
                             }).then(res=>
                                 res.json()
                             ).then((res)=>{
