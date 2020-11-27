@@ -11,12 +11,75 @@
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.css">
-    <title>manage-staff</title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table-locale-all.min.js"></script>
+    <script
+        src="https://unpkg.com/bootstrap-table@1.18.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
+
+    <script src="https://static.dutbit.com/md5.js"></script>
+    <title>员工管理</title>
+    
 </head>
 
 <body>
+    <div class="modal fade" id="batchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document" style="max-width: 1200px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="_myModalLabel">批量添加员工</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                </div>
+                <div class="modal-body">
+                    <textarea rows="15" cols="100" id="batchinput" placeholder="批量添加"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button id="batchsubmit" type="button" class="btn btn-success">提交</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <script>
+                        $("#batchsubmit").click(() => {
+                            let info = $("#batchinput").val()
+                            console.log(info)
+                            fetch("/manage/staff/batchadd",{
+                                method:"POST",
+                                headers:{
+                                    'Content-Type': 'application/json'
+                                },
+                                body:JSON.stringify({
+                                    "info":info
+                                })
+                            }).then(res=>
+                                res.json()
+                            ).then((res) => {
+                                if (res.success) {
+                                    msgOK("提交成功")
+                                    $("#myModal").modal('hide')
+                                } else {
+                                    msgFail("提交失败")
+                                }
+                            }).catch(err => {
+                                console.log(err)
+                                msgOK("网络错误")
+                            })
+                        })
+
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document"style="max-width: 1200px">
+        <div class="modal-dialog" role="document" style="max-width: 430px">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="myModalLabel">添加员工</h4>
@@ -28,68 +91,73 @@
                         <div class="row">
                             <input type="text" value="" id="hiddenidinput" name="hiddenidinput" style="display:none">
                             <div class="col-sm">
-                                <span class="badge badge-secondary">员工号</span>
-                                <input type="text" name="staff_id" required>
+                                <span class="badge badge-secondary">员工号</span><br>
+                                <input type="text" name="staff_id" required style='width: 380px;'>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm">
-                                <span class="badge badge-light">姓名</span>
-                                <input type="text" name="name" required>
+                                <span class="badge badge-light">姓名</span><br>
+                                <input type="text" name="name" required style='width: 380px;'>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm">
-                                <span class="badge badge-info">密码</span>
-                                <input type="password" name="password">
+                                <span class="badge badge-info">密码</span><br>
+                                <input type="password" name="password"style='width: 380px;'>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm">
-                                <span class="badge badge-info">等级</span>
-                                <input type="text" name="level" required>
+                                <span class="badge badge-info">等级</span><br>
+                                <input type="text" name="level" required style='width: 380px;'>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm">
-                                <span class="badge badge-dark">电话</span>
-                                <input type="text" name="telephone" required>
+                                <span class="badge badge-dark">电话</span><br>
+                                <input type="text" name="telephone" required style='width: 380px;'>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm">
-                                <span class="badge badge-light">工资</span>
-                                <input type="text" name="salary">
+                                <span class="badge badge-light">工资</span><br>
+                                <input type="text" name="salary" style='width: 380px;'>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm">
-                                <span class="badge badge-secondary">备注</span>
-                                <input type="text" name="comment">
+                                <span class="badge badge-secondary">备注</span><br>
+                                <input type="text" name="comment" style='width: 380px;'>
                             </div>
                         </div>
                         <button id="fillnew">fillnew</button>
                     </div>
                     <div class="modal-footer">
+                        <button id="togglebatchModal" type="button" class="btn btn-success" style="left:800px;"
+                            data-toggle="modal" data-target="#batchModal">批量添加员工</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <input type="submit" value="Submit" class="btn btn-primary" id="addnew" />
+                        <script>
+                            $("#togglebatchModal").click(function () {
+
+                                $("#myModal").modal('hide')
+                            })
+                        </script>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    </head>
 
     <body>
-        <a name="1F"></href>
+        <a name="1F"></a>
             <nav class="navbar  navbar-expand-lg fixed-top navbar-light bg-light" style="height:100px;text-align:left">
 
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                    data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <strong>供销存管理系统</strong>
+                <a href="{{url_for('manage.manage_home')}}">
+                    <img src="https://static.dutbit.com/img/scsx.png" width="36px" height="36px" />
+                </a>
+                <strong>进销存管理系统</strong>
 
                 <nav class="nav nav-pills nav-fill">
                     <a class="nav-item nav-link" href="#1F">添加员工</a>
@@ -128,6 +196,7 @@
                             <hr class="my-4">
                             <div style="text-align:center;margin-top:20px">
                                 <p style="margin-top:20px;font-size:20px">
+                                    <a name="2F"></a>
                                     <strong>查询员工</strong>
                                 </p>
                             </div>
@@ -135,32 +204,32 @@
                                 <div style="margin-top:40px" class="container">
                                     <div class="row">
                                         <div class="col-sm">
-                                            <span class="badge badge-secondary">员工号</span>
-                                            <input type="text" name="staff_id">
+                                            <span class="badge badge-secondary">员工号</span><br>
+                                            <input type="text" name="staff_id" style='width: 180px;'>
                                         </div>
                                         <div class="col-sm">
-                                            <span class="badge badge-light">姓名</span>
-                                            <input type="text" name="name">
+                                            <span class="badge badge-light">姓名</span><br>
+                                            <input type="text" name="name" style='width: 180px;'>
                                         </div>
                                         <div class="col-sm">
-                                            <span class="badge badge-info">等级</span>
-                                            <input type="text" name="level">
+                                            <span class="badge badge-info">等级</span><br>
+                                            <input type="text" name="level" style='width: 180px;'>
                                         </div>
                                     </div>
                                 </div>
                                 <div style="margin-top:10px" class="container">
                                     <div class="row">
                                         <div class="col-sm">
-                                            <span class="badge badge-dark">电话</span>
-                                            <input type="text" name="telephone">
+                                            <span class="badge badge-dark">电话</span><br>
+                                            <input type="text" name="telephone" style='width: 180px;'>
                                         </div>
                                         <div class="col-sm">
-                                            <span class="badge badge-light">工资</span>
-                                            <input type="text" name="salary">
+                                            <span class="badge badge-light">工资</span><br>
+                                            <input type="text" name="salary" style='width: 180px;'>
                                         </div>
                                         <div class="col-sm">
-                                            <span class="badge badge-secondary">备注</span>
-                                            <input type="text" name="comment">
+                                            <span class="badge badge-secondary">备注</span><br>
+                                            <input type="text" name="comment" style='width: 180px;'>
                                         </div>
                                     </div>
                                 </div>
@@ -192,8 +261,10 @@
 
                 <br>
                 <hr class="my-4">
-                <p style="font-size:10px"><em>&copy; 2020 普通上班组</em></p>
+                <p style="font-size:10px"><em>&copy; 2020 普通上班组</em>
+                </p>
 
+                <a href="123" style="margin-top: 1000px;">a;lsdjf;alksdjaf;lk</a>
             </div>
             </div>
 
@@ -205,22 +276,7 @@
 
             <!-- Optional JavaScript -->
             <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-            <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-                integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-                crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"
-                integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-                crossorigin="anonymous"></script>
 
-            <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-            <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
-            <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.js"></script>
-            <script src="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table-locale-all.min.js"></script>
-            <script
-                src="https://unpkg.com/bootstrap-table@1.18.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
-
-            <script src="https://static.dutbit.com/md5.js"></script>
 
             <script>
                 let md5enc = (str) => {
@@ -243,7 +299,7 @@
                         backgroundColor: "linear-gradient(to right, #00b09b, #00b09b)",
                     }).showToast();
                 }
-                let msgFail = (s) =>{
+                let msgFail = (s) => {
                     Toastify({
                         text: s,
                         duration: 3000,
@@ -273,21 +329,17 @@
                                 //contentType: "application/json;charset=UTF-8",
                                 url: `{{url_for('manage.staff_home')}}?id=${row.id}`,
                                 success: function (result) {
-                                    if (result.success === true)
-                                    {
+                                    if (result.success === true) {
                                         console.log('success:' + result);
                                         $("#table").bootstrapTable('refresh');
                                         msgOK('删除成功')
                                     }
-                                    else
-                                    {
+                                    else {
                                         console.log('fail:' + result);
-                                        if (result.self == true)
-                                        {
+                                        if (result.self == true) {
                                             msgFail('删除失败：不能删除自己');
                                         }
-                                        else
-                                        {
+                                        else {
                                             msgFail('删除失败');
                                         }
                                     }

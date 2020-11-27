@@ -84,7 +84,35 @@ def test():
 
 @manage.route('/supplyer')
 def manage_supplyer():
-    return render_template('manage_supplyer.html') 
+    return render_template('manage_supplyer.html', title='供应商管理') 
+
+@manage.route('/supplyer/batchadd', methods=['POST'])
+def supplyer_batchadd():
+    batch = request.get_json().get('info')
+    print(batch)
+    supplyers = batch.split('\n')
+    print(supplyers)
+    
+    for supplyer in supplyers:
+        supplyer=supplyer.split(',')
+        db.session.add(MarketSupplyer(
+            supplyer_id=supplyer[0],
+            name=supplyer[1],
+            name_short=supplyer[2],
+            address=supplyer[3],
+            telephone=supplyer[4],
+            email=supplyer[5],
+            contact=supplyer[6],
+            contact_phone=supplyer[7],
+            comment=supplyer[8]
+        ))
+    try:
+        db.session.commit()
+        return jsonify({"success":True})
+    except Exception as e:
+        print(e)
+        db.session.rollback()
+        return jsonify({"success":False})
 
 @manage.route('/supplyerpopulate')
 def populate_sup():

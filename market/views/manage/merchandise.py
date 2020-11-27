@@ -76,7 +76,32 @@ def merchandise_home():
             return jsonify({'success':False})
 
 
+@manage.route('/merchandise/batchadd', methods=['POST'])
+def merchandise_batchadd():
+    batch = request.get_json().get('info')
+    print(batch)
+    merchandises = batch.split('\n')
+    print(merchandises)
+    
+    for merchandise in merchandises:
+        merchandise=merchandise.split(',')
+        db.session.add(MarketMerchandise(
+            merchandise_id=merchandise[0],
+            name=merchandise[1],
+            unit_price=merchandise[2],
+            supplyer_id=merchandise[3],
+            description=merchandise[4],
+            comment=merchandise[5]
+        ))
+    try:
+        db.session.commit()
+        return jsonify({"success":True})
+    except Exception as e:
+        print(e)
+        db.session.rollback()
+        return jsonify({"success":False})
+
 
 @manage.route("/merchandise", methods=['GET'])
-def merchandise():
-    return render_template('manage_merchandise.html')
+def manage_merchandise():
+    return render_template('manage_merchandise.html', title='商品管理')

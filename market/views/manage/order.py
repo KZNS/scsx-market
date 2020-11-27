@@ -105,7 +105,7 @@ def manage_order():
             if detail.order_id == order.order_id:
                 this_order['details'].append(detail)
         result.append(this_order)
-    return render_template('manage_order2.html', result=result, title="订单查询")
+    return render_template('manage_order.html', result=result, title="订单查询")
 
 
 @manage.route("/order/add", methods=['POST', 'GET'])
@@ -157,6 +157,53 @@ def manage_order_modify():
             .order_by(MarketOrderDetail.order_detail_id.asc()).all()
         order.details = details
         return render_template("manage_order_modify.html", title="修改订单", order=order)
+
+
+@manage.route('/order/batchadd', methods=['POST'])
+def order_batchadd():
+    batch = request.get_json().get('info')
+    print(batch)
+    orders = batch.split(';')
+    print(orders)
+    
+    for order in orders:
+        order=order.split('\n')
+        print(order)
+        i = 0
+        while order[i] == '':
+            i += 1
+        orderinfo = order[i].split(',')
+        print(orderinfo)
+        db.session.add(MarketOrderMain(
+            order_id=orderinfo[0],
+            staff_id=orderinfo[1],
+            gross_quantity=orderinfo[2],
+            gross_price=orderinfo[3],
+            time=orderinfo[4],
+            comment=orderinfo[5]
+        ))
+        order_id = orderinfo[0]
+        i += 1
+        while i < len(order):
+            detail = order[i].split(',')
+            print(detail)
+            db.session.add(MarketOrderDetail(
+                order_detail_id=detail[0],
+                order_id=order_id,
+                merchandise_id=detail[1],
+                merchandise_quantity=detail[2],
+                unit_price=detail[3],
+                gross_price=detail[4],
+                comment=detail[5]
+            ))
+            i += 1
+    try:
+        db.session.commit()
+        return jsonify({"success":True})
+    except Exception as e:
+        print(e)
+        db.session.rollback()
+        return jsonify({"success":False})
 
 
 def get_order(order_form):

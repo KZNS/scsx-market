@@ -5,8 +5,54 @@
 {% block content %}
 
 <body>
+    <div class="modal fade" id="batchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document" style="max-width: 1200px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="_myModalLabel">批量添加商品</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                </div>
+                <div class="modal-body">
+                    <textarea rows="15" cols="100" id="batchinput" placeholder="批量添加"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button id="batchsubmit" type="button" class="btn btn-success">提交</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <script>
+                        $("#batchsubmit").click(()=>{
+                            let info = $("#batchinput").val()
+                            console.log(info)
+                            fetch("/manage/merchandise/batchadd",{
+                                method:"POST",
+                                headers:{
+                                    'Content-Type': 'application/json'
+                                },
+                                body:JSON.stringify({
+                                    "info":info
+                                })
+                            }).then(res=>
+                                res.json()
+                            ).then((res)=>{
+                                if(res.success){
+                                    msgOK("提交成功")
+                                    $("#myModal").modal('hide')
+                                } else {
+                                    msgFail("提交失败")
+                                }
+                            }).catch(err=>{
+                                console.log(err)
+                                msgOK("网络错误")
+                            })
+                        })
+                        
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document"style="max-width: 800px">
+        <div class="modal-dialog" role="document"style="max-width: 820px">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="myModalLabel">添加商品</h4>
@@ -18,56 +64,61 @@
                         <div class="row">
                             <input type="text" value="" id="hiddenidinput" name="hiddenidinput" style="display:none">
                             <div class="col-sm">
-                                <span class="badge badge-secondary">商品编号</span>
-                                <input type="text" name="merchandise_id" required>
+                                <span class="badge badge-secondary">商品编号</span><br>
+                                <input type="text" name="merchandise_id" required style='width: 380px;'>
                             </div>
                             <div class="col-sm">
-                                <span class="badge badge-light">商品名称</span>
-                                <input type="text" name="name">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm">
-                                <span class="badge badge-info">单价</span>
-                                <input type="text" name="unit_price">
-                            </div>
-                            <div class="col-sm">
-                                <span class="badge badge-dark">供应商编码</span>
-                                <input type="text" name="supplyer_id">
+                                <span class="badge badge-light">商品名称</span><br>
+                                <input type="text" name="name"style='width: 380px;'><br>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm">
-                                <span class="badge badge-light">商品描述</span>
-                                <input type="text" name="description">
+                                <span class="badge badge-info">单价</span><br>
+                                <input type="text" name="unit_price"style='width: 380px;'>
                             </div>
                             <div class="col-sm">
-                                <span class="badge badge-secondary"> 备注 </span>
-                                <input type="text" name="comment">
+                                <span class="badge badge-dark">供应商编码</span><br>
+                                <input type="text" name="supplyer_id"style='width: 380px;'>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm">
+                                <span class="badge badge-light">商品描述</span><br>
+                                <input type="text" name="description"style='width: 380px;'>
+                            </div>
+                            <div class="col-sm">
+                                <span class="badge badge-secondary"> 备注 </span><br>
+                                <input type="text" name="comment"style='width: 380px;'>
                             </div>
                         </div>
                         <button id="fillnew">fillnew</button>
                     </div>
                     <div class="modal-footer">
+                        <button id="togglebatchModal" type="button" class="btn btn-success" style="left:800px;"
+                            data-toggle="modal" data-target="#batchModal">批量添加</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <input type="submit" value="Submit" class="btn btn-primary" id="addnew" />
+                        <script>
+                            $("#togglebatchModal").click(function () {
+
+                                $("#myModal").modal('hide')
+                            })
+                        </script>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    </head>
 
     <body>
         <a name="1F"></href>
             <nav class="navbar  navbar-expand-lg fixed-top navbar-light bg-light" style="height:100px;text-align:left">
 
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                    data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <strong>供销存管理系统</strong>
+                <a href="{{url_for('manage.manage_home')}}">
+                    <img src="https://static.dutbit.com/img/scsx.png" width="36px" height="36px" />
+                </a>
+                <strong>进销存管理系统</strong>
 
                 <nav class="nav nav-pills nav-fill">
                     <a class="nav-item nav-link" href="#1F">添加商品</a>
@@ -113,42 +164,43 @@
                                 <div style="margin-top:40px" class="container">
                                     <div class="row">
                                         <div class="col-sm">
-                                            <span class="badge badge-secondary">商品编号</span>
-                                            <input type="text" name="merchandise_id">
+                                            <span class="badge badge-secondary">商品编号</span><br>
+                                            <input type="text" name="merchandise_id"style='width: 380px;'>
                                         </div>
                                         <div class="col-sm">
-                                            <span class="badge badge-light">商品名称</span>
-                                            <input type="text" name="name">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div style="margin-top:10px" class="container">
-                                    <div class="row">
-                                        <div class="col-sm">
-                                            <span class="badge badge-info">单价</span>
-                                            <input type="text" name="unit_price">
-                                        </div>
-                                        <div class="col-sm">
-                                            <span class="badge badge-dark">供应商编码</span>
-                                            <input type="text" name="supplyer_id">
+                                            <span class="badge badge-light">商品名称</span><br>
+                                            <input type="text" name="name"style='width: 380px;'>
                                         </div>
                                     </div>
                                 </div>
                                 <div style="margin-top:10px" class="container">
                                     <div class="row">
                                         <div class="col-sm">
-                                            <span class="badge badge-light">商品描述</span>
-                                            <input type="text" name="description">
+                                            <span class="badge badge-info">单价</span><br>
+                                            <input type="text" name="unit_price"style='width: 380px;'>
                                         </div>
                                         <div class="col-sm">
-                                            <span class="badge badge-secondary">备注</span>
-                                            <input type="text" name="comment">
+                                            <span class="badge badge-dark">供应商编码</span><br>
+                                            <input type="text" name="supplyer_id"style='width: 380px;'>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="margin-top:10px" class="container">
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <span class="badge badge-light">商品描述</span><br>
+                                            <input type="text" name="description"style='width: 380px;'>
+                                        </div>
+                                        <div class="col-sm">
+                                            <span class="badge badge-secondary">备注</span><br>
+                                            <input type="text" name="comment"style='width: 380px;'>
                                         </div>
                                     </div>
                                 </div>
                             </form>
                             <br>
 
+                            <a name="2F"></a>
                             <button type="button" class="btn btn-success btn-lg btn-block" style="margin-top:10px"
                                 id="doSearch">
                                 <span style="font-size:17px">查询商品</span>
@@ -239,13 +291,13 @@
                         title: '名称'
                     }, {
                         field: 'unit_price',
-                        title: '公司地址'
+                        title: '单价'
                     }, {
                         field: 'supplyer_id',
-                        title: '公司电话'
+                        title: '供应商编码'
                     }, {
                         field: 'description',
-                        title: '联系人'
+                        title: '商品描述'
                     }, {
                         field: 'comment',
                         title: '备注'
