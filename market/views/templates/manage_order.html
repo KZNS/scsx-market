@@ -91,6 +91,7 @@
                                 <th>备注</th>
                             </tr>
                         </table>
+                        <button id="fillnew">fillnew</button>
                     </div>
                     <div class="modal-footer">
                         <button id="togglebatchModal" type="button" class="btn btn-success" style="left:800px;"
@@ -141,12 +142,10 @@
     <a name="1F"></href>
         <nav class="navbar  navbar-expand-lg fixed-top navbar-light bg-light" style="height:100px;text-align:left">
 
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <strong>供销存管理系统</strong>
+            <a href="{{url_for('manage.manage_home')}}">
+                <img src="https://static.dutbit.com/img/dutbit-png.png" width="36px" height="36px" />
+            </a>
+            <strong>进销存管理系统</strong>
 
             <nav class="nav nav-pills nav-fill">
                 <a class="nav-item nav-link" href="#1F">添加订单</a>
@@ -383,6 +382,42 @@
                 })
                 $("#myModal").modal('show')
             }
+            $("#fillnew").click(function (e) {
+                e.preventDefault()
+
+                let index_rd = Math.floor(Math.random() * 3 + 2)
+
+                for (let i = 1; i <= index_rd; i++) {
+                    addRow();
+                }
+
+                $(".modal [name='comment']").prop('value', randomString(32));
+                $(".modal [name='time']").prop('value', randomString(10));
+                $(".modal [name='gross_price']").prop('value', randomString(10));
+                $(".modal [name='gross_quantity']").prop('value', randomString(10));
+                $(".modal [name='staff_id']").prop('value', randomString(10));
+                $(".modal [name='order_id']").prop('value', randomString(20))
+
+                $.each($("[name='detail_comment[]']"), function(i, val2){
+                    $(this).prop('value', randomString(32))
+                })
+                $.each($("[name='detail_gross_price[]']"), function(i, val){
+                    $(this).prop('value', randomString(10))
+                })
+                $.each($("[name='unit_price[]']"), function(i, val){
+                    $(this).prop('value', randomString(10))
+                })
+                $.each($("[name='merchandise_quantity[]']"), function(i, val){
+                    $(this).prop('value', Math.floor(Math.random() * 1000 + 1))
+                })
+                $.each($("[name='merchandise_id[]']"), function(i, val){
+                    $(this).prop('value', randomString(10))
+                })
+                $.each($("[name='order_detail_id[]']"), function(i, val){
+                    $(this).prop('value', randomString(10))
+                })
+
+            })
             $(document).ready(function () {
             });
             $("#toggleModal").click(function (e) {

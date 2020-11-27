@@ -21,12 +21,12 @@
 
     <nav class="navbar  navbar-expand-lg fixed-top navbar-light bg-light" style="height:100px;text-align:left">
         <img src="https://static.dutbit.com/img/dutbit-png.png" width="36px" height="36px" />
-        <strong>供销存管理系统</strong>
+        <strong>进销存管理系统</strong>
 
         <nav class="nav nav-pills nav-fill">
             <a class="nav-item nav-link" href="{{url_for('manage.manage_supplyer')}}">供应商</a>
-            <a  class="nav-item nav-link" href="{{url_for('manage.staff')}}">员工</a>
-            <a  class="nav-item nav-link" href="{{url_for('manage.merchandise')}}">商品</a>
+            <a  class="nav-item nav-link" href="{{url_for('manage.manage_staff')}}">员工</a>
+            <a  class="nav-item nav-link" href="{{url_for('manage.manage_merchandise')}}">商品</a>
             <a  class="nav-item nav-link" href="{{url_for('manage.manage_order')}}">采购</a>
         </nav>
 
@@ -67,7 +67,7 @@
                                     </div>
                                 </div>
                                 <div class="carousel-item">
-                                    <a href="{{url_for('manage.staff')}}">
+                                    <a href="{{url_for('manage.manage_staff')}}">
                                         <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3093977134,1475813689&fm=26&gp=0.jpg"  class="d-block w-100" alt="">
                                     </a>
                                     <div class="carousel-caption d-none d-md-block">
@@ -76,7 +76,7 @@
                                     </div>
                                 </div>
                                 <div class="carousel-item">
-                                    <a href="{{url_for('manage.merchandise')}}">
+                                    <a href="{{url_for('manage.manage_merchandise')}}">
                                         <img src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3489150134,2737835973&fm=26&gp=0.jpg" class="d-block w-100" alt="">
                                     </a>
                                     <div class="carousel-caption d-none d-md-block">

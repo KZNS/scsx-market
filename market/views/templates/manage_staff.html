@@ -27,7 +27,7 @@
         src="https://unpkg.com/bootstrap-table@1.18.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
 
     <script src="https://static.dutbit.com/md5.js"></script>
-    <title>manage-staff</title>
+    <title>员工管理</title>
 </head>
 
 <body>
@@ -35,7 +35,7 @@
         <div class="modal-dialog" role="document" style="max-width: 1200px">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="_myModalLabel">批量添加供应商</h4>
+                    <h4 class="modal-title" id="_myModalLabel">批量添加员工</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
                 </div>
@@ -49,11 +49,15 @@
                         $("#batchsubmit").click(() => {
                             let info = $("#batchinput").val()
                             console.log(info)
-                            fetch("/manage/staff/batchadd", {
-                                data: {
-                                    "info": info
-                                }
-                            }).then(res =>
+                            fetch("/manage/staff/batchadd",{
+                                method:"POST",
+                                headers:{
+                                    'Content-Type': 'application/json'
+                                },
+                                body:JSON.stringify({
+                                    "info":info
+                                })
+                            }).then(res=>
                                 res.json()
                             ).then((res) => {
                                 if (res.success) {
@@ -144,18 +148,15 @@
             </div>
         </div>
     </div>
-    </head>
 
     <body>
         <a name="1F"></href>
             <nav class="navbar  navbar-expand-lg fixed-top navbar-light bg-light" style="height:100px;text-align:left">
 
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                    data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <strong>供销存管理系统</strong>
+                <a href="{{url_for('manage.manage_home')}}">
+                    <img src="https://static.dutbit.com/img/dutbit-png.png" width="36px" height="36px" />
+                </a>
+                <strong>进销存管理系统</strong>
 
                 <nav class="nav nav-pills nav-fill">
                     <a class="nav-item nav-link" href="#1F">添加员工</a>

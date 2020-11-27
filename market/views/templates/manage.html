@@ -31,14 +31,16 @@
 <body>
 
     <nav class="navbar  navbar-expand-lg fixed-top navbar-light bg-light" style="height:100px;text-align:left">
-        <img src="https://static.dutbit.com/img/dutbit-png.png" width="36px" height="36px" />
-        <strong>供销存管理系统</strong>
+        <a href="{{url_for('manage.manage_home')}}">
+            <img src="https://static.dutbit.com/img/dutbit-png.png" width="36px" height="36px" />
+        </a>
+        <strong>进销存管理系统</strong>
 
         <nav class="nav nav-pills nav-fill">
             <a class="nav-item nav-link" href="{{url_for('manage.manage_supplyer')}}">供应商</a>
-            <a class="nav-item nav-link" href="{{url_for('manage.staff')}}">员工</a>
-            <a class="nav-item nav-link" href="{{url_for('manage.merchandise')}}">商品</a>
-            <a class="nav-item nav-link" href="{{url_for('manage.manage_order')}}">采购</a>
+            <a  class="nav-item nav-link" href="{{url_for('manage.manage_staff')}}">员工</a>
+            <a  class="nav-item nav-link" href="{{url_for('manage.manage_merchandise')}}">商品</a>
+            <a  class="nav-item nav-link" href="{{url_for('manage.manage_order')}}">采购</a>
         </nav>
 
         <ul class="navbar-nav  ml-auto" style="right:51%;">
@@ -114,7 +116,7 @@
                                     <div class="card text-white bg-dark mb-3" style="max-width: 25rem;">
                                         <div class="card-header">员工</div>
                                         <div class="card-body">
-                                            <a href="{{url_for('manage.staff')}}">
+                                            <a href="{{url_for('manage.manage_staff')}}">
                                                 <h5 class="card-title"><strong>员工系统支持功能</strong></h5>
                                             </a>
                                             <div class="card-text" style="text-align:center">
@@ -145,7 +147,7 @@
                                     <div class="card text-white bg-dark mb-3" style="max-width: 25rem;">
                                         <div class="card-header">商品</div>
                                         <div class="card-body">
-                                            <a href="{{url_for('manage.merchandise')}}">
+                                            <a href="{{url_for('manage.manage_merchandise')}}">
                                                 <h5 class="card-title"><strong>商品系统支持功能</strong></h5>
                                             </a>
                                             <div class="card-text" style="text-align:center">
