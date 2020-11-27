@@ -6,13 +6,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-     <!-- Bootstrap CSS -->
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
-     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-     <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.css">
     <title>manage</title>
     <style>
+        .wrapper {
+  max-width:200px;
+  width:100%;
+}
+.carousel-item-next, .carousel-item-prev, .carousel-item.active {
+    display: block !important;
+}
     </style>
     <title>管理入口</title>
 </head>
@@ -47,73 +58,72 @@
 
         <table class="table table-borderless">
             <tbody>
-                <td>
+                <td style="max-width: 50%;">
 
                     <table class="table table-borderless">
                         <tbody>
-                            <tr>                        
-                                <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                            <tr>
+                                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                                     <ol class="carousel-indicators">
-                                    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-                                    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-                                    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-                                    <li data-target="#carouselExampleCaptions" data-slide-to="3"></li>
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">
+                                        </li>
+                                        <!-- <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li> -->
                                     </ol>
                                     <div class="carousel-inner">
-                                    <div class="carousel-item active">
-                                        <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3482608098,901581244&fm=15&gp=0.jpg" class="d-block w-100" alt="" />
+                                        <div class="carousel-item active">
+                                            <img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=350177950,605096993&fm=26&gp=0.jpg"
+                                                class="d-block w-100" alt="..." width="100%">
+                                        </div>
+                                        <!-- <div class="carousel-item">
+                                            <img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=350177950,605096993&fm=26&gp=0.jpg"
+                                                class="d-block w-100" alt="..." width="100%">
+                                        </div>
+                                        <div class="carousel-item">
+                                            <img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=350177950,605096993&fm=26&gp=0.jpg"
+                                                class="d-block w-100" alt="..." width="100%">
+                                        </div> -->
                                     </div>
-                                    <div class="carousel-item">
-                                        <img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3800140510,1912826470&fm=26&gp=0.jpg" class="d-block w-100" alt="">
-                                    </div><div class="carousel-item">
-                                        <img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1950911809,4040134451&fm=26&gp=0.jpg" class="d-block w-100" alt="">
-                                    </div>
-                                    <div class="carousel-item">
-                                        <img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=350177950,605096993&fm=26&gp=0.jpg" class="d-block w-100" alt="">
-                                    </div>
-                                    </div>
-    
-                                    <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Previous</span>
+                                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                                        data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
                                     </a>
-                                    <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
+                                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                                        data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
                                     </a>
-    
                                 </div>
-                                <br> 
-                                
                             </tr>
                             <br>
 
                             <tr>
                                 <td>
                                     <div class="card bg-light mb-3" style="max-width: 25rem;">
-                                       <div class="card-header">供应商</div>
+                                        <div class="card-header">供应商</div>
                                         <div class="card-body">
                                             <a href="{{url_for('manage.manage_supplyer')}}">
                                                 <h5 class="card-title"><strong>供应商系统支持功能</strong></h5>
                                             </a>
                                             <div class="card-text" style="text-align:center">
                                                 <font size="2">录入供应商数据<br>查询供应商信息<br>
-                                                    修改指定供应商的信息<br>删除指定供应商数据</font>            
+                                                    修改指定供应商的信息<br>删除指定供应商数据</font>
                                             </div>
-                                      </div>
+                                        </div>
                                 </td>
                                 <td>
                                     <div class="card text-white bg-dark mb-3" style="max-width: 25rem;">
-                                       <div class="card-header">员工</div>
+                                        <div class="card-header">员工</div>
                                         <div class="card-body">
                                             <a href="{{url_for('manage.manage_staff')}}">
                                                 <h5 class="card-title"><strong>员工系统支持功能</strong></h5>
                                             </a>
                                             <div class="card-text" style="text-align:center">
                                                 <font size="2">录入员工数据<br>查询员工信息<br>修改员工信息<br>删除员工数据
-                                                </font>            
+                                                </font>
                                             </div>
-                                      </div>
+                                        </div>
                                 </td>
 
 
@@ -121,30 +131,30 @@
                             <tr>
                                 <td>
                                     <div class="card bg-light mb-3" style="max-width: 25rem;">
-                                       <div class="card-header">采购</div>
+                                        <div class="card-header">采购</div>
                                         <div class="card-body">
                                             <a href="{{url_for('manage.manage_order')}}">
                                                 <h5 class="card-title"><strong>采购系统支持功能</strong></h5>
                                             </a>
                                             <div class="card-text" style="text-align:center">
                                                 <font size="2">录入采购数据<br> 查询采购信息<br>修改采购信息<br>删除采购数据
-                                                </font>            
+                                                </font>
                                             </div>
-                                      </div>
+                                        </div>
                                 </td>
 
                                 <td>
                                     <div class="card text-white bg-dark mb-3" style="max-width: 25rem;">
-                                       <div class="card-header">商品</div>
+                                        <div class="card-header">商品</div>
                                         <div class="card-body">
                                             <a href="{{url_for('manage.manage_merchandise')}}">
                                                 <h5 class="card-title"><strong>商品系统支持功能</strong></h5>
                                             </a>
                                             <div class="card-text" style="text-align:center">
                                                 <font size="2">录入商品数据<br>查询商品信息<br>
-                                                    修改指定商品的信息<br>删除指定商品数据</font>            
+                                                    修改指定商品的信息<br>删除指定商品数据</font>
                                             </div>
-                                      </div>
+                                        </div>
                                 </td>
 
 
@@ -161,24 +171,43 @@
 
                         <table class="table table-striped">
                             <tbody>
-                                {% for k in this_staff %}
-                                    <tr>
-                                        <td><strong>{{k}}</strong></td>
-                                        <td>{{this_staff[k]}}</td>
-                                    </tr>
-                                {% endfor %}
+                                <tr>
+                                    <td><strong>级别</strong></td>
+                                    <td>{{this_staff['level']}}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>电话</strong></td>
+                                    <td>{{this_staff['telephone']}}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>名字</strong></td>
+                                    <td>{{this_staff['name']}}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>工资</strong></td>
+                                    <td>{% if not salary %}无{%else%}{{this_staff['salary']}}{%endif%}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>创建时间</strong></td>
+                                    <td>{{this_staff['created_at']}}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>员工编号</strong></td>
+                                    <td>{{this_staff['staff_id']}}</td>
+                                </tr>
                             </tbody>
                         </table>
 
 
-                        <br><hr><br><br>
+                        <br>
+                        <hr><br><br>
 
                         <h5><strong>修改个人信息</strong></h5>
                         <form action="{{url_for('user.userinfo_handler')}}" method="POST">
-                            
+
                             <select name="key">
                                 {% for k in this_staff %}
-                                    <option value="{{k}}">{{k}}</option>
+                                <option value="{{k}}">{{k}}</option>
                                 {% endfor %}
                             </select>
 
@@ -201,22 +230,18 @@
             </tbody>
         </table>
 
-                <hr class="my-4">
-                <p style="font-size:10px;" ><em>&copy; 2020 普通上班组</em></p>
+        <hr class="my-4">
+        <p style="font-size:10px;"><em>&copy; 2020 普通上班组</em></p>
     </div>
 
 
 
     <div style="position:fixed; bottom: 50px; right: 0">
-        <a href="#" class="btn btn-outline-info stretched-link"  >返回顶部</a>
+        <a href="#" class="btn btn-outline-info stretched-link">返回顶部</a>
     </div>
-    
-    
+
+
     <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
 
 </body>
 
