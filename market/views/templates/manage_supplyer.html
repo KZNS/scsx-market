@@ -25,9 +25,13 @@
                             let info = $("#batchinput").val()
                             console.log(info)
                             fetch("/manage/supplyer/batchadd",{
-                                data:{
+                                method:"POST",
+                                headers:{
+                                    'Content-Type': 'application/json'
+                                },
+                                body:JSON.stringify({
                                     "info":info
-                                }
+                                })
                             }).then(res=>
                                 res.json()
                             ).then((res)=>{
