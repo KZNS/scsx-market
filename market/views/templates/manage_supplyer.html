@@ -14,8 +14,7 @@
 
                 </div>
                 <div class="modal-body">
-                    <textarea rows="15" cols="100" id="batchinput" placeholder="批量提交">
-                        </textarea>
+                    <textarea rows="15" cols="100" id="batchinput" placeholder="批量提交"></textarea>
                 </div>
                 <div class="modal-footer">
                     <button id="batchsubmit" type="button" class="btn btn-success">提交</button>
@@ -25,9 +24,13 @@
                             let info = $("#batchinput").val()
                             console.log(info)
                             fetch("/manage/supplyer/batchadd",{
-                                data:{
+                                method:"POST",
+                                headers:{
+                                    'Content-Type': 'application/json'
+                                },
+                                body:JSON.stringify({
                                     "info":info
-                                }
+                                })
                             }).then(res=>
                                 res.json()
                             ).then((res)=>{
@@ -61,44 +64,44 @@
                         <div class="row">
                             <input type="text" value="" id="hiddenidinput" name="hiddenidinput" style="display:none">
                             <div class="col-sm">
-                                <span class="badge badge-secondary">供应商编号</span>
-                                <input type="text" name="supplyer_id" required>
+                                <span class="badge badge-secondary">供应商编号</span><br>
+                                <input type="text" name="supplyer_id" required style='width: 380px;'>
                             </div>
                             <div class="col-sm">
-                                <span class="badge badge-light">供应商名称</span>
-                                <input type="text" name="name">
+                                <span class="badge badge-light">供应商名称</span><br>
+                                <input type="text" name="name" style='width: 380px;'>
                             </div>
                             <div class="col-sm">
-                                <span class="badge badge-info">供应商简称</span>
-                                <input type="text" name="name_short">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm">
-                                <span class="badge badge-info">供应商地址</span>
-                                <input type="text" name="address">
-                            </div>
-                            <div class="col-sm">
-                                <span class="badge badge-dark">供应商电话</span>
-                                <input type="text" name="telephone">
-                            </div>
-                            <div class="col-sm">
-                                <span class="badge badge-light">供应商邮件</span>
-                                <input type="text" name="email">
+                                <span class="badge badge-info">供应商简称</span><br>
+                                <input type="text" name="name_short" style='width: 380px;'>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm">
-                                <span class="badge badge-light">供应商联系人</span>
-                                <input type="text" name="contact">
+                                <span class="badge badge-info">供应商地址</span><br>
+                                <input type="text" name="address" style='width: 380px;'>
                             </div>
                             <div class="col-sm">
-                                <span class="badge badge-info">联系人电话</span>
-                                <input type="text" name="contact_phone">
+                                <span class="badge badge-dark">供应商电话</span><br>
+                                <input type="text" name="telephone" style='width: 380px;'>
                             </div>
                             <div class="col-sm">
-                                <span class="badge badge-secondary"> 备注 </span>
-                                <input type="text" name="comment">
+                                <span class="badge badge-light">供应商邮件</span><br>
+                                <input type="text" name="email" style='width: 380px;'>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm">
+                                <span class="badge badge-light">供应商联系人</span><br>
+                                <input type="text" name="contact"style='width: 380px;'>
+                            </div>
+                            <div class="col-sm">
+                                <span class="badge badge-info">联系人电话</span><br>
+                                <input type="text" name="contact_phone"style='width: 380px;'>
+                            </div>
+                            <div class="col-sm">
+                                <span class="badge badge-secondary"> 备注 </span><br>
+                                <input type="text" name="comment"style='width: 380px;'>
                             </div>
                         </div>
                         <button id="fillnew">fillnew</button>
@@ -173,48 +176,48 @@
                             <div style="margin-top:40px" class="container">
                                 <div class="row">
                                     <div class="col-sm">
-                                        <span class="badge badge-secondary">供应商编号</span>
-                                        <input type="text" name="supplyer_id">
+                                        <span class="badge badge-secondary">供应商编号</span><br>
+                                        <input type="text" name="supplyer_id"style='width: 280px;'>
                                     </div>
                                     <div class="col-sm">
-                                        <span class="badge badge-light">供应商名称</span>
-                                        <input type="text" name="name">
+                                        <span class="badge badge-light">供应商名称</span><br>
+                                        <input type="text" name="name"style='width: 280px;'>
                                     </div>
                                     <div class="col-sm">
-                                        <span class="badge badge-info">供应商简称</span>
-                                        <input type="text" name="name_short">
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="margin-top:10px" class="container">
-                                <div class="row">
-                                    <div class="col-sm">
-                                        <span class="badge badge-info">供应商地址</span>
-                                        <input type="text" name="address">
-                                    </div>
-                                    <div class="col-sm">
-                                        <span class="badge badge-dark">供应商电话</span>
-                                        <input type="text" name="telephone">
-                                    </div>
-                                    <div class="col-sm">
-                                        <span class="badge badge-light">供应商邮件</span>
-                                        <input type="text" name="email">
+                                        <span class="badge badge-info">供应商简称</span><br>
+                                        <input type="text" name="name_short"style='width: 280px;'>
                                     </div>
                                 </div>
                             </div>
                             <div style="margin-top:10px" class="container">
                                 <div class="row">
                                     <div class="col-sm">
-                                        <span class="badge badge-light">供应商联系人</span>
-                                        <input type="text" name="contact">
+                                        <span class="badge badge-info">供应商地址</span><br>
+                                        <input type="text" name="address"style='width: 280px;'>
                                     </div>
                                     <div class="col-sm">
-                                        <span class="badge badge-info">联系人电话</span>
-                                        <input type="text" name="contact_phone">
+                                        <span class="badge badge-dark">供应商电话</span><br>
+                                        <input type="text" name="telephone"style='width: 280px;'>
                                     </div>
                                     <div class="col-sm">
-                                        <span class="badge badge-secondary">备注</span>
-                                        <input type="text" name="comment">
+                                        <span class="badge badge-light">供应商邮件</span><br>
+                                        <input type="text" name="email"style='width: 280px;'>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:10px" class="container">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <span class="badge badge-light">供应商联系人</span><br>
+                                        <input type="text" name="contact"style='width: 280px;'>
+                                    </div>
+                                    <div class="col-sm">
+                                        <span class="badge badge-info">联系人电话</span><br>
+                                        <input type="text" name="contact_phone"style='width: 280px;'>
+                                    </div>
+                                    <div class="col-sm">
+                                        <span class="badge badge-secondary">备注</span><br>
+                                        <input type="text" name="comment"style='width: 280px;'>
                                     </div>
                                 </div>
                             </div>
