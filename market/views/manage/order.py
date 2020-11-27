@@ -105,7 +105,7 @@ def manage_order():
             if detail.order_id == order.order_id:
                 this_order['details'].append(detail)
         result.append(this_order)
-    return render_template('manage_order2.html', result=result, title="订单查询")
+    return render_template('manage_order.html', result=result, title="订单查询")
 
 
 @manage.route("/order/add", methods=['POST', 'GET'])
