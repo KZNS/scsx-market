@@ -36,7 +36,7 @@ def create_app():
             app.config['SUBDOMAINS'] = subdomains['PRODUCTION']
             app.config['SESSION_TYPE'] = 'redis'
             app.config['SESSION_REDIS'] = Redis(
-                host='localhost',port=6379
+                host='localhost',port=6379,password='Bit_redis_123'
             )
             if 'mysql+pymysql' not in app.config['SQLALCHEMY_DATABASE_URI']:
                 raise EnvironmentError("No db connection uri provided")
