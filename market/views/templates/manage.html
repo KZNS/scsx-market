@@ -206,9 +206,8 @@
                         <form action="{{url_for('user.userinfo_handler')}}" method="POST">
 
                             <select name="key">
-                                {% for k in this_staff %}
-                                <option value="{{k}}">{{k}}</option>
-                                {% endfor %}
+                                <option value="name">名字</option>
+                                <option value="telephone">电话</option>
                             </select>
 
                             <input type="text" value="" name="value">

@@ -14,9 +14,7 @@
             <strong>进销存管理系统</strong>
 
             <nav class="nav nav-pills nav-fill">
-                <a class="nav-item nav-link" href="#1F">添加订单</a>
                 <a class="nav-item nav-link" href="#2F">订单查询</a>
-                <a class="nav-item nav-link" href="#2F">订单修改</a>
             </nav>
 
             <ul class="navbar-nav  ml-auto" style="right:51%;">
@@ -41,33 +39,33 @@
                         <form action="{{url_for('browse.browse_order')}}" method="GET">
                             <div style="margin-top:40px" class="container">
                                 <div class="row">
-                                    <div class="col-sm">
-                                        <span class="badge badge-secondary">订单编号</span>
-                                        <input type="text" name="order_id">
+                                    <div class="col-4">
+                                        <span class="badge badge-secondary">订单编号</span><br>
+                                        <input type="text" name="order_id" style="width: 200px;">
                                     </div>
-                                    <div class="col-sm">
-                                        <span class="badge badge-light">员工编号</span>
-                                        <input type="text" name="staff_id">
+                                    <div class="col-4">
+                                        <span class="badge badge-light">员工编号</span><br>
+                                        <input type="text" name="staff_id" style="width: 200px;">
                                     </div>
-                                    <div class="col-sm">
-                                        <span class="badge badge-info">采购时间</span>
-                                        <input type="text" name="time">
+                                    <div class="col-4">
+                                        <span class="badge badge-info">采购时间</span><br>
+                                        <input type="text" name="time" style="width: 200px;">
                                     </div>
                                 </div>
                             </div>
                             <div style="margin-top:10px" class="container">
                                 <div class="row">
-                                    <div class="col-sm">
-                                        <span class="badge badge-info">采购明细号</span>
-                                        <input type="text" name="order_detail_id">
+                                    <div class="col-4">
+                                        <span class="badge badge-info">采购明细号</span><br>
+                                        <input type="text" name="order_detail_id"style="width: 200px;">
                                     </div>
-                                    <div class="col-sm">
-                                        <span class="badge badge-dark">商品编号</span>
-                                        <input type="text" name="merchandise_id">
+                                    <div class="col-4">
+                                        <span class="badge badge-dark">商品编号</span><br>
+                                        <input type="text" name="merchandise_id"style="width: 200px;">
                                     </div>
-                                    <div class="col-sm">
-                                        <span class="badge badge-info">备注</span>
-                                        <input type="text" name="comment">
+                                    <div class="col-4">
+                                        <span class="badge badge-info">备注</span><br>
+                                        <input type="text" name="comment"style="width: 200px;">
                                     </div>
                                 </div>
                             </div>
