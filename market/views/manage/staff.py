@@ -6,8 +6,34 @@ from sqlalchemy import and_
 
 
 @manage.route("/staff", methods=['GET'])
-def staff():
+def manage_staff():
     return render_template('manage_staff.html')
+
+@manage.route('/staff/batchadd', methods=['POST'])
+def staff_batchadd():
+    batch = request.get_json().get('info')
+    print(batch)
+    staffs = batch.split('\n')
+    print(staffs)
+    
+    for staff in staffs:
+        staff=staff.split(',')
+        db.session.add(MarketStaff(
+            staff_id=staff[0],
+            name=staff[1],
+            password_hash=hash_password('7ccb9533c9090b0c1660f4e35fce4450'),
+            level=staff[2],
+            telephone=staff[3],
+            salary=staff[4],
+            comment=staff[5],
+        ))
+    try:
+        db.session.commit()
+        return jsonify({"success":True})
+    except Exception as e:
+        print(e)
+        db.session.rollback()
+        return jsonify({"success":False})
 
 
 @manage.route("/staffinfo", methods=['GET', 'POST', 'DELETE'])
