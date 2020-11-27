@@ -29,10 +29,6 @@ def supplyer_home():
             id = int(request.form.get('hiddenidinput'))#this is update
             update_dict= dict(request.form)
             update_dict.pop('hiddenidinput')
-            print(update_dict)
-            for k in update_dict:
-                update_dict[k] = update_dict[k][0]
-            print(update_dict)
             MarketSupplyer.query.filter(MarketSupplyer.id==id).update(update_dict)
             try:
                 db.session.commit()
