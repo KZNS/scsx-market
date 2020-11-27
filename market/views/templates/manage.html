@@ -18,12 +18,24 @@
     <title>manage</title>
     <style>
         .wrapper {
-  max-width:200px;
-  width:100%;
-}
-.carousel-item-next, .carousel-item-prev, .carousel-item.active {
-    display: block !important;
-}
+            max-width:200px;
+            width:100%;
+        }
+        .carousel-item-next, .carousel-item-prev, .carousel-item.active {
+            display: block !important;
+        }
+        .awhite a {
+            text-decoration: none;
+        }
+        .awhite a:link {
+            text-decoration: none;
+        }
+        .awhite a:visited {
+            text-decoration: none;
+        }
+        .awhite a:focus {
+            text-decoration: none;
+        }
     </style>
     <title>管理入口</title>
 </head>
@@ -116,7 +128,7 @@
                                     <div class="card text-white bg-dark mb-3" style="max-width: 25rem;">
                                         <div class="card-header">员工</div>
                                         <div class="card-body">
-                                            <a href="{{url_for('manage.manage_staff')}}">
+                                            <a class="awhite" href="{{url_for('manage.manage_staff')}}">
                                                 <h5 class="card-title"><strong>员工系统支持功能</strong></h5>
                                             </a>
                                             <div class="card-text" style="text-align:center">
@@ -147,7 +159,7 @@
                                     <div class="card text-white bg-dark mb-3" style="max-width: 25rem;">
                                         <div class="card-header">商品</div>
                                         <div class="card-body">
-                                            <a href="{{url_for('manage.manage_merchandise')}}">
+                                            <a class="awhite" href="{{url_for('manage.manage_merchandise')}}">
                                                 <h5 class="card-title"><strong>商品系统支持功能</strong></h5>
                                             </a>
                                             <div class="card-text" style="text-align:center">
