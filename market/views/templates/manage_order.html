@@ -111,12 +111,12 @@
             var index = 0;//初始下标
             var html = "<tr id='itemtr##'>\
                         <td>##</td>\
-                        <td><input type='text' name='order_detail_id[]'></td>\
-                        <td><input type='text' name='merchandise_id[]'></td>\
-                        <td><input type='number' name='merchandise_quantity[]'></td>\
-                        <td><input type='text' name='unit_price[]'></td>\
-                        <td><input type='text' name='detail_gross_price[]'></td>\
-                        <td><input type='text' name='detail_comment[]'></td>\
+                        <td><input type='text' name='order_detail_id[]' style='width: 180px;'></td>\
+                        <td><input type='text' name='merchandise_id[]' style='width: 180px;'></td>\
+                        <td><input type='number' name='merchandise_quantity[]' style='width: 180px;'></td>\
+                        <td><input type='text' name='unit_price[]' style='width: 180px;'></td>\
+                        <td><input type='text' name='detail_gross_price[]' style='width: 180px;'></td>\
+                        <td><input type='text' name='detail_comment[]' style='width: 180px;'></td>\
                         </tr>";
             //添加第一行
             index++;
@@ -365,12 +365,12 @@
                         let d = jsondata.details
                         var html = `<tr id='itemtr##'>\
                         <td>##</td>\
-                        <td><input type='text' name='order_detail_id[]' value='${d[key]["order_detail_id"]}'></td>\
-                        <td><input type='text' name='merchandise_id[]' value='${d[key]["merchandise_id"]}'></td>\
-                        <td><input type='text' name='merchandise_quantity[]' value='${d[key]["merchandise_quantity"]}'></td>\
-                        <td><input type='text' name='unit_price[]' value='${d[key]["unit_price"]}'></td>\
-                        <td><input type='text' name='detail_gross_price[]' value='${d[key]["gross_price"]}'></td>\
-                        <td><input type='text' name='detail_comment[]' value='${d[key]["comment"]}'></td>\
+                        <td><input type='text' name='order_detail_id[]' value='${d[key]["order_detail_id"]}' style='width: 180px;'></td>\
+                        <td><input type='text' name='merchandise_id[]' value='${d[key]["merchandise_id"]}' style='width: 180px;'></td>\
+                        <td><input type='text' name='merchandise_quantity[]' value='${d[key]["merchandise_quantity"]}' style='width: 180px;'></td>\
+                        <td><input type='text' name='unit_price[]' value='${d[key]["unit_price"]}' style='width: 180px;'></td>\
+                        <td><input type='text' name='detail_gross_price[]' value='${d[key]["gross_price"]}' style='width: 180px;'></td>\
+                        <td><input type='text' name='detail_comment[]' value='${d[key]["comment"]}' style='width: 180px;'></td>\
                         </tr>`;
                         index++;
                         var newhtml = html.replace(/##/g, index);
