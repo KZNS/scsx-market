@@ -37,40 +37,40 @@
                                     <strong>商品查询</strong>
                                 </p>
                             </div>
-                            <form action="{{url_for('manage.merchandise_home')}}" name="searchForm" method="GET">
+                            <form action="{{url_for('browse.merchandise_home')}}" name="searchForm" method="GET">
                                 <div style="margin-top:40px" class="container">
                                     <div class="row">
                                         <div class="col-sm">
-                                            <span class="badge badge-secondary">商品编号</span>
-                                            <input type="text" name="merchandise_id">
+                                            <span class="badge badge-secondary">商品编号</span><br>
+                                            <input type="text" name="merchandise_id"style='width: 380px;'>
                                         </div>
                                         <div class="col-sm">
-                                            <span class="badge badge-light">商品名称</span>
-                                            <input type="text" name="name">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div style="margin-top:10px" class="container">
-                                    <div class="row">
-                                        <div class="col-sm">
-                                            <span class="badge badge-info">单价</span>
-                                            <input type="text" name="unit_price">
-                                        </div>
-                                        <div class="col-sm">
-                                            <span class="badge badge-dark">供应商编码</span>
-                                            <input type="text" name="supplyer_id">
+                                            <span class="badge badge-light">商品名称</span><br>
+                                            <input type="text" name="name"style='width: 380px;'>
                                         </div>
                                     </div>
                                 </div>
                                 <div style="margin-top:10px" class="container">
                                     <div class="row">
                                         <div class="col-sm">
-                                            <span class="badge badge-light">商品描述</span>
-                                            <input type="text" name="description">
+                                            <span class="badge badge-info">单价</span><br>
+                                            <input type="text" name="unit_price"style='width: 380px;'>
                                         </div>
                                         <div class="col-sm">
-                                            <span class="badge badge-secondary">备注</span>
-                                            <input type="text" name="comment">
+                                            <span class="badge badge-dark">供应商编码</span><br>
+                                            <input type="text" name="supplyer_id"style='width: 380px;'>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="margin-top:10px" class="container">
+                                    <div class="row">
+                                        <div class="col-sm">
+                                            <span class="badge badge-light">商品描述</span><br>
+                                            <input type="text" name="description"style='width: 380px;'>
+                                        </div>
+                                        <div class="col-sm">
+                                            <span class="badge badge-secondary">备注</span><br>
+                                            <input type="text" name="comment"style='width: 380px;'>
                                         </div>
                                     </div>
                                 </div>
