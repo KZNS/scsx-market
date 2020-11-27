@@ -27,4 +27,4 @@ def merchandise_home():
 
 @browse.route("/merchandise", methods=['GET'])
 def merchandise():
-    return render_template('browse_merchandise.html')
+    return render_template('browse_merchandise.html', title='商品查询')
