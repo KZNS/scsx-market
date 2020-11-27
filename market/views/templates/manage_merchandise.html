@@ -5,6 +5,49 @@
 {% block content %}
 
 <body>
+    <div class="modal fade" id="batchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document" style="max-width: 1200px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="_myModalLabel">批量添加供应商</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                </div>
+                <div class="modal-body">
+                    <textarea rows="15" cols="100" id="batchinput" placeholder="批量添加">
+                        </textarea>
+                </div>
+                <div class="modal-footer">
+                    <button id="batchsubmit" type="button" class="btn btn-success">提交</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <script>
+                        $("#batchsubmit").click(()=>{
+                            let info = $("#batchinput").val()
+                            console.log(info)
+                            fetch("/manage/merchandise/batchadd",{
+                                data:{
+                                    "info":info
+                                }
+                            }).then(res=>
+                                res.json()
+                            ).then((res)=>{
+                                if(res.success){
+                                    msgOK("提交成功")
+                                    $("#myModal").modal('hide')
+                                } else {
+                                    msgFail("提交失败")
+                                }
+                            }).catch(err=>{
+                                console.log(err)
+                                msgOK("网络错误")
+                            })
+                        })
+                        
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document"style="max-width: 800px">
             <div class="modal-content">
@@ -49,8 +92,16 @@
                         <button id="fillnew">fillnew</button>
                     </div>
                     <div class="modal-footer">
+                        <button id="togglebatchModal" type="button" class="btn btn-success" style="left:800px;"
+                            data-toggle="modal" data-target="#batchModal">批量添加</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <input type="submit" value="Submit" class="btn btn-primary" id="addnew" />
+                        <script>
+                            $("#togglebatchModal").click(function () {
+
+                                $("#myModal").modal('hide')
+                            })
+                        </script>
                     </div>
                 </form>
             </div>
