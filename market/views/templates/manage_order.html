@@ -391,30 +391,30 @@
                     addRow();
                 }
 
-                $(".modal [name='comment']").prop('value', randomString(32));
-                $(".modal [name='time']").prop('value', randomString(10));
-                $(".modal [name='gross_price']").prop('value', randomString(10));
-                $(".modal [name='gross_quantity']").prop('value', randomString(10));
-                $(".modal [name='staff_id']").prop('value', randomString(10));
-                $(".modal [name='order_id']").prop('value', randomString(20))
+                $(".modal [name='comment']").prop('value', randomString(5));
+                $(".modal [name='time']").prop('value', randomString(5));
+                $(".modal [name='gross_price']").prop('value', randomString(5));
+                $(".modal [name='gross_quantity']").prop('value', randomString(5));
+                $(".modal [name='staff_id']").prop('value', randomString(5));
+                $(".modal [name='order_id']").prop('value', randomString(5))
 
                 $.each($("[name='detail_comment[]']"), function(i, val2){
-                    $(this).prop('value', randomString(32))
+                    $(this).prop('value', randomString(5))
                 })
                 $.each($("[name='detail_gross_price[]']"), function(i, val){
-                    $(this).prop('value', randomString(10))
+                    $(this).prop('value', randomString(5))
                 })
                 $.each($("[name='unit_price[]']"), function(i, val){
-                    $(this).prop('value', randomString(10))
+                    $(this).prop('value', randomString(5))
                 })
                 $.each($("[name='merchandise_quantity[]']"), function(i, val){
                     $(this).prop('value', Math.floor(Math.random() * 1000 + 1))
                 })
                 $.each($("[name='merchandise_id[]']"), function(i, val){
-                    $(this).prop('value', randomString(10))
+                    $(this).prop('value', randomString(5))
                 })
                 $.each($("[name='order_detail_id[]']"), function(i, val){
-                    $(this).prop('value', randomString(10))
+                    $(this).prop('value', randomString(5))
                 })
 
             })
