@@ -84,7 +84,7 @@ def test():
 
 @manage.route('/supplyer')
 def manage_supplyer():
-    return render_template('manage_supplyer.html') 
+    return render_template('manage_supplyer.html', title='供应商管理') 
 
 @manage.route('/supplyer/batchadd', methods=['POST'])
 def supplyer_batchadd():

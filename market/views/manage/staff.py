@@ -7,7 +7,7 @@ from sqlalchemy import and_
 
 @manage.route("/staff", methods=['GET'])
 def manage_staff():
-    return render_template('manage_staff.html')
+    return render_template('manage_staff.html', title='员工管理')
 
 @manage.route('/staff/batchadd', methods=['POST'])
 def staff_batchadd():

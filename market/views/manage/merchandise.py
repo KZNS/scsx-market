@@ -104,4 +104,4 @@ def merchandise_batchadd():
 
 @manage.route("/merchandise", methods=['GET'])
 def manage_merchandise():
-    return render_template('manage_merchandise.html')
+    return render_template('manage_merchandise.html', title='商品管理')
