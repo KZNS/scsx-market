@@ -400,7 +400,7 @@
                 $(".modal [name='comment']").prop('value', randomString(5));
                 $(".modal [name='time']").prop('value', randomString(5));
                 $(".modal [name='gross_price']").prop('value', randomString(5));
-                $(".modal [name='gross_quantity']").prop('value', randomString(5));
+                $(".modal [name='gross_quantity']").prop('value', Math.floor(Math.random() * 1000 + 1));
                 $(".modal [name='staff_id']").prop('value', randomString(5));
                 $(".modal [name='order_id']").prop('value', randomString(5))
 
