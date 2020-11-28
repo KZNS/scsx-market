@@ -1,23 +1,13 @@
 <!doctype html>
 <html lang="en">
 
+{% extends 'base_head.html' %}
+{% block content %}
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-        crossorigin="anonymous"></script>
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
@@ -27,8 +17,7 @@
         src="https://unpkg.com/bootstrap-table@1.18.0/dist/extensions/export/bootstrap-table-export.min.js"></script>
 
     <script src="https://static.dutbit.com/md5.js"></script>
-    <title>员工管理</title>
-    
+
 </head>
 
 <body>
@@ -265,7 +254,6 @@
                 <p style="font-size:10px"><em>&copy; 2020 普通上班组</em>
                 </p>
 
-                <a href="123" style="margin-top: 1000px;">a;lsdjf;alksdjaf;lk</a>
             </div>
             </div>
 
@@ -282,30 +270,6 @@
             <script>
                 let md5enc = (str) => {
                     return hex_md5('dutbit' + hex_md5(str) + '稍有常识的人')
-                }
-                function randomString(len) {
-                    len = len || 32;
-                    var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
-                    var maxPos = $chars.length;
-                    var pwd = '';
-                    for (i = 0; i < len; i++) {
-                        pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
-                    }
-                    return pwd;
-                }
-                let msgOK = (s) => {
-                    Toastify({
-                        text: s,
-                        duration: 3000,
-                        backgroundColor: "linear-gradient(to right, #00b09b, #00b09b)",
-                    }).showToast();
-                }
-                let msgFail = (s) => {
-                    Toastify({
-                        text: s,
-                        duration: 3000,
-                        backgroundColor: "linear-gradient(to right, #EF100F, #EF100F)",
-                    }).showToast();
                 }
                 $(document).ready(function () {
                     window.operateEvents = {    //999未处理，0不要，-1待定，1要
@@ -462,5 +426,7 @@
 
             </script>
     </body>
+
+{% endblock %}
 
 </html>
