@@ -15,13 +15,13 @@ def staff_batchadd():
     print(batch)
     staffs = batch.split('\n')
     print(staffs)
-    
+
     for staff in staffs:
         staff=staff.split(',')
         db.session.add(MarketStaff(
             staff_id=staff[0],
             name=staff[1],
-            password_hash=hash_password('7ccb9533c9090b0c1660f4e35fce4450'),
+            password_hash=hash_password('d1f43251239d2ed9c45555ff82c315e2'),
             level=staff[2],
             telephone=staff[3],
             salary=staff[4],
