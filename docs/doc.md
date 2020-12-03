@@ -111,8 +111,8 @@
 5. 采购明细管理（明细表）
    1. 数据
       1. 采购明细号 order_detail_id
-      2. 采购清单号（外码）order_id
-      3. 商品编号（外码）merchandise_id
+      2. 采购清单号（外码） order_id
+      3. 商品编号（外码） merchandise_id
       4. 采购数量 merchandise_quantity
       5. 商品单价 unit_price
       6. 商品总价 gross_price
@@ -123,4 +123,4 @@
       3. 修改
       4. 删除
 
-每项数据均包含时间戳`updated_at``created_at`与删除标记`delete`
+每项数据均包含时间戳`updated_at`，`created_at`与删除标记`delete`
