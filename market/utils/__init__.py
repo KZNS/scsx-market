@@ -1,6 +1,7 @@
 import hashlib
+
 def hash_password(s:str)->str:
-    return s
+    return md5(s + '普通上班组')
 
 def md5(s:str)->str:
     return hashlib.md5(s.encode(encoding='UTF-8')).hexdigest()
@@ -17,5 +18,6 @@ def apply_query_filter(query_filter:dict,target_class,target_query):
     for k in query_dict:
         target_query = target_query.filter(getattr(target_class,k).like('%%'+query_dict[k]+'%%'))
     return target_query
+
 if __name__ == "__main__":
     print(md5('hello'))
