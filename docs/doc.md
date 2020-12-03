@@ -95,13 +95,13 @@
       3. 查询所有员工信息
       4. 修改员工信息
       5. 删除员工数据
-4. 订单订单管理(主表)
+4. 订单管理(主表)
    1. 数据
-      1. 订单清单号 order_id
+      1. 订单编号 order_id
       2. 员工编号（外码）staff_id
-      3. 订单数量 gross_quntity
-      4. 订单总价 gross_price
-      5. 订单时间 time
+      3. 采购数量 gross_quntity
+      4. 采购总价 gross_price
+      5. 采购时间 time
       6. 备注 comment
    2. 功能
       1. 录入订单主表数据
@@ -111,9 +111,9 @@
 5. 订单明细管理（明细表）
    1. 数据
       1. 订单明细号 order_detail_id
-      2. 订单清单号（外码） order_id
+      2. 订单编号（外码） order_id
       3. 商品编号（外码） merchandise_id
-      4. 订单数量 merchandise_quantity
+      4. 采购数量 merchandise_quantity
       5. 商品单价 unit_price
       6. 商品总价 gross_price
       7. 备注 comment
