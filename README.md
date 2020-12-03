@@ -8,7 +8,7 @@
 - [使用说明](#使用说明)
   - [服务器启动](#服务器启动)
   - [注册第一个管理用户](#注册第一个管理用户)
-  - [管理页面`](#管理页面)
+  - [管理页面](#管理页面)
     - [供应商管理](#供应商管理)
     - [员工管理](#员工管理)
     - [商品管理](#商品管理)
@@ -55,9 +55,9 @@ python serve.py
 ### 注册第一个管理用户
 
 第一次打开网站后，点击“注册”按钮注册用户  
-![sign-up](docs/img/sign-up.png)  
+![sign-up](docs/img/sign-up.jpeg)  
 注册完成后输入账户密码登录  
-![sign-in](docs/img/sign-in.png)
+![sign-in](docs/img/sign-in.jpeg)
 登录完成后，访问以下链接获取admin权限
 
 <http://127.0.0.1:5000/admin>
@@ -66,10 +66,10 @@ python serve.py
 
 注意该admin页面只能在没有管理用户时访问，添加更多的管理用户应该通过用户管理页面完成。
 
-### 管理页面`
+### 管理页面
 
 以管理员用户登录后，进入管理页面。
-![manage](docs/img/manage.png)
+![manage](docs/img/manage.jpeg)
 可以通过上面的导航栏按钮，或下面的功能卡片进入对应的管理功能。  
 也可以在右侧修改本人的用户信息。
 
@@ -77,18 +77,18 @@ python serve.py
 
 #### 供应商管理
 
-![manage-supplyer](docs/img/manage-supplyer.png)
+![manage-supplyer](docs/img/manage-supplyer.jpeg)
 
 可以填写一些供应商信息进行供应商查询，留空则不限制。  
 查询支持模糊查询，可以输入信息的一部分进行查询。
 
 查询结果右侧按钮可以对当前条目进行修改或者删除。
-![manage-supplyer-search](docs/img/manage-supplyer-search.png)
+![manage-supplyer-search](docs/img/manage-supplyer-search.jpeg)
 
 点击“添加供应商”可以填写数据添加新的供应商。
-![manage-supplyer-add](docs/img/manage-supplyer-add.png)
+![manage-supplyer-add](docs/img/manage-supplyer-add.jpeg)
 
-在添加供应商的窗口中，可以选择“批量添加”批量添加供应商  
+在添加供应商的窗口中，可以选择“批量添加”批量添加供应商  
 数据使用逗号`,`分割，换行符`\n`分条：
 
 ```text
@@ -100,7 +100,7 @@ python serve.py
 
 #### 员工管理
 
-![manage-staff](docs/img/manage-staff.png)
+![manage-staff](docs/img/manage-staff.jpeg)
 搜索，修改，删除和添加与供应商管理类似。
 
 批量添加数据使用逗号`,`分割，换行符`\n`分条：
@@ -116,7 +116,7 @@ python serve.py
 
 #### 商品管理
 
-![manage-merchandise](docs/img/manage-merchandise.png)
+![manage-merchandise](docs/img/manage-merchandise.jpeg)
 搜索，修改，删除和添加与供应商管理类似。
 
 批量添加数据使用逗号`,`分割，换行符`\n`分条：
@@ -130,7 +130,7 @@ python serve.py
 
 #### 订单管理
 
-![manage-order](docs/img/manage-order.png)
+![manage-order](docs/img/manage-order.jpeg)
 订单包括主订单与订单明细。  
 可以输入主订单信息进行查询，修改与删除显示在页面左侧。
 
@@ -155,7 +155,7 @@ python serve.py
 ### 浏览页面
 
 以普通用户登录后，进入浏览页面。
-![browse](docs/img/browse.png)
+![browse](docs/img/browse.jpeg)
 可以通过上面的导航栏按钮，或下面的功能卡片进入对应的浏览功能。  
 也可以在右侧修改本人的用户信息。
 
@@ -163,13 +163,13 @@ python serve.py
 
 #### 商品浏览
 
-![browse-merchandise](docs/img/browse-merchandise.png)
+![browse-merchandise](docs/img/browse-merchandise.jpeg)
 可以填写一些商品信息进行商品查询，留空则不限制。  
 查询支持模糊查询，可以输入信息的一部分进行查询。
 
 #### 订单浏览
 
-![browse-order](docs/img/browse-order.png)
+![browse-order](docs/img/browse-order.jpeg)
 可以填写一些主订单信息进行订单查询，留空则不限制。  
 查询支持模糊查询，可以输入信息的一部分进行查询。
 
