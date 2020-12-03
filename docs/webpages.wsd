@@ -14,7 +14,7 @@ folder "\" {
             [商品管理\n添加\n查询\n删除\n修改] as mer_man
         }
         folder "\manage\order"{
-            [采购管理\n添加\n查询\n删除\n修改] as order_man
+            [订单管理\n添加\n查询\n删除\n修改] as order_man
         }
         admin --> sup_man
         admin --> staff_man
@@ -27,7 +27,7 @@ folder "\" {
             [商品管理\n查询] as mer_bro
         }
         folder "\browse\order"{
-            [采购管理\n查询] as order_bro
+            [订单管理\n查询] as order_bro
         }
         user --> mer_bro
         user --> order_bro
