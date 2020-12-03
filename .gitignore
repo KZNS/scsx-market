@@ -132,3 +132,7 @@ dmypy.json
 # backup files
 *.html~
 *.py~
+
+# MacOS
+
+.DS_Store
