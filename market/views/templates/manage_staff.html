@@ -277,13 +277,13 @@
                             console.log("修改");
                             console.log(row.id, row.staff_id)
                             $("#hiddenidinput").prop('value', row.id)
-                            $("[name='comment']").prop('value', row.comment);
-                            $("[name='salary']").prop('value', row.salary);
-                            $("[name='telephone']").prop('value', row.telephone);
-                            $("[name='level']").prop('value', row.level);
-                            $("[name='password']").prop('value', '');
-                            $("[name='name']").prop('value', row.name);
-                            $("[name='staff_id']").prop('value', row.staff_id);
+                            $(".modal [name='comment']").prop('value', row.comment);
+                            $(".modal [name='salary']").prop('value', row.salary);
+                            $(".modal [name='telephone']").prop('value', row.telephone);
+                            $(".modal [name='level']").prop('value', row.level);
+                            $(".modal [name='password']").prop('value', '');
+                            $(".modal [name='name']").prop('value', row.name);
+                            $(".modal [name='staff_id']").prop('value', row.staff_id);
                             $("#myModalLabel").text('修改员工')
                             $("#myModal").modal('show')
                         },
